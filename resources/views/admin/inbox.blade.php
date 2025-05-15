@@ -1,5 +1,6 @@
 <!-- resources/views/inbox.blade.php -->
 <x-dashboard>
+        
     <div class="bg-white p-6 rounded-lg shadow">
         <h1 class="text-xl font-bold mb-6">Inbox - Chat dengan Admin</h1>
 
@@ -44,4 +45,5 @@
             <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Kirim</button>
         </div>
     </div>
+    @vite('resources/js/app.js')
 </x-dashboard>
