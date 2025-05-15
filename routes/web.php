@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
+use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -16,6 +17,11 @@ use App\Http\Controllers\Admin\PonselController as AdminPonselController;
 use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 
 
+
+
+Route::get('/adminInbox', [InboxController::class, 'adminInbox'])->name('admin.inbox');
+Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');
+Route::get('/listInbox', [InboxController::class, 'listInbox'])->name('listInbox');
 
 // routes/web.php
 Route::post('/payment-methods', [PaymentController::class, 'getPaymentMethods'])->name('payment.methods');

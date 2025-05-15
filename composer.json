@@ -9,6 +9,7 @@
         "php": "^8.2",
         "duitkupg/duitku-php": "dev-master",
         "laravel/framework": "^11.0",
+        "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.14",
         "laravel/socialite": "^5.18",

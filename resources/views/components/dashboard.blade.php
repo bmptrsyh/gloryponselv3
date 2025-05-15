@@ -20,7 +20,7 @@
         <nav class="flex flex-col gap-4">
           <x-sidebar-link route="admin.dashboard">Dashboard</x-sidebar-link>
           <x-sidebar-link route="admin.ponsel.index">Produk</x-sidebar-link>
-          <x-sidebar-link>Inbox</x-sidebar-link>
+          <x-sidebar-link route="listInbox">Inbox</x-sidebar-link>
           <x-sidebar-link >Daftar Pesanan</x-sidebar-link>
           <x-sidebar-link>Stok Produk</x-sidebar-link>
           <x-sidebar-link route="admin.ponsel.transaksi">Transaksi</x-sidebar-link>
