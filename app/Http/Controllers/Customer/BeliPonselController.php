@@ -1,52 +1,53 @@
 <?php
-
 namespace App\Http\Controllers\Customer;
 
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use App\Models\Ponsel;
 use App\Models\BeliPonsel;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BeliPonselController extends Controller
 {
-    public function beliPonsel(Request $request, $id)
+    public function beliPonsel(Request $request, $id_ponsel)
     {
-        $produk = Ponsel::findOrFail($id);
-
         $request->validate([
-            'jumlah' => 'required|integer|min:1|max:' . $produk->stok,
-            'metode_pembayaran' => 'required|string',
+            'jumlah' => 'required|integer|min:1',
+            'metode_pembayaran' => 'required',
+            'jasa_pengiriman' => 'required',
+            'nama' => 'required',
+            'telepon' => 'required',
+            'alamat' => 'required',
         ]);
 
-        $jumlah = $request->input('jumlah');
-        $metodePembayaran = $request->input('metode_pembayaran');
-        $hargaTotal = $produk->harga_jual * $jumlah;
-        $tanggalTransaksi = Carbon::now();
+        // Ambil data ponsel dari database
+        $ponsel = Ponsel::findOrFail($id_ponsel);
 
-        BeliPonsel::create([
-            'id_customer' => auth()->user()->id_customer,
-            'id_ponsel' => $produk->id_ponsel,
-            'jumlah' => $jumlah,
-            'metode_pembayaran' => $metodePembayaran,
-            'harga' => $hargaTotal,
-            'tanggal_transaksi' => $tanggalTransaksi,
+
+        // Simpan ke tabel beli_ponsel
+        $beliPonsel = BeliPonsel::create([
+            'id_customer' => Auth::id(), // Pastikan customer menggunakan id_customer
+            'id_ponsel' => $ponsel->id_ponsel,
+            'metode_pembayaran' => $request->metode_pembayaran,
+            'status' => 'tertunda',
+            'tanggal_transaksi' => now(),
+            'jumlah' => $request->jumlah,
+            'harga' => $ponsel->harga * $request->jumlah
         ]);
 
-        // Update stok
-        $produk->stok -= $jumlah;
-        $produk->save();
+        // Simpan info pengiriman jika diperlukan (buat tabel terpisah jika perlu)
+        // ...
 
-        return redirect()->route('produk.index')->with('success', 'Pembelian berhasil diproses');
+        return redirect()->route('transaksi.index')
+            ->with('success', 'Pembelian berhasil! ID Transaksi: '.$beliPonsel->id_beli_ponsel);
     }
 
     public function transaksi()
     {
-        $transaksi = BeliPonsel::with('ponsel')
-            ->where('id_customer', auth()->user()->id_customer)
-            ->latest()
-            ->get();
+        $transaksis = BeliPonsel::with(['ponsel', 'customer'])
+            ->where('id_customer', Auth::id())
+            ->latest();
 
-        return view('transaksi.index', compact('transaksi'));   
+            return view('customer.ponsel.transaksi', compact('transaksis'));
     }
 }

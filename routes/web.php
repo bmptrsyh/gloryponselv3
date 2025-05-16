@@ -21,6 +21,7 @@ use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 
 Route::get('/adminInbox', [InboxController::class, 'adminInbox'])->name('admin.inbox');
 Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');
+Route::post('/send', [InboxController::class, 'send'])->name('send.inbox');
 Route::get('/listInbox', [InboxController::class, 'listInbox'])->name('listInbox');
 
 // routes/web.php

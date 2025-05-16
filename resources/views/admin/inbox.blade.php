@@ -21,29 +21,12 @@
                     <p class="text-xs text-blue-100 mt-1">Anda - 10:32 AM</p>
                 </div>
             </div>
-
-            <!-- Admin Message -->
-            <div class="flex mb-4">
-                <div class="bg-gray-200 rounded-lg py-2 px-4 max-w-xs">
-                    <p class="text-gray-800">Masih ready kak! Mau warna apa?</p>
-                    <p class="text-xs text-gray-500 mt-1">Admin - 10:33 AM</p>
-                </div>
-            </div>
-
-            <!-- User Message -->
-            <div class="flex mb-4 justify-end">
-                <div class="bg-blue-500 text-white rounded-lg py-2 px-4 max-w-xs">
-                    <p>Warna midnight, berapa harganya?</p>
-                    <p class="text-xs text-blue-100 mt-1">Anda - 10:35 AM</p>
-                </div>
-            </div>
-        </div>
-
         <!-- Message Input -->
         <div class="flex gap-2">
             <input type="text" placeholder="Ketik pesan..." class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Kirim</button>
         </div>
+       
     </div>
     @vite('resources/js/app.js')
 </x-dashboard>

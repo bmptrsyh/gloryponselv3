@@ -14,11 +14,24 @@ class InboxController extends Controller
     }
 
     public function adminInbox () {
-        Inbox::dispatch('nyoba');
+        
         return view('admin.inbox');
     }
 
     public function customerInbox () {
         return view('customer.inbox');
     }
+
+    public function send(Request $request)
+    {
+        $request->validate([
+            'message' => 'required'
+        ]);
+
+        $message = $request->message;
+        event(new Inbox($message));
+
+        return response()->json(['success' => true]);
+    }
+
 }
