@@ -13,21 +13,40 @@ use Illuminate\Queue\SerializesModels;
 class Inbox implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    
-    public $message;
 
-    public function __construct($message)
+    public $message;
+    public $sender;
+    public $receiverType;
+    public $receiverId;
+    public $senderId;
+
+    public function __construct($message, $sender, $receiverType, $receiverId, $senderId)
     {
         $this->message = $message;
+        $this->sender = $sender;
+        $this->receiverType = $receiverType;
+        $this->receiverId = $receiverId;
+        $this->senderId = $senderId;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
     public function broadcastOn()
     {
-        return new Channel('inbox');
+        return new PrivateChannel("inbox.{$this->receiverType}.{$this->receiverId}");
     }
+
+    public function broadcastAs()
+    {
+        return 'Inbox';
+    }
+
+    public function broadcastWith()
+{
+    return [
+        'message' => $this->message,
+        'sender' => $this->sender,
+        'receiverType' => $this->receiverType,
+        'receiverId' => $this->receiverId,
+        'senderId' => $this->senderId
+    ];
+}
 }

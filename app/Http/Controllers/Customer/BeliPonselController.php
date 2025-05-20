@@ -23,7 +23,6 @@ class BeliPonselController extends Controller
         // Ambil data ponsel dari database
         $ponsel = Ponsel::findOrFail($id_ponsel);
 
-
         // Simpan ke tabel beli_ponsel
         $beliPonsel = BeliPonsel::create([
             'id_customer' => Auth::id(), // Pastikan customer menggunakan id_customer
@@ -46,8 +45,9 @@ class BeliPonselController extends Controller
     {
         $transaksis = BeliPonsel::with(['ponsel', 'customer'])
             ->where('id_customer', Auth::id())
-            ->latest();
-
-            return view('customer.ponsel.transaksi', compact('transaksis'));
+            ->latest()
+            ->get();
+        dd($transaksis);
+        return view('customer.ponsel.transaksi', compact('transaksis'));
     }
 }

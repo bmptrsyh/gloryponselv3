@@ -11,6 +11,7 @@ window.Echo = new Echo({
 });
 
 window.Echo.channel("inbox").listen("Inbox", (event) => {
+    appendMessage(data.message, data.sender);
     console.log("berhasil listen ke pusher");
     console.log(event);
 });

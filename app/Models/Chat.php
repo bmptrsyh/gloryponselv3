@@ -9,8 +9,9 @@ class Chat extends Model
 {
     use HasFactory;
 
-    protected $table = chat;
-    protected $fillable = ['sender_id', 'sender_type', 'receiver_id', 'message'];
+    protected $table = 'chat';
+    protected $primaryKey = 'id_chat';
+    protected $fillable = ['sender_id', 'sender_type', 'receiver_id', 'receiver_type', 'message'];
 
 
 

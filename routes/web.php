@@ -17,11 +17,14 @@ use App\Http\Controllers\Admin\PonselController as AdminPonselController;
 use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 
 
+Broadcast::routes(['middleware' => ['auth:web']]); // untuk customer
+Broadcast::routes(['middleware' => ['auth:admin']]); // untuk admin
 
 
-Route::get('/adminInbox', [InboxController::class, 'adminInbox'])->name('admin.inbox');
+Route::get('/adminInbox/{id}', [InboxController::class, 'adminInbox'])->name('admin.inbox');
 Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');
 Route::post('/send', [InboxController::class, 'send'])->name('send.inbox');
+Route::post('/admin/send', [InboxController::class, 'sendAdmin'])->name('admin.send.inbox')->middleware('auth:admin');
 Route::get('/listInbox', [InboxController::class, 'listInbox'])->name('listInbox');
 
 // routes/web.php

@@ -324,27 +324,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Pesan 1 -->
-                        <tr>
-                            <td><input type="checkbox" class="message-checkbox"></td>
-                            <td>
-                                <div class="sender-info">
-                                    <div class="sender-avatar">AJ</div>
-                                    <div class="sender-details">
-                                        <span class="sender-name">Allen Jask</span>
-                                        <span class="sender-email">allen@example.com</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="message-subject">Pertanyaan tentang iPhone 13 Pro</div>
-                                <div class="message-preview">Saya ingin menanyakan ketersediaan warna untuk iPhone 13 Pro warna Graphite...</div>
-                            </td>
-                            <td><span class="status-badge answered">Terjawab</span></td>
-                            <td class="timestamp">2 jam yang lalu</td>
-                            <td><a href="{{ route('admin.inbox') }}" class="action-link">Lihat</a></td>
-                        </tr>
-                    </tbody>
+@foreach ($customers as $customer)
+<tr class="{{ $customer->latestMessage && !$customer->latestMessage->is_read_by_admin ? 'unread' : '' }}">
+    <td><input type="checkbox" class="message-checkbox"></td>
+    <td>
+        <div class="sender-info">
+            <div class="sender-avatar">
+                <img src="{{ $customer->foto_profil_url }}" alt="{{ $customer->name }}">
+            </div>
+            <div class="sender-details">
+                <span class="sender-name">{{ $customer->name }}</span>
+                <span class="sender-email">{{ $customer->email }}</span>
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="message-subject">
+            {{ Str::limit($customer->latestMessage->content ?? '-', 50) }}
+        </div>
+        <div class="message-preview">
+            {{ Str::limit($customer->latestMessage->content ?? '-', 70) }}
+        </div>
+    </td>
+    <td>
+        <span class="status-badge {{ $customer->latestMessage && $customer->latestMessage->is_replied ? 'answered' : 'pending' }}">
+            {{ $customer->latestMessage && $customer->latestMessage->is_replied ? 'Terjawab' : 'Belum' }}
+        </span>
+    </td>
+    <td class="timestamp">
+        {{ $customer->latestMessage ? $customer->latestMessage->created_at->diffForHumans() : '-' }}
+    </td>
+    <td>
+        <a href="{{ route('admin.inbox', $customer->id_customer) }}" class="action-link">Lihat</a>
+    </td>
+</tr>
+@endforeach
+</tbody>
                 </table>
 
                 <div class="pagination">
