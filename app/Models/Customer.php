@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Chat;
 use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -36,5 +37,11 @@ class Customer extends Authenticatable
 
     // Kalau bukan, berarti path lokal
     return asset($this->foto_profil);
+}
+
+public function sentMessages()
+{
+    return $this->hasMany(Chat::class, 'sender_id')
+                ->where('sender_type', 'customer');
 }
 }

@@ -51,11 +51,13 @@
 
         <div class="flex items-center gap-4">
           <span class="relative">
-            <span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">9+</span>
+            <span id="notifCount" class="{{ $unreadCount == 0 ? 'hidden' : '' }} absolute -top-1 -right-2 bg-red-500 text-white text-xs 
+                px-2 py-1 rounded-full flex items-center justify-center min-w-[18px] h-5">
+              {{ $unreadCount }}
+              </span>
+
             <img src="{{ asset('storage/gambar/admin/notifikasi.png') }}" alt="Profile" class="w-6 h-6" />
-            {{-- <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg> --}}
+
           </span>
           <div class="flex items-center gap-2">
             <img src="{{ asset('storage/gambar/admin/admin.png') }}" alt="Profile" class="w-10 h-10 rounded-full" />
@@ -70,9 +72,72 @@
 
       <!-- Content -->
       <div class="p-6">
+        <div id="notification" class="hidden fixed top-5 right-5 bg-blue-600 text-white px-4 py-3 rounded shadow-lg z-50">
+    <p id="notificationText">Pesan baru diterima</p>
+</div>
         {{ $slot }}
       </div>
     </main>
   </div>
+  <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+    <script>
+        // Inisialisasi Pusher
+        var pusher = new Pusher('19b63228ecff31232668', {
+            cluster: 'ap1',
+            authEndpoint: '/broadcasting/auth',
+            auth: {
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }
+        });
+
+       var channel = pusher.subscribe('private-inbox.admin.{{ auth("admin")->id() }}');
+
+channel.bind('Inbox', function(data) {
+    // Contoh: hanya tampilkan jika pesan datang dari customer yang sedang tidak dibuka
+    if (data.receiverType === 'admin' && data.receiverId == {{ auth('admin')->id() }}) {
+        // Tampilkan notifikasi
+        showNotification(`Pesan baru dari Customer`);
+        incrementNotifCount();
+        // {
+        //   appendMessage(data.message, data.sender);
+        // }
+    }
+});
+
+let unreadCount = {{ $unreadCount }};
+
+function incrementNotifCount() {
+    unreadCount++;
+    const badge = document.getElementById('notifCount');
+    if (badge) {
+        if (unreadCount > 0) {
+            badge.textContent = unreadCount;
+            badge.classList.remove('hidden');
+        } else {
+            badge.classList.add('hidden');
+        }}}
+
+// function resetNotifCount() {
+//     unreadCount = 0;
+//     const badge = document.getElementById('notifCount');
+//     if (badge) {
+//         badge.classList.add('hidden');
+//         badge.textContent = '0';
+//     }
+// }
+
+    function showNotification(message = 'Pesan baru diterima') {
+    const notif = document.getElementById('notification');
+    const notifText = document.getElementById('notificationText');
+    notifText.textContent = message;
+    notif.classList.remove('hidden');
+
+    setTimeout(() => {
+        notif.classList.add('hidden');
+    }, 3000);
+}
+    </script>
 </body>
 </html>

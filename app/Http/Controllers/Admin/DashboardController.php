@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Chat;
 use App\Models\Ponsel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -35,14 +36,6 @@ class DashboardController extends Controller
         $selectedMonth = $currentMonthIndo[$currentMonth];
     
         return view('admin.dashboard', compact('bulan', 'selectedMonth'));
-    }
-
-    // get produk
-    public function produk() {
-    $produkBaru = Ponsel::where('status', 'baru')->get();
-    $produkBekas = Ponsel::where('status', 'bekas')->get();
-
-        return view('admin.ponsel.ponsel', compact('produkBaru', 'produkBekas'));
     }
     
 }

@@ -14,8 +14,24 @@ class InboxController extends Controller
 
 public function listInbox()
 {
-    $customers = Customer::all(); // atau bisa ditambahkan pagination / search
-    return view('admin.listInbox', compact('customers'));
+    $customers = Customer::whereIn('id_customer', function($query) {
+    $query->select('sender_id')
+        ->from('chat')
+        ->where('sender_type', 'customer');
+})->withCount(['sentMessages as unread_messages_count' => function ($query) {
+    $query->where('receiver_type', 'admin')
+          ->where('dibaca', false);
+}])->withCount(['sentMessages as total_messages_count' => function ($query) {
+        $query->where('receiver_type', 'admin');
+    }])->withCount(['sentMessages as total_answer_count' => function ($query) {
+        $query->where('receiver_type', 'customer');
+    }])->get();
+
+$totalUnread = $customers->sum('unread_messages_count');
+$totalMessages = $customers->sum('total_messages_count');
+$totalAnswer = $customers->sum('total_answer_count');
+
+    return view('admin.listInbox', compact('customers', 'totalUnread', 'totalMessages', 'totalAnswer'));
 }
 
 
@@ -30,6 +46,12 @@ public function adminInbox($id)
         $q->where('receiver_id', $customer->id_customer)
           ->where('receiver_type', 'customer');
     })->orderBy('created_at')->get();
+    
+    Chat::where('receiver_type', 'admin')
+    ->where('receiver_id', auth('admin')->id())
+    ->where('sender_type', 'customer')
+    ->where('sender_id', $customer->id_customer)
+    ->update(['dibaca' => true]);
 
     return view('admin.inbox', compact('customer', 'chats'));
 }
@@ -68,7 +90,8 @@ public function adminInbox($id)
         'sender_type' => $senderType,
         'receiver_id' => $receiverId,
         'receiver_type' => $receiverType,
-        'message' => $message
+        'message' => $message,
+        'dibaca' => false
     ]);
 
     broadcast(new Inbox($message, $senderType, $receiverType, $receiverId, $senderId));
@@ -76,7 +99,7 @@ public function adminInbox($id)
     return response()->json(['success' => true]);
 }
 
-public function sendAdmin(Request $request)
+    public function sendAdmin(Request $request)
 {
     $request->validate([
         'message' => 'required',
@@ -94,7 +117,8 @@ public function sendAdmin(Request $request)
         'sender_type' => $senderType,
         'receiver_id' => $receiverId,
         'receiver_type' => $receiverType,
-        'message' => $message
+        'message' => $message,
+        'dibaca' => false
     ]);
 
     broadcast(new Inbox($message, $senderType, $receiverType, $receiverId, $senderId));

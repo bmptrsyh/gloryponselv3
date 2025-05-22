@@ -3,8 +3,9 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\Contracts\View\View;
+use App\Models\Chat;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class Dashboard extends Component
 {
@@ -21,6 +22,13 @@ class Dashboard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.dashboard');
+        $unreadCount = Chat::where('receiver_type', 'admin')
+        ->where('receiver_id', auth('admin')->id())
+        ->where('dibaca', false)
+        ->count();
+
+    return view('components.dashboard', [
+        'unreadCount' => $unreadCount,
+    ]);
     }
 }

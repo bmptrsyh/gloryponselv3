@@ -9,7 +9,6 @@
             <div>
                 <h1 class="font-bold text-xl">Glory Ponsel Support</h1>
                 <p class="text-sm text-blue-100 flex items-center mt-1">
-                    <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
                     Online - Membalas dalam beberapa menit
                 </p>
             </div>
@@ -21,9 +20,9 @@
     <div class="{{ $chat->sender_type === 'customer' ? 'flex justify-end' : 'flex items-start space-x-3' }}">
         @if ($chat->sender_type !== 'customer')
             <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+                <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center overflow-hidden">
+                    <img src="{{ asset('storage/gambar/admin/admin.png') }}" alt="Foto Profil" class="rounded-full w-full h-full object-cover">
+                </div>
             </div>
         @endif
         <div class="max-w-xl">
@@ -138,9 +137,7 @@ channel.bind('Inbox', function(data) {
         if (sender === 'admin') {
             const icon = document.createElement('div');
             icon.className = "w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center";
-            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>`;
+            icon.innerHTML = `<img src="{{ asset('storage/gambar/admin/admin.png') }}" alt="Foto Profil" class="rounded-full w-full h-full object-cover">`;
             wrapper.appendChild(icon);
         }
 

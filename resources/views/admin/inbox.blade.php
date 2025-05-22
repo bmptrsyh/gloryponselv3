@@ -15,10 +15,8 @@
             @foreach ($chats as $chat)
     <div class="{{ $chat->sender_type === 'admin' ? 'flex justify-end' : 'flex items-start space-x-3' }}">
         @if ($chat->sender_type === 'customer')
-            <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
+            <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center overflow-hidden">
+                <img src="{{ $customer->foto_profil }}" alt="Foto Profil" class="rounded-full w-full h-full object-cover">
             </div>
         @endif
         <div class="max-w-xl">
@@ -129,9 +127,7 @@ channel.bind('Inbox', function(data) {
         if (sender === 'customer') {
             const icon = document.createElement('div');
             icon.className = "w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center";
-            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>`;
+            icon.innerHTML = `<img src="{{ $customer->foto_profil }}" alt="Foto Profil" class="rounded-full w-full h-full object-cover">`;
             wrapper.appendChild(icon);
         }
 
@@ -140,5 +136,9 @@ channel.bind('Inbox', function(data) {
 
         chatBox.scrollTop = chatBox.scrollHeight;
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        resetNotifCount();
+    });
 </script>
 </x-dashboard>

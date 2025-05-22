@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('receiver_id');
             $table->string('receiver_type');
             $table->text('message');
+            $table->boolean('dibaca')->nullable()->default(false);
             $table->timestamps();
         });
     }

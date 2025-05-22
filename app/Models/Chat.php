@@ -11,7 +11,7 @@ class Chat extends Model
 
     protected $table = 'chat';
     protected $primaryKey = 'id_chat';
-    protected $fillable = ['sender_id', 'sender_type', 'receiver_id', 'receiver_type', 'message'];
+    protected $fillable = ['sender_id', 'sender_type', 'receiver_id', 'receiver_type', 'message', 'dibaca'];
 
 
 

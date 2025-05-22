@@ -280,7 +280,7 @@
                 <div class="stat-card">
                     <div class="stat-info">
                         <span class="stat-title">Total Pesan</span>
-                        <span class="stat-value">1,248</span>
+                        <span class="stat-value">{{ $totalMessages }}</span>
                         <span class="stat-change positive">↑ 12% dari bulan lalu</span>
                     </div>
                     <div class="stat-icon message-icon">
@@ -291,7 +291,7 @@
                 <div class="stat-card">
                     <div class="stat-info">
                         <span class="stat-title">Pesan Belum Dibaca</span>
-                        <span class="stat-value">42</span>
+                        <span class="stat-value">{{ $totalUnread }}</span>
                         <span class="stat-change negative">↓ 5% dari kemarin</span>
                     </div>
                     <div class="stat-icon alert-icon">
@@ -302,7 +302,7 @@
                 <div class="stat-card">
                     <div class="stat-info">
                         <span class="stat-title">Pesan Terjawab</span>
-                        <span class="stat-value">1,153</span>
+                        <span class="stat-value">{{ $totalAnswer }}</span>
                         <span class="stat-change positive">↑ 8% dari kemarin</span>
                     </div>
                     <div class="stat-icon check-icon">
@@ -329,8 +329,8 @@
     <td><input type="checkbox" class="message-checkbox"></td>
     <td>
         <div class="sender-info">
-            <div class="sender-avatar">
-                <img src="{{ $customer->foto_profil_url }}" alt="{{ $customer->name }}">
+            <div class="sender-avatar w-10 h-10 rounded-full">
+                <img src="{{ $customer->foto_profil_url }}" alt="{{ $customer->name }}" class="rounded-full w-full h-full object-cover">
             </div>
             <div class="sender-details">
                 <span class="sender-name">{{ $customer->name }}</span>
