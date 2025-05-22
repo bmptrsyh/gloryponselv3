@@ -120,7 +120,7 @@
             @endguest
     
             @auth
-                <a href="#">
+                <a href="{{ route('customer.profile') }}">
                     <img src="{{ $customer->foto_profil_url }}" width="30" height="30" class="rounded-full">
                 </a>
                 <form action="{{ route('logout') }}" method="POST">

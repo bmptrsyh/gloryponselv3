@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProfileControllerAdmin;
 use App\Http\Controllers\Customer\Auth\AuthController;
 use App\Http\Controllers\Customer\KeranjangController;
 use App\Http\Controllers\Customer\BeliPonselController;
 use App\Http\Controllers\Customer\Auth\GoogleController;
 use App\Http\Controllers\Customer\Auth\FacebookController;
+use App\Http\Controllers\Customer\ProfileControllerCustomer;
 use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
 use App\Http\Controllers\Admin\PonselController as AdminPonselController;
 use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
@@ -19,6 +21,17 @@ use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 
 Broadcast::routes(['middleware' => ['auth:web']]); // untuk customer
 Broadcast::routes(['middleware' => ['auth:admin']]); // untuk admin
+
+
+Route::get('/customer/profile', [ProfileControllerCustomer::class, 'index'])->name('customer.profile')->middleware('auth:web');
+Route::put('/customer/profil/upload/{id}', [ProfileControllerCustomer::class, 'upload'])
+    ->name('customer.profil.upload')
+    ->middleware('auth:web');
+Route::put('/customer/update/{id}', [ProfileControllerCustomer::class, 'update'])->name('customer.profil.update');
+Route::get('/admin/profile', [ProfileControllerAdmin::class, 'index'])->name('admin.profile');
+Route::put('/admin/profile/upload', [ProfileControllerAdmin::class, 'upload'])->name('admin.profil.upload');
+Route::put('/admin/profile/update', [ProfileControllerAdmin::class, 'update'])->name('admin.profil.update');
+
 
 Route::get('/adminInbox/{id}', [InboxController::class, 'adminInbox'])->name('admin.inbox');
 Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');

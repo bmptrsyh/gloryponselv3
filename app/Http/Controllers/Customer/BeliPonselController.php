@@ -22,6 +22,7 @@ class BeliPonselController extends Controller
 
         // Ambil data ponsel dari database
         $ponsel = Ponsel::findOrFail($id_ponsel);
+        $hargaTotal = $ponsel->harga_jual * $request->jumlah;
 
         // Simpan ke tabel beli_ponsel
         $beliPonsel = BeliPonsel::create([
@@ -31,7 +32,7 @@ class BeliPonselController extends Controller
             'status' => 'tertunda',
             'tanggal_transaksi' => now(),
             'jumlah' => $request->jumlah,
-            'harga' => $ponsel->harga * $request->jumlah
+            'harga' => $hargaTotal
         ]);
 
         // Simpan info pengiriman jika diperlukan (buat tabel terpisah jika perlu)
@@ -47,7 +48,6 @@ class BeliPonselController extends Controller
             ->where('id_customer', Auth::id())
             ->latest()
             ->get();
-        dd($transaksis);
         return view('customer.ponsel.transaksi', compact('transaksis'));
     }
 }

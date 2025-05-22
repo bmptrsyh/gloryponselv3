@@ -15,8 +15,8 @@
                     <li class="border-b pb-4">
                         <h3 class="text-lg font-semibold">{{ $transaksi['product_name'] }}</h3>
                         <p class="text-sm text-gray-600">Tanggal: {{ $transaksi['created_at'] }}</p>
-                        <p class="text-sm text-gray-600">Jumlah: {{ $transaksi['quantity'] }}</p>
-                        <p class="text-sm text-gray-600">Total Harga: Rp {{ number_format($transaksi['total_price'], 0, ',', '.') }}</p>
+                        <p class="text-sm text-gray-600">Jumlah: {{ $transaksi['jumlah'] }}</p>
+                        <p class="text-sm text-gray-600">Total Harga: Rp {{ number_format($transaksi['harga'], 0, ',', '.') }}</p>
                         <p class="text-sm text-gray-600">Metode Pembayaran: {{ $transaksi['metode_pembayaran'] }}</p>
                         <p class="text-sm text-gray-600">Jasa Pengiriman: {{ $transaksi['jasa_pengiriman'] }}</p>
                         <p class="text-sm text-gray-600">Nama: {{ $transaksi['nama'] }}</p>
