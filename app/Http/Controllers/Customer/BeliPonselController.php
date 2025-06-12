@@ -110,6 +110,9 @@ class BeliPonselController extends Controller
 
     // Ambil jumlah yang dikirim dari frontend
     $jumlah = $validated['jumlah'][$index];
+    if ($jumlah > $ponsel->stok) {
+        return redirect('/produk')->with(['error' => 'Stok tidak mencukupi' . ' ' . $ponsel->merk . ' ' . $ponsel->model]);
+    }
 
     // Hitung total harga
     $subtotal = $ponsel->harga_jual * $jumlah;
