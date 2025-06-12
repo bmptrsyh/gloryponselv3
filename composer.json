@@ -14,9 +14,11 @@
         "laravel/scout": "^10.14",
         "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.10.1",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "royryando/laravel-duitku": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.15",
         "enlightn/enlightn": "^2.10",
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.2.2",

@@ -19,19 +19,29 @@ class BeliPonsel extends Model
         'metode_pembayaran',
         'status',
         'tanggal_transaksi',
-        'jumlah',  // Tambahkan ini jika ada kolom jumlah
-        'harga'    // Tambahkan ini jika ada kolom harga
+        'jumlah', 
+        'harga',
+        'code',
+        'status_pengiriman',
     ];
 
     // Relasi ke customer
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'id_customer', 'id_customer');
-    }
+public function customer()
+{
+    return $this->belongsTo(Customer::class, 'id_customer');
+}
+
 
     // Relasi ke ponsel
     public function ponsel()
-    {
-        return $this->belongsTo(Ponsel::class, 'id_ponsel', 'id_ponsel');
-    }
+{
+    return $this->belongsTo(Ponsel::class, 'id_ponsel', 'id_ponsel');
+}
+
+    public function ulasan()
+{
+    return $this->hasOne(Ulasan::class, 'id_beli_ponsel', 'id_beli_ponsel');
+}
+
+
 }

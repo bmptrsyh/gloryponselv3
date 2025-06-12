@@ -11,14 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jual_pondel', function (Blueprint $table) {
-            $table->id('id_jual_pondel');
+        Schema::create('jual_ponsel', function (Blueprint $table) {
+            $table->id('id_jual_ponsel');
             $table->unsignedBigInteger('id_customer');
-            $table->unsignedBigInteger('id_ponsel');
+            $table->string('merk');
+            $table->string('model');
+            $table->string('warna');
+            $table->integer('ram');
+            $table->integer('storage');
+            $table->string('processor');
+            $table->text('kondisi')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->integer('harga');
+            $table->string('gambar')->nullable();
             $table->enum('status', ['menunggu', 'di setujui', 'di tolak'])->default('menunggu');
             $table->foreign('id_customer')->references('id_customer')->on('customer');
-            $table->foreign('id_ponsel')->references('id_ponsel')->on('ponsel');
             $table->timestamps();
         });
     }
@@ -28,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jual_pondel');
+        Schema::dropIfExists('jual_ponsel');
     }
 };

@@ -5,9 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Glory Ponsel</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS Select2 -->
+    
     <style>
                 * {
             box-sizing: border-box;
@@ -102,6 +108,7 @@
         <nav>
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('produk.index') }}">Produk</a>
+            <a href="{{ route('pengajuan') }}">Pengajuan</a>
             <a href="#">Tentang Kami</a>
             <a href="{{ route('customer.inbox') }}">Kontak</a>
             <a href="#">
@@ -130,8 +137,15 @@
             @endauth
         </nav>
     </header>
-
-  
+@if (session('error'))
+    <div id="alert" class="bg-red-100 text-red-800 px-4 py-2 rounded mb-4">
+        {{ session('error') }}
+    </div>
+@elseif (session('success'))
+    <div id="alert" class="bg-green-100 text-green-800 px-4 py-2 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
         @yield('content')
     
 
@@ -159,8 +173,6 @@
         <!-- Kolom 3: Contact -->
         <div style="flex: 1.5; min-width: 250px;">
             <h4 style="margin-bottom: 10px;">CONTACT US</h4>
-            <p>PT. Laku6 Online Indonesia<br>
-            Jl. Lapangan Bola No.5, RT.3/RW.1, Kebon Jeruk, West Jakarta City, Jakarta 11530, Indonesia<br>
             Telp: 085882105531<br>
             Email: Gloryonsel@gmail.com</p>
         </div>
@@ -179,6 +191,17 @@
     </div>
 </footer>
 </body>
+<script>
+    // Tunggu sampai halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', function () {
+        const alert = document.getElementById('alert');
+        if (alert) {
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000); // 3000 milidetik = 3 detik
+        }
+    });
+</script>
 
 
 </html>

@@ -22,6 +22,9 @@
           <x-sidebar-link route="admin.ponsel.index">Produk</x-sidebar-link>
           <x-sidebar-link route="listInbox">Inbox</x-sidebar-link>
           <x-sidebar-link >Daftar Pesanan</x-sidebar-link>
+          <x-sidebar-link route="admin.jual-ponsel.index">Jual Ponsel</x-sidebar-link>
+          <x-sidebar-link route="admin.tukar-tambah.index">Tukar Tambah</x-sidebar-link>
+          <x-sidebar-link>Ulasan</x-sidebar-link>
           <x-sidebar-link>Stok Produk</x-sidebar-link>
           <x-sidebar-link route="admin.ponsel.transaksi">Transaksi</x-sidebar-link>
         </nav>

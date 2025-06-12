@@ -1,16 +1,20 @@
 @extends('layouts.layout_home')
 @section('content')
 
-
   <!-- Search -->
   <div class="container mx-auto mt-8 px-4 flex justify-between space-x-4">
     <form action="" method="GET" class="w-2/4 flex space-x-4">
       <input type="text" name="keyword" placeholder="Cari barang yang anda inginkan..." class="w-full p-3 border rounded-lg" />
       <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow">Search</button>
     </form>
-    <button onclick="openFilter()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow">
-      Filter By
-    </button>
+    <div class="flex items-center space-x-4">
+        <div class="bg-purple-600 text-white px-4 py-2 rounded-lg shadow">
+            <a href="{{ route('jual.ponsel.create') }}">Jual Ponsel</a>
+        </div>
+        <button onclick="openFilter()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow">
+          Filter By
+        </button>
+    </div>
 </div>
 
 
@@ -26,7 +30,7 @@
         <img src="{{ asset($produk->gambar) }}" class="mx-auto mb-2 h-48 w-48 object-contain" alt="{{ $produk->model }}">
         <p class="font-semibold">{{ $produk->merk }} {{ $produk->model }}</p>
         <p class="text-sm text-gray-600">Rp {{ number_format($produk->harga_jual, 0, ',', '.') }}</p>
-        <div class="text-yellow-400 text-sm mt-1">⭐ 4.2 (17 ulasan)</div>
+        <div class="text-yellow-400 text-sm mt-1">⭐ {{ $produk->avg ?? '' }} ({{ $produk->count ?? '' }} ulasan}</div>
       </div>
       </a>
       @empty

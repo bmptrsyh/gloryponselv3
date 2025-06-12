@@ -120,15 +120,4 @@ class PonselController extends Controller
         return view('admin.ponsel.trashed', compact('ponselSoftDeleted'));
     }
 
-    public function semuaTransaksi() {
-        $transaksi = BeliPonsel::with(['ponsel' => function ($query) {
-            $query->withTrashed();
-        }, 'customer']) // optional: kalau mau tampilkan nama customer juga
-        ->latest()
-        ->get();
-
-        return view('admin.transaksi', compact('transaksi'));
-    }
-
-
 }

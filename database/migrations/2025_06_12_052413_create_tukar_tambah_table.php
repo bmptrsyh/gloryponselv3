@@ -14,14 +14,21 @@ return new class extends Migration
         Schema::create('tukar_tambah', function (Blueprint $table) {
             $table->id('id_tukar_tambah');
             $table->unsignedBigInteger('id_customer');
-            $table->unsignedBigInteger('id_ponsel_lama');
-            $table->unsignedBigInteger('id_ponsel_baru');
+            $table->unsignedBigInteger('produk_tujuan_id'); // ID produk yang ingin ditukar
+            $table->string('merk');
+            $table->string('model');
+            $table->string('warna');
+            $table->integer('ram');
+            $table->integer('storage');
+            $table->string('processor');
+            $table->string('kondisi');
+            $table->text('deskripsi');
+            $table->integer('harga_estimasi');
+            $table->string('gambar');
             $table->enum('status', ['menunggu', 'di setujui', 'di tolak'])->default('menunggu');
-            $table->integer('harga_tambahan')->nullable();
-            $table->foreign('id_ponsel_lama')->references('id_ponsel')->on('ponsel');
-            $table->foreign('id_ponsel_baru')->references('id_ponsel')->on('ponsel');
-            $table->foreign('id_customer')->references('id_customer')->on('customer');
             $table->timestamps();
+            $table->foreign('id_customer')->references('id_customer')->on('customer');
+            $table->foreign('produk_tujuan_id')->references('id_ponsel')->on('ponsel');
         });
     }
 

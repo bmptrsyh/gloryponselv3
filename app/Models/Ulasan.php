@@ -31,4 +31,9 @@ class Ulasan extends Model
     {
         return $this->belongsTo(BeliPonsel::class, 'id_beli_ponsel', 'id_beli_ponsel');
     }
+
+    public function beliPonsel()
+    {
+        return $this->belongsTo(BeliPonsel::class, 'id_beli_ponsel');
+    }
 }

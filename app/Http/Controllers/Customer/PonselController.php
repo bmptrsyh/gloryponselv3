@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Models\Ponsel;
+use App\Models\Ulasan;
+use App\Models\Customer;
+use App\Models\BeliPonsel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PonselController extends Controller
 {
@@ -13,7 +17,7 @@ class PonselController extends Controller
     // Lakukan pencarian menggunakan Laravel Scout
     $produk = $request->filled('keyword')
         ? Ponsel::search($request->keyword)->get()
-        : Ponsel::all();
+        : Ponsel::with('ulasan')->get();
 
     // Filter di collection (bukan query builder)
     foreach (['merk', 'model', 'status', 'processor', 'dimension', 'ram', 'storage', 'warna'] as $field) {
@@ -33,15 +37,34 @@ class PonselController extends Controller
         'warna' => Ponsel::select('warna')->distinct()->pluck('warna'),
     ];
 
+foreach ($produk as $p) {
+    $avg = $p->ulasan->avg('rating');
+    $count = $p->ulasan->count();
+    $p->avg = $avg;
+    $p->count = $count;
+}
+
+
+
+
     return view('customer.ponsel.index', compact('produk', 'filters'));
 }
 
 
 
     public function show($id) {
+        $customer = Auth::user();
         $produk = Ponsel::with(['ulasan' => function($query) {
         $query->orderBy('tanggal_ulasan', 'desc');
         }])->findOrFail($id);
-        return view('customer.ponsel.show', compact('produk'));
+        $avg = $produk->ulasan->avg('rating');
+        $terjual = BeliPonsel::where('id_ponsel', $id)
+                ->where('status', 'selesai')
+                ->count();
+        $ulasan = Ulasan::with('beliPonsel')->where('id_ponsel', $id)->get();
+
+        
+        
+        return view('customer.ponsel.show', compact('produk', 'customer', 'avg', 'terjual', 'ulasan'));
     }
 }

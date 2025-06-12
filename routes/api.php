@@ -9,6 +9,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/payment-methods', [PaymentController::class, 'getPaymentMethods']);
+Route::get('/payment-methods', [PaymentController::class, 'PaymentMethods']);
 
-Route::put('/customer/{id}', [ProfileController::class, 'update'])->name('customer.update.api');
+Route::get('/duitku/payment-methods', [PaymentController::class, 'PaymentMethods'])->name('duitku.payment-methods');

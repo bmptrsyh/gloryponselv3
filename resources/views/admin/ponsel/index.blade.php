@@ -17,7 +17,7 @@
               Filter By
             </button>
         </div>
-      </div>
+     </div>
      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
        <!-- Card Product -->
        @forelse($produkBaru as $produk)
@@ -31,7 +31,7 @@
          <div class="mt-auto flex space-x-2">
           {{-- Tombol Edit --}}
           <a href="{{ route('admin.ponsel.edit', $produk->id_ponsel) }}" 
-             class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm">
+             class="relative z-50 bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm">
               Edit Product
           </a>
       
@@ -43,8 +43,7 @@
                   Hapus Product
               </button>
           </form>
-      </div>
-      
+         </div>
        </div>
        @empty
        <p class="text-gray-500">Tidak ada produk baru.</p>
@@ -54,7 +53,7 @@
      <!-- Produk Bekas -->
      <h2 class="text-xl font-semibold mb-4">Produk Bekas</h2>
      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-       <!-- Card Product (sama seperti sebelumnya) -->
+       <!-- Card Product -->
        @forelse($produkBekas as $produk)
        <div class="bg-white p-4 rounded-xl shadow-md flex flex-col h-full">
          <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->model }}" class="rounded-xl mb-4 h-40 object-contain">
@@ -64,15 +63,24 @@
            ★★★★☆ <span class="text-gray-400 ml-2">(131)</span>
          </div>
          <div class="mt-auto flex space-x-2">
-           <button class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm">Edit Product</button>
-           <button class="bg-red-100 text-red-700 px-3 py-1 rounded-lg text-sm">Hapus Product</button>
+           <a href="{{ route('admin.ponsel.edit', $produk->id_ponsel) }}" 
+              class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-sm">
+               Edit Product
+           </a>
+           <form action="{{ route('admin.ponsel.destroy', $produk->id_ponsel) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus produk ini?');">
+               @csrf
+               @method('DELETE')
+               <button type="submit" class="bg-red-100 text-red-700 px-3 py-1 rounded-lg text-sm">
+                   Hapus Product
+               </button>
+           </form>
          </div>
        </div>
        @empty
        <p class="text-gray-500">Tidak ada produk bekas.</p>
        @endforelse
-       </div>
      </div>
+
      <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
       <div class="bg-white w-full max-w-md rounded-xl p-6 relative shadow-lg">
         
@@ -163,4 +171,4 @@
           document.getElementById('filterModal').classList.add('hidden');
       }
     </script>
-  </x-dashboard>
+</x-dashboard>
