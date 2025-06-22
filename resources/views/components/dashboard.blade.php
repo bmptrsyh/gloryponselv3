@@ -20,13 +20,12 @@
         <nav class="flex flex-col gap-4">
           <x-sidebar-link route="admin.dashboard">Dashboard</x-sidebar-link>
           <x-sidebar-link route="admin.ponsel.index">Produk</x-sidebar-link>
-          <x-sidebar-link route="listInbox">Inbox</x-sidebar-link>
-          <x-sidebar-link >Daftar Pesanan</x-sidebar-link>
+          <x-sidebar-link route="admin.listInbox">Inbox</x-sidebar-link>
+          <x-sidebar-link route="admin.ponsel.transaksi">Daftar Pesanan</x-sidebar-link>
           <x-sidebar-link route="admin.jual-ponsel.index">Jual Ponsel</x-sidebar-link>
           <x-sidebar-link route="admin.tukar-tambah.index">Tukar Tambah</x-sidebar-link>
           <x-sidebar-link>Ulasan</x-sidebar-link>
           <x-sidebar-link>Stok Produk</x-sidebar-link>
-          <x-sidebar-link route="admin.ponsel.transaksi">Transaksi</x-sidebar-link>
         </nav>
       
         <!-- Menu bawah -->
@@ -62,9 +61,11 @@
             <img src="{{ asset('storage/gambar/admin/notifikasi.png') }}" alt="Profile" class="w-6 h-6" />
 
           </span>
+          <a href="{{ route('admin.profile') }}">
           <div class="flex items-center gap-2">
             <img src="{{ asset('storage/gambar/admin/admin.png') }}" alt="Profile" class="w-10 h-10 rounded-full" />
             <div>
+              </a>
               <p class="font-semibold">Admin</p>
               <p class="text-sm text-gray-500">Glory Ponsel</p>
             </div>

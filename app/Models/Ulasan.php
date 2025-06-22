@@ -26,12 +26,6 @@ class Ulasan extends Model
         return $this->belongsTo(Ponsel::class, 'id_ponsel', 'id_ponsel');
     }
 
-    // Relasi ke pembelian ponsel
-    public function pembelian()
-    {
-        return $this->belongsTo(BeliPonsel::class, 'id_beli_ponsel', 'id_beli_ponsel');
-    }
-
     public function beliPonsel()
     {
         return $this->belongsTo(BeliPonsel::class, 'id_beli_ponsel');

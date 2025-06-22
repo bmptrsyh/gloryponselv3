@@ -42,7 +42,7 @@ class AdminTukarTambahController extends Controller
         
         $pengajuan->save();
 
-        return redirect()->route('admin.jual-ponsel.index')
+        return redirect()->route('admin.tukar-tambah.index')
             ->with('success', 'Status pengajuan jual ponsel berhasil diperbarui.');
     }
 

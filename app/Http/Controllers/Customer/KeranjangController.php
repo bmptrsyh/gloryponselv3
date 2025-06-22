@@ -62,6 +62,17 @@ class KeranjangController extends Controller
     
         return redirect('/keranjang')->with('success', 'Produk berhasil ditambahkan ke keranjang!');
     }
+
+
+    public function ubahStatus(Request $request, $id)
+    {
+        $item = BeliPonsel::findOrFail($id);
+        $item->status_pengiriman = 'selesai';
+        $item->save();
+
+        return back()->with('success', 'Status berhasil diubah.');
+    }
+
     
     
 

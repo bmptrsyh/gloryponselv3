@@ -98,7 +98,7 @@
                     </div>
         
                     <div class="text-yellow-400 text-lg mb-1">
-                        {!! str_repeat('★', $avg) . str_repeat('☆', 5 - $avg) !!}
+                        {!! str_repeat('★', $ulasan->rating) . str_repeat('☆', 5 - $ulasan->rating) !!}
                     </div>
         
                     <p class="mb-4 leading-relaxed">

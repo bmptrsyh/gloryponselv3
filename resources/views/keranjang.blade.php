@@ -132,13 +132,13 @@
       <div class="p-4 space-y-4" id="order-list">
         @forelse ($beliponsel as $ponsel)
           @php
-            if ($ponsel->status == 'tertunda') {
+            if ($ponsel->status == 'tertunda' && $ponsel->status_pengiriman == 'belum_dikirim') {
                 $status = 'pending';
-            } elseif ($ponsel->status_pengiriman == 'belum_dikirim') {
+            } elseif ($ponsel->status == 'selesai' && $ponsel->status_pengiriman == 'belum_dikirim') {
                 $status = 'processing';
-            } elseif ($ponsel->status_pengiriman == 'dikirim') {
+            } elseif ($ponsel->status == 'selesai' && $ponsel->status_pengiriman == 'dikirim') {
                 $status = 'shipped';
-            } elseif ($ponsel->status_pengiriman == 'selesai') {
+            } elseif ($ponsel->status == 'selesai' && $ponsel->status_pengiriman == 'selesai') {
                 $status = 'completed';
             } else {
                 $status = 'other';
@@ -165,6 +165,11 @@
               <div class="flex gap-2">
                 @if ($status == 'pending')
                   <button class="bg-blue-600 text-white px-4 py-1 rounded text-sm">Bayar Sekarang</button>
+                @elseif ($status == 'shipped')
+                <form action="{{ route('ubah.status', $ponsel->id_beli_ponsel ) }}" method="POST">
+                  @csrf
+                  <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded text-sm">Tandai Sudah Selesai</button>
+                </form>
                 @elseif ($status == 'completed')
                   <button class="bg-gray-200 text-gray-800 px-4 py-1 rounded text-sm">Beli Lagi</button>
                   <button class="bg-blue-600 text-white px-4 py-1 rounded text-sm">Ulas</button>
@@ -291,25 +296,32 @@
     button.addEventListener('click', () => {
       const filter = button.getAttribute('data-filter');
       document.querySelectorAll('.order-filter').forEach(btn => {
-        btn.classList.remove('text-blue-600', 'border-blue-600');
-        btn.classList.add('text-gray-600');
+        if (btn) {
+          btn.classList.remove('text-blue-600', 'border-blue-600');
+          btn.classList.add('text-gray-600');
+        }
       });
-      button.classList.add('text-blue-600', 'border-blue-600');
-      button.classList.remove('text-gray-600');
+      if (button) {
+        button.classList.add('text-blue-600', 'border-blue-600');
+        button.classList.remove('text-gray-600');
+      }
 
       const items = document.querySelectorAll('.order-item');
       let anyVisible = false;
 
       items.forEach(item => {
-        if (filter === 'all' || item.getAttribute('data-status') === filter) {
+        if (item && (filter === 'all' || item.getAttribute('data-status') === filter)) {
           item.classList.remove('hidden');
           anyVisible = true;
-        } else {
+        } else if (item) {
           item.classList.add('hidden');
         }
       });
 
-      document.getElementById('no-orders').classList.toggle('hidden', anyVisible);
+      const noOrdersElement = document.getElementById('no-orders');
+      if (noOrdersElement) {
+        noOrdersElement.classList.toggle('hidden', anyVisible);
+      }
     });
   });
 </script>
@@ -332,15 +344,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.product-checkbox:checked').forEach(checkbox => {
       const harga = parseInt(checkbox.dataset.harga);
       const id = checkbox.dataset.id;
-      const jumlah = parseInt(document.getElementById('jumlah-' + id).innerText);
-      total += harga * jumlah;
+      const jumlahElement = document.getElementById('jumlah-' + id);
+      if (jumlahElement) {
+        const jumlah = parseInt(jumlahElement.innerText);
+        total += harga * jumlah;
+      }
     });
-    document.getElementById('total-price').textContent = formatRupiah(total);
+    const totalPriceElement = document.getElementById('total-price');
+    if (totalPriceElement) {
+      totalPriceElement.textContent = formatRupiah(total);
+    }
   }
 
   function updateSelectAllState() {
-    const allChecked = Array.from(productCheckboxes).every(cb => cb.checked);
-    selectAllCheckbox.checked = allChecked;
+    const selectAllCheckbox = document.getElementById('select-all');
+    const productCheckboxes = document.querySelectorAll('.product-checkbox');
+    if (selectAllCheckbox && productCheckboxes.length > 0) {
+      const allChecked = Array.from(productCheckboxes).every(cb => cb.checked);
+      selectAllCheckbox.checked = allChecked;
+    }
   }
 
   // ==== Checkout Logic ====
@@ -352,53 +374,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (selectAllCheckbox) {
     selectAllCheckbox.addEventListener('change', () => {
-      productCheckboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+      productCheckboxes.forEach(cb => {
+        if (cb) {
+          cb.checked = selectAllCheckbox.checked;
+        }
+      });
       updateTotal();
     });
   }
 
   productCheckboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      updateSelectAllState();
-      updateTotal();
-    });
-  });
-
-  checkoutBtn?.addEventListener('click', () => {
-    const selectedItems = Array.from(productCheckboxes)
-      .filter(cb => cb.checked)
-      .map(cb => ({
-        id: cb.dataset.id,
-        jumlah: document.getElementById('jumlah-' + cb.dataset.id).innerText
-      }));
-
-    if (selectedItems.length === 0) {
-      alert('Pilih minimal 1 produk');
-      return;
+    if (cb) {
+      cb.addEventListener('change', () => {
+        updateSelectAllState();
+        updateTotal();
+      });
     }
-
-    produkInput.value = JSON.stringify(selectedItems);
-    form.submit();
   });
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', () => {
+      const selectedItems = Array.from(productCheckboxes)
+        .filter(cb => cb && cb.checked)
+        .map(cb => {
+          const jumlahElement = document.getElementById('jumlah-' + cb.dataset.id);
+          return {
+            id: cb.dataset.id,
+            jumlah: jumlahElement ? jumlahElement.innerText : '1'
+          };
+        });
+
+      if (selectedItems.length === 0) {
+        alert('Pilih minimal 1 produk');
+        return;
+      }
+
+      if (produkInput && form) {
+        produkInput.value = JSON.stringify(selectedItems);
+        form.submit();
+      }
+    });
+  }
 
   // ==== Quantity Buttons (+/-) ====
   document.querySelectorAll('.increase').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const jumlahSpan = btn.parentElement.querySelector('.jumlah');
-      jumlahSpan.innerText = parseInt(jumlahSpan.innerText) + 1;
-      updateTotal();
-    });
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const jumlahSpan = btn.parentElement.querySelector('.jumlah');
+        if (jumlahSpan) {
+          jumlahSpan.innerText = parseInt(jumlahSpan.innerText) + 1;
+          updateTotal();
+        }
+      });
+    }
   });
 
   document.querySelectorAll('.decrease').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const jumlahSpan = btn.parentElement.querySelector('.jumlah');
-      let jumlah = parseInt(jumlahSpan.innerText);
-      if (jumlah > 1) {
-        jumlahSpan.innerText = jumlah - 1;
-        updateTotal();
-      }
-    });
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const jumlahSpan = btn.parentElement.querySelector('.jumlah');
+        if (jumlahSpan) {
+          let jumlah = parseInt(jumlahSpan.innerText);
+          if (jumlah > 1) {
+            jumlahSpan.innerText = jumlah - 1;
+            updateTotal();
+          }
+        }
+      });
+    }
   });
 
   // ==== Tab Switching ====
@@ -406,15 +449,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabContents = document.querySelectorAll('.tab-content');
 
   tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      tabButtons.forEach(btn => btn.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'));
-      tabButtons.forEach(btn => btn.classList.add('text-gray-600'));
-      button.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
-      button.classList.remove('text-gray-600');
+    if (button) {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => {
+          if (btn) {
+            btn.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+            btn.classList.add('text-gray-600');
+          }
+        });
+        
+        if (button) {
+          button.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+          button.classList.remove('text-gray-600');
+        }
 
-      tabContents.forEach(content => content.classList.add('hidden'));
-      document.getElementById(button.dataset.tab + '-tab').classList.remove('hidden');
-    });
+        tabContents.forEach(content => {
+          if (content) {
+            content.classList.add('hidden');
+          }
+        });
+        
+        const targetTab = document.getElementById(button.dataset.tab + '-tab');
+        if (targetTab) {
+          targetTab.classList.remove('hidden');
+        }
+      });
+    }
   });
 
   // ==== Order Filter ====
@@ -423,134 +483,179 @@ document.addEventListener('DOMContentLoaded', () => {
   const noOrders = document.getElementById('no-orders');
 
   orderFilters.forEach(filter => {
-    filter.addEventListener('click', () => {
-      orderFilters.forEach(f => f.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600'));
-      orderFilters.forEach(f => f.classList.add('text-gray-600'));
-      filter.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
-      filter.classList.remove('text-gray-600');
+    if (filter) {
+      filter.addEventListener('click', () => {
+        orderFilters.forEach(f => {
+          if (f) {
+            f.classList.remove('text-blue-600', 'border-b-2', 'border-blue-600');
+            f.classList.add('text-gray-600');
+          }
+        });
+        
+        if (filter) {
+          filter.classList.add('text-blue-600', 'border-b-2', 'border-blue-600');
+          filter.classList.remove('text-gray-600');
+        }
 
-      const filterValue = filter.dataset.filter;
-      let visibleCount = 0;
+        const filterValue = filter.dataset.filter;
+        let visibleCount = 0;
 
-      orderItems.forEach(item => {
-        const match = filterValue === 'all' || item.dataset.status === filterValue;
-        item.classList.toggle('hidden', !match);
-        if (match) visibleCount++;
+        orderItems.forEach(item => {
+          if (item) {
+            const match = filterValue === 'all' || item.dataset.status === filterValue;
+            item.classList.toggle('hidden', !match);
+            if (match) visibleCount++;
+          }
+        });
+
+        if (noOrders) {
+          noOrders.classList.toggle('hidden', visibleCount > 0);
+        }
+      });
+    }
+  });
+
+  // ==== Review Modal Logic ====
+  const reviewModal = document.getElementById('review-modal');
+  const closeReviewModal = document.getElementById('close-review-modal');
+
+  // Review button click handlers
+  document.querySelectorAll('.review-btn').forEach(button => {
+    if (button) {
+      button.addEventListener('click', function () {
+        const idBeli = this.dataset.idBeli;
+        const idPonsel = this.dataset.idPonsel;
+        const nama = this.dataset.nama;
+        const gambar = this.dataset.gambar;
+
+        const reviewIdBeli = document.getElementById('review_id_beli');
+        const reviewIdPonsel = document.getElementById('review_id_ponsel');
+        const reviewProductName = document.getElementById('review-product-name');
+        const reviewProductImage = document.getElementById('review-product-image');
+
+        if (reviewIdBeli) reviewIdBeli.value = idBeli;
+        if (reviewIdPonsel) reviewIdPonsel.value = idPonsel;
+        if (reviewProductName) reviewProductName.textContent = nama;
+        if (reviewProductImage) reviewProductImage.src = gambar;
+
+        if (reviewModal) {
+          reviewModal.classList.remove('hidden');
+        }
+      });
+    }
+  });
+
+  // View review button click handlers
+  document.querySelectorAll('.view-review-btn').forEach(button => {
+    if (button) {
+      button.addEventListener('click', function () {
+        const nama = this.dataset.nama;
+        const gambar = this.dataset.gambar;
+        const ulasan = this.dataset.ulasan;
+        const rating = this.dataset.rating;
+
+        const reviewProductName = document.getElementById('review-product-name');
+        const reviewProductImage = document.getElementById('review-product-image');
+        
+        if (reviewProductName) reviewProductName.textContent = nama;
+        if (reviewProductImage) reviewProductImage.src = gambar;
+
+        // Isi dan kunci textarea ulasan
+        const ulasanTextarea = document.getElementById('ulasan-textarea');
+        if (ulasanTextarea) {
+          ulasanTextarea.value = ulasan;
+          ulasanTextarea.setAttribute('readonly', true);
+        }
+
+        // Tampilkan rating bintang tapi tidak bisa diubah
+        const stars = document.querySelectorAll('.rating-stars i');
+        stars.forEach(star => {
+          if (star) { // Tambahkan null check
+            const starRating = parseInt(star.dataset.rating);
+            if (starRating <= rating) {
+              star.classList.add('text-yellow-400');
+              star.classList.remove('text-gray-300');
+            } else {
+              star.classList.remove('text-yellow-400');
+              star.classList.add('text-gray-300');
+            }
+            star.classList.remove('cursor-pointer');
+          }
+        });
+
+        // Nonaktifkan tombol kirim
+        const submitBtn = document.getElementById('submit-review-btn');
+        if (submitBtn) {
+          submitBtn.classList.add('hidden');
+        }
+
+        if (reviewModal) {
+          reviewModal.classList.remove('hidden');
+        }
+      });
+    }
+  });
+
+  // Close modal handler
+  if (closeReviewModal) {
+    closeReviewModal.addEventListener('click', function () {
+      if (reviewModal) {
+        reviewModal.classList.add('hidden');
+      }
+
+      // Reset semua input
+      const ulasanTextarea = document.getElementById('ulasan-textarea');
+      if (ulasanTextarea) {
+        ulasanTextarea.value = '';
+        ulasanTextarea.removeAttribute('readonly');
+      }
+
+      // Reset bintang rating
+      const stars = document.querySelectorAll('.rating-stars i');
+      stars.forEach(star => {
+        if (star) {
+          star.classList.remove('text-yellow-400');
+          star.classList.add('text-gray-300', 'cursor-pointer');
+        }
       });
 
-      noOrders.classList.toggle('hidden', visibleCount > 0);
-    });
-  });
-});
-</script>
-
-<script>
-document.querySelectorAll('.review-btn').forEach(button => {
-  button.addEventListener('click', function () {
-    const idBeli = this.dataset.idBeli;
-    const idPonsel = this.dataset.idPonsel;
-    const nama = this.dataset.nama;
-    const gambar = this.dataset.gambar;
-
-    document.getElementById('review-product-name').textContent = nama;
-    document.getElementById('review-product-image').src = gambar;
-    document.getElementById('review_id_beli').value = idBeli;
-    document.getElementById('review_id_ponsel').value = idPonsel;
-
-    document.getElementById('review-modal').classList.remove('hidden');
-  });
-});
-
-// ✅ Tambahkan ini untuk menangani tombol "Sudah Diulas"
-document.querySelectorAll('.view-review-btn').forEach(button => {
-  button.addEventListener('click', function () {
-    const nama = this.dataset.nama;
-    const gambar = this.dataset.gambar;
-    const ulasan = this.dataset.ulasan;
-    const rating = this.dataset.rating;
-
-    document.getElementById('review-product-name').textContent = nama;
-    document.getElementById('review-product-image').src = gambar;
-
-    // Isi dan kunci textarea ulasan
-    const ulasanTextarea = document.getElementById('ulasan-textarea');
-    ulasanTextarea.value = ulasan;
-    ulasanTextarea.setAttribute('readonly', true);
-
-    // Tampilkan rating bintang tapi tidak bisa diubah
-    const stars = document.querySelectorAll('.rating-stars i');
-    stars.forEach(star => {
-      const starRating = parseInt(star.dataset.rating);
-      if (starRating <= rating) {
-        star.classList.add('text-yellow-400');
-        star.classList.remove('text-gray-300');
-      } else {
-        star.classList.remove('text-yellow-400');
-        star.classList.add('text-gray-300');
+      // Tampilkan kembali tombol kirim
+      const submitBtn = document.getElementById('submit-review-btn');
+      if (submitBtn) {
+        submitBtn.classList.remove('hidden');
       }
-      star.classList.remove('cursor-pointer');
     });
+  }
 
-    // Nonaktifkan tombol kirim
-    document.getElementById('submit-review-btn').classList.add('hidden');
-
-    document.getElementById('review-modal').classList.remove('hidden');
-  });
-});
-
-
-
-document.getElementById('close-review-modal').addEventListener('click', function () {
-  document.getElementById('review-modal').classList.add('hidden');
-
-  // Reset semua input
-  const ulasanTextarea = document.getElementById('ulasan-textarea');
-  ulasanTextarea.value = '';
-  ulasanTextarea.removeAttribute('readonly');
-
-  // Reset bintang rating
-  const stars = document.querySelectorAll('.rating-stars i');
-  stars.forEach(star => {
-    star.classList.remove('text-yellow-400');
-    star.classList.add('text-gray-300');
-    star.classList.add('cursor-pointer');
-  });
-
-  // Tampilkan kembali tombol submit
-  document.getElementById('submit-review-btn').classList.remove('hidden');
-});
-
-
-</script>
-
-
-<script>
+  // Rating stars click handlers
   const ratingStars = document.querySelectorAll('.rating-stars i');
-  const ratingContainer = document.querySelector('.rating-stars');
-
- function highlightStars(count) {
-    ratingStars.forEach((star, index) => {
-      star.classList.toggle('text-yellow-400', index < count);
-      star.classList.toggle('text-gray-300', index >= count);
-    });
-  }
-
-  function resetStars() {
-    const active = ratingContainer.getAttribute('data-active-rating');
-    highlightStars(active ? parseInt(active) : 0);
-  }
-
-  function setRating(rating) {
-    ratingContainer.setAttribute('data-active-rating', rating);
-    highlightStars(rating);
-  }
+  const ratingValue = document.getElementById('rating-value');
 
   ratingStars.forEach(star => {
-    const rating = parseInt(star.dataset.rating);
-    star.addEventListener('mouseover', () => highlightStars(rating));
-    star.addEventListener('mouseout', resetStars);
-    star.addEventListener('click', () => setRating(rating));
+    if (star) {
+      star.addEventListener('click', function () {
+        const rating = parseInt(this.dataset.rating);
+        if (ratingValue) {
+          ratingValue.value = rating;
+        }
+
+        ratingStars.forEach((s, index) => {
+          if (s) {
+            if (index < rating) {
+              s.classList.add('text-yellow-400');
+              s.classList.remove('text-gray-300');
+            } else {
+              s.classList.remove('text-yellow-400');
+              s.classList.add('text-gray-300');
+            }
+          }
+        });
+      });
+    }
   });
+});
 </script>
+
 </body>
 </html>
+

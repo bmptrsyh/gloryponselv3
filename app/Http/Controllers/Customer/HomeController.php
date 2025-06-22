@@ -5,24 +5,47 @@ namespace App\Http\Controllers\Customer;
 use App\Models\Ponsel;
 use App\Models\Ulasan;
 use App\Models\Customer;
+use App\Models\BeliPonsel;
 use App\Models\JualPonsel;
 use App\Models\TukarTambah;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
+
+        $ip = request()->ip();
+    $monthKey = 'visitors:' . now()->format('Y-m');
+
+    $visitors = Cache::get($monthKey, []);
+
+    if (!in_array($ip, $visitors)) {
+        $visitors[] = $ip;
+        $expires = now()->endOfMonth()->diffInMinutes(now());
+        Cache::put($monthKey, $visitors, now()->addMinutes($expires));
+    }
+
+    $jumlahPengunjung = count($visitors);
+
         
         $produkTerbaru = Ponsel::orderBy('created_at', 'desc')->take(4)->get();
+        $ulasans = Ulasan::with('ponsel')->get();
+        $countUlasan = Ulasan::count();
+        $customers = Customer::all();
+        $count = Customer::count();
+        $beliPonsel = BeliPonsel::all();
+        $countBeliPonsel = BeliPonsel::count();
+        
 
         // Ambil data customer yang sedang login
         $customer = Auth::user();
         
     
-        return view('customer.home', compact('produkTerbaru', 'customer'));
+        return view('customer.home', compact('produkTerbaru', 'customer', 'ulasans','count', 'countBeliPonsel', 'countUlasan', 'jumlahPengunjung'));
     }
 
     public function daftarPengajuan() 

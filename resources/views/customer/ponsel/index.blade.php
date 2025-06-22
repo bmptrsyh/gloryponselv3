@@ -30,7 +30,7 @@
         <img src="{{ asset($produk->gambar) }}" class="mx-auto mb-2 h-48 w-48 object-contain" alt="{{ $produk->model }}">
         <p class="font-semibold">{{ $produk->merk }} {{ $produk->model }}</p>
         <p class="text-sm text-gray-600">Rp {{ number_format($produk->harga_jual, 0, ',', '.') }}</p>
-        <div class="text-yellow-400 text-sm mt-1">⭐ {{ $produk->avg ?? '' }} ({{ $produk->count ?? '' }} ulasan}</div>
+        <div class="text-yellow-400 text-sm mt-1">⭐ {{ number_format($produk->avg ?? 0, 1) }} ({{ $produk->count ?? '' }} ulasan)</div>
       </div>
       </a>
       @empty

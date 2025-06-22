@@ -128,7 +128,7 @@ class BeliPonselController extends Controller
     try {
         $response = Duitku::createInvoice(
             $orderId,
-            $totalHarga,
+            $hargaAkhir,
             $paymentMethod,
             'Checkout Ponsel',
             $customer->nama,

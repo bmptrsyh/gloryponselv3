@@ -19,7 +19,7 @@
         @endif
 
         <div class="bg-white p-6 rounded-lg shadow-md">
-            <form action="{{ route('transaksi.update', $transaksi->id_beli_ponsel) }}" method="POST">
+            <form action="{{ route('admin.transaksi.update', $transaksi->id_beli_ponsel) }}" method="POST">
                 @csrf
                 @method('PUT')
 

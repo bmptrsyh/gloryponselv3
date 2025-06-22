@@ -4,10 +4,9 @@
     <div class="hero-text">
         <h1>Platform Ecommerce Terdepan di Indonesia</h1>
         <p>Kami percaya bahwa ReCommerce dapat meningkatkan standar hidup masyarakat Kelas Menengah dengan harga terjangkau.</p>
-        <a href="#" class="btn-primary">Beli Sekarang</a>
     </div>
     <div class="hero-image">
-        <img src="#" alt="Hero Image" width="100%">
+        <img src="{{ asset('storage/gambar/admin/media.png') }}" alt="Hero Image" width="100%">
     </div>
 </section>
 
@@ -17,25 +16,25 @@
 
         <div style="text-align: center; flex: 1 1 200px; max-width: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Icon" width="32" style="margin-bottom: 10px;">
-            <p style="font-size: 16px; font-weight: 600;">10 Juta</p>
+            <p style="font-size: 16px; font-weight: 600;">{{ $countBeliPonsel }}</p>
             <p style="font-size: 14px; color: #555;">barang yang sudah dikirim</p>
         </div>
 
         <div style="text-align: center; flex: 1 1 200px; max-width: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Icon" width="32" style="margin-bottom: 10px;">
-            <p style="font-size: 16px; font-weight: 600;">10 Juta</p>
+            <p style="font-size: 16px; font-weight: 600;">{{ $count }}</p>
             <p style="font-size: 14px; color: #555;">pelanggan aktif</p>
         </div>
 
         <div style="text-align: center; flex: 1 1 200px; max-width: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Icon" width="32" style="margin-bottom: 10px;">
-            <p style="font-size: 16px; font-weight: 600;">10 Juta</p>
+            <p style="font-size: 16px; font-weight: 600;">{{ $countUlasan }}</p>
             <p style="font-size: 14px; color: #555;">ulasan positif</p>
         </div>
 
         <div style="text-align: center; flex: 1 1 200px; max-width: 250px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Icon" width="32" style="margin-bottom: 10px;">
-            <p style="font-size: 16px; font-weight: 600;">10 Juta</p>
+            <p style="font-size: 16px; font-weight: 600;">{{ $jumlahPengunjung }}</p>
             <p style="font-size: 14px; color: #555;">pengunjung bulanan</p>
         </div>
 
@@ -46,8 +45,10 @@
     <!-- Konten Utama -->
     <div style="display: flex; gap: 60px; align-items: center;">
         <!-- Ilustrasi Placeholder -->
-        <div style="flex: 1; height: 300px; background-color: #ccc; border-radius: 12px;"></div>
-        <img src="image/img-marketplace.png" alt="a">
+        <div>
+            <img src="{{ asset('storage/gambar/admin/media.png') }}" alt="a" style="max-width: 100%; height: 300px; border-radius: 12px;">
+        </div>
+        
         <!-- Teks -->
         <div style="flex: 1;">
             <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 16px;">
@@ -86,28 +87,14 @@
 <section style="padding: 60px 20px; background-color: #f9f9f9; text-align: center;">
     <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 30px;">Ulasan Pelanggan</h2>
 <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-
-    <div style="width: 280px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" alt="User Icon" width="40">
+    @foreach ($ulasans as $ulasan)
+        <div style="width: 280px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+                <img src="{{ $ulasan->ponsel->gambar }}" alt="User Icon" width="40">
+            </div>
+                <p style="font-style: italic;">{{ $ulasan->ulasan }}</p>
         </div>
-        <p style="font-style: italic;">"Website ini keren sekali saya sangat puas dalam memakai website ini, dan saya akan merekomendasikannya ke teman-teman saya"</p>
-    </div>
-
-    <div style="width: 280px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" alt="User Icon" width="40">
-        </div>
-        <p style="font-style: italic;">"Website ini keren sekali saya sangat puas dalam memakai website ini, dan saya akan merekomendasikannya ke teman-teman saya"</p>
-    </div>
-
-    <div style="width: 280px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" alt="User Icon" width="40">
-        </div>
-        <p style="font-style: italic;">"Website ini keren sekali saya sangat puas dalam memakai website ini, dan saya akan merekomendasikannya ke teman-teman saya"</p>
-    </div>
-
+    @endforeach
 </div>
 
 </section>

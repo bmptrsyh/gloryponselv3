@@ -30,56 +30,20 @@ use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 Broadcast::routes(['middleware' => ['auth:web']]);
 Broadcast::routes(['middleware' => ['auth:admin']]);
 
-// Ongkir
-Route::get('get-kecamatan/{search}', [OngkirController::class, 'getKecamatan']);
-Route::post('get-ongkir', [OngkirController::class, 'getOngkir']);
-
-// Checkout
-Route::post('/checkout-ponsel', [BeliPonselController::class, 'submitCheckout'])->name('checkout');
-Route::put('/pesanan/selesai/{id}', [KeranjangController::class, 'selesai'])->name('selesai');
-
-// Ulasan
-Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
-Route::get('/ulasan.show/{id}', [UlasanController::class, 'show'])->name('ulasan.show');
-
 // Payment Callback
 Route::post('callback/payment', [CallbackController::class, 'paymentCallback']);
 Route::get('callback/return', [CallbackController::class, 'myReturnCallback']);
 
-// Admin - Transaksi
-Route::get('/transaksi/edit/{id}', [TransaksiController::class, 'edit'])->name('admin.edit.transaksi');
-Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
-Route::get('admin/transaksi', [TransaksiController::class, 'semuaTransaksi'])->name('admin.ponsel.transaksi');
 
-// Profile - Customer & Admin
 Route::middleware('auth:web')->group(function () {
     Route::get('/customer/profile', [ProfileControllerCustomer::class, 'index'])->name('customer.profile');
     Route::put('/customer/profil/upload/{id}', [ProfileControllerCustomer::class, 'upload'])->name('customer.profil.upload');
     Route::put('/customer/update/{id}', [ProfileControllerCustomer::class, 'update'])->name('customer.profil.update');
 });
-Route::get('/admin/profile', [ProfileControllerAdmin::class, 'index'])->name('admin.profile');
-Route::put('/admin/profile/upload', [ProfileControllerAdmin::class, 'upload'])->name('admin.profil.upload');
-Route::put('/admin/profile/update', [ProfileControllerAdmin::class, 'update'])->name('admin.profil.update');
 
-// Chat / Inbox
-Route::get('/adminInbox/{id}', [InboxController::class, 'adminInbox'])->name('admin.inbox');
-Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');
-Route::post('/send', [InboxController::class, 'send'])->name('send.inbox');
-Route::post('/admin/send', [InboxController::class, 'sendAdmin'])->name('admin.send.inbox')->middleware('auth:admin');
-Route::get('/listInbox', [InboxController::class, 'listInbox'])->name('listInbox');
-
-// Payment / Invoice
-Route::post('/payment-methods', [PaymentController::class, 'getPaymentMethods'])->name('payment.methods');
-Route::get('/payment-methods', [PaymentController::class, 'PaymentMethods'])->name('payment.method');
-Route::get('/create-invoice', [PaymentController::class, 'showInvoiceForm'])->name('invoice.form');
-Route::post('/create-invoice', [PaymentController::class, 'createInvoice'])->name('invoice.create');
 
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Keranjang
-Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang');
-Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
 
 // Autentikasi
 Route::controller(AuthController::class)->group(function () {
@@ -123,6 +87,33 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/pengajuan', [HomeController::class, 'daftarPengajuan'])->name('pengajuan');
     Route::get('/pengajuan/jual/{id}', [HomeController::class, 'showJual'])->name('pengajuan.jual.show');
     Route::get('/pengajuan/tukar-tambah/{id}', [HomeController::class, 'showTukar'])->name('pengajuan.tukar.show');
+
+    // Keranjang
+    Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang');
+    Route::post('/keranjang', [KeranjangController::class, 'store'])->name('keranjang.store');
+    Route::post('/ubah-status/{id}', [KeranjangController::class, 'ubahStatus'])->name('ubah.status');
+
+    // inbox
+    Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');
+    Route::post('/send', [InboxController::class, 'send'])->name('send.inbox');
+
+    // Payment / Invoice
+    Route::post('/payment-methods', [PaymentController::class, 'getPaymentMethods'])->name('payment.methods');
+    Route::get('/payment-methods', [PaymentController::class, 'PaymentMethods'])->name('payment.method');
+    Route::get('/create-invoice', [PaymentController::class, 'showInvoiceForm'])->name('invoice.form');
+    Route::post('/create-invoice', [PaymentController::class, 'createInvoice'])->name('invoice.create');
+
+    // Ongkir
+    Route::get('get-kecamatan/{search}', [OngkirController::class, 'getKecamatan']);
+    Route::post('get-ongkir', [OngkirController::class, 'getOngkir']);
+    
+    // Checkout
+    Route::post('/checkout-ponsel', [BeliPonselController::class, 'submitCheckout'])->name('checkout');
+    Route::put('/pesanan/selesai/{id}', [KeranjangController::class, 'selesai'])->name('selesai');
+    
+    // Ulasan
+    Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
+    Route::get('/ulasan.show/{id}', [UlasanController::class, 'show'])->name('ulasan.show');
 });
 
 // Admin Routes
@@ -147,6 +138,21 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/tukar-tambah/{id}', [AdminTukarTambahController::class, 'show'])->name('tukar-tambah.show');
     Route::put('/tukar-tambah/{id}/update-status', [AdminTukarTambahController::class, 'updateStatus'])->name('tukar-tambah.update-status');
     Route::delete('/tukar-tambah/{id}', [AdminTukarTambahController::class, 'destroy'])->name('tukar-tambah.destroy');
+
+    // profile
+    Route::get('/profile', [ProfileControllerAdmin::class, 'index'])->name('profile');
+    Route::put('/profile/upload', [ProfileControllerAdmin::class, 'upload'])->name('profil.upload');
+    Route::put('/profile/update', [ProfileControllerAdmin::class, 'update'])->name('profil.update');
+
+    // Chat / Inbox
+    Route::get('/adminInbox/{id}', [InboxController::class, 'adminInbox'])->name('inbox');
+    Route::post('/admin/send', [InboxController::class, 'sendAdmin'])->name('send.inbox');
+    Route::get('/listInbox', [InboxController::class, 'listInbox'])->name('listInbox');
+
+    // Transaksi
+    Route::get('/transaksi/edit/{id}', [TransaksiController::class, 'edit'])->name('edit.transaksi');
+    Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
+    Route::get('transaksi', [TransaksiController::class, 'semuaTransaksi'])->name('ponsel.transaksi');
 });
 
 // Lupa & Reset Password

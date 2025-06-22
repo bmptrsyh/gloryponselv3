@@ -6,14 +6,14 @@
         <h2 class="text-2xl font-bold text-gray-800">Tukar Tambah Ponsel Anda</h2>
         <p class="text-gray-600 mt-2">Isi formulir di bawah ini untuk mengajukan tukar tambah ponsel Anda dengan produk yang dipilih.</p>
         
-        @if(isset($produk))
+        @if(isset($ponsel))
         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
             <h3 class="font-semibold text-blue-800">Produk yang akan ditukar:</h3>
             <div class="flex items-center mt-2">
-                <img src="{{ asset($produk->gambar) }}" alt="{{ $produk->merk }} {{ $produk->model }}" class="w-16 h-16 object-cover rounded-lg mr-4">
+                <img src="{{ asset($ponsel->gambar) }}" alt="{{ $ponsel->merk }} {{ $ponsel->model }}" class="w-16 h-16 object-cover rounded-lg mr-4">
                 <div>
-                    <p class="font-medium">{{ $produk->merk }} {{ $produk->model }}</p>
-                    <p class="text-sm text-gray-600">Harga: Rp {{ number_format($produk->harga_jual, 0, ',', '.') }}</p>
+                    <p class="font-medium">{{ $ponsel->merk }} {{ $ponsel->model }}</p>
+                    <p class="text-sm text-gray-600">Harga: Rp {{ number_format($ponsel->harga_jual, 0, ',', '.') }}</p>
                 </div>
             </div>
         </div>
