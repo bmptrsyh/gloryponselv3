@@ -10,6 +10,7 @@ use App\Models\JualPonsel;
 use App\Models\TukarTambah;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\KreditPonsel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -56,6 +57,28 @@ class HomeController extends Controller
         $tukarTambah = TukarTambah::where('id_customer', $id_customer)->get();
 
         return view ('customer.daftar-pengajuan', compact('jualPonsel', 'tukarTambah'));
+    }
+
+    public function daftarKredit()
+    {
+        $customer = auth('web')->user();
+        $id_customer = $customer->id_customer;
+        $kreditPonsel = KreditPonsel::with('ponsel')
+            ->where('id_customer', $id_customer)
+            ->get();
+
+        return view('customer.daftar-kredit', compact('kreditPonsel'));
+    }
+
+    public function daftarKreditShow($id)
+    {
+        $customer = auth('web')->user();
+        $id_customer = $customer->id_customer;
+        $kredit = KreditPonsel::with('ponsel')
+            ->where('id_customer', $id_customer)
+            ->where('id_kredit_ponsel', $id)
+            ->firstOrFail();
+        return view('customer.show-kredit', compact('kredit'));
     }
 
         public function showJual($id)

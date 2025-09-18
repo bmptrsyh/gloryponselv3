@@ -3,7 +3,6 @@
       <h2 class="my-6 text-2xl font-semibold text-gray-700">
          Daftar Pengajuan Jual Ponsel
       </h2>
-
       <div class="w-full overflow-hidden rounded-lg shadow-xs">
          <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap">
@@ -18,7 +17,7 @@
                   </tr>
                </thead>
                <tbody class="bg-white divide-y">
-                  @forelse($pengajuan as $item)
+                  @forelse($kredit as $item)
                      <tr class="text-gray-700">
                         <td class="px-4 py-3">
                            <div class="flex items-center text-sm">
@@ -32,18 +31,19 @@
                         <td class="px-4 py-3 text-sm">
                            <div class="flex items-center">
                               <div class="h-10 w-10 mr-3">
-                                 <img class="h-10 w-10 rounded-full object-cover" src="{{ asset($item->gambar) }}"
-                                    alt="{{ $item->merk }} {{ $item->model }}">
+                                 <img class="h-10 w-10 rounded-full object-cover"
+                                    src="{{ asset($item->ponsel->gambar) }}"
+                                    alt="{{ $item->ponsel->merk }} {{ $item->ponsel->model }}">
                               </div>
                               <div>
-                                 <p class="font-semibold">{{ $item->merk }} {{ $item->model }}</p>
+                                 <p class="font-semibold">{{ $item->ponsel->merk }} {{ $item->ponsel->model }}</p>
                                  <p class="text-xs text-gray-600">
-                                    {{ $item->ram }}GB/{{ $item->storage }}GB</p>
+                                    {{ $item->ponsel->ram }}GB/{{ $item->ponsel->storage }}GB</p>
                               </div>
                            </div>
                         </td>
                         <td class="px-4 py-3 text-sm">
-                           Rp {{ number_format($item->harga, 0, ',', '.') }}
+                           Rp {{ number_format($item->ponsel->harga_jual, 0, ',', '.') }}
                         </td>
                         <td class="px-4 py-3 text-sm">
                            @if ($item->status == 'menunggu')
@@ -51,12 +51,12 @@
                                  class="px-2 py-1 font-semibold leading-tight text-yellow-700 bg-yellow-100 rounded-full">
                                  Menunggu
                               </span>
-                           @elseif($item->status == 'di setujui')
+                           @elseif($item->status == 'disetujui')
                               <span
                                  class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
                                  Disetujui
                               </span>
-                           @elseif($item->status == 'di tolak')
+                           @elseif($item->status == 'ditolak')
                               <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
                                  Ditolak
                               </span>
@@ -67,7 +67,7 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                            <div class="flex items-center space-x-2">
-                              <a href="{{ route('admin.jual-ponsel.show', $item->id_jual_ponsel) }}"
+                              <a href="{{ route('admin.kredit.show', $item->id_kredit_ponsel) }}"
                                  class="text-blue-500 hover:text-blue-700">
                                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +78,7 @@
                                     </path>
                                  </svg>
                               </a>
-                              <button onclick="openStatusModal({{ $item->id_jual_ponsel }}, '{{ $item->status }}' )"
+                              <button onclick="openStatusModal({{ $item->id_kredit_ponsel }}, '{{ $item->status }}' )"
                                  class="text-purple-500 hover:text-purple-700">
                                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
                                     </path>
                                  </svg>
                               </button>
-                              <form action="{{ route('admin.jual-ponsel.destroy', $item->id_jual_ponsel) }}"
+                              <form action="{{ route('admin.kredit.destroy', $item->id_kredit_ponsel) }}"
                                  method="POST"
                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengajuan ini?');">
                                  @csrf
@@ -107,7 +107,7 @@
                   @empty
                      <tr>
                         <td colspan="6" class="px-4 py-3 text-center text-gray-500">
-                           Belum ada pengajuan jual ponsel.
+                           Belum ada pengajuan kredit ponsel.
                         </td>
                      </tr>
                   @endforelse
@@ -117,6 +117,7 @@
       </div>
    </div>
 
+   <!-- Modal Update Status -->
    <!-- Modal Update Status -->
    <div id="statusModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
@@ -132,31 +133,31 @@
 
                <div class="mb-4">
                   <label class="block text-sm font-medium mb-1">Status</label>
-                  <div class="mt-2 space-y-2">
-                     <label class="inline-flex items-center">
-                        <input type="radio" name="status" value="menunggu"
-                           class="form-radio h-5 w-5 text-purple-600">
-                        <span class="ml-2 text-gray-700">Menunggu</span>
-                     </label>
-                     <br>
-                     <label class="inline-flex items-center">
-                        <input type="radio" name="status" value="di setujui"
-                           class="form-radio h-5 w-5 text-purple-600">
-                        <span class="ml-2 text-gray-700">Disetujui</span>
-                     </label>
-                     <br>
-                     <label class="inline-flex items-center">
-                        <input type="radio" name="status" value="di tolak"
-                           class="form-radio h-5 w-5 text-purple-600">
-                        <span class="ml-2 text-gray-700">Ditolak</span>
-                     </label>
+                  <div class="flex flex-col sm:flex-row gap-2 mt-2">
+                     <button type="button"
+                        class="status-btn px-4 py-2 rounded-lg font-semibold border border-yellow-400 text-yellow-700 bg-yellow-50 hover:bg-yellow-100 w-full sm:w-auto"
+                        data-value="menunggu">
+                        Menunggu
+                     </button>
+                     <button type="button"
+                        class="status-btn px-4 py-2 rounded-lg font-semibold border border-green-500 text-green-700 bg-green-50 hover:bg-green-100 w-full sm:w-auto"
+                        data-value="disetujui">
+                        Disetujui
+                     </button>
+                     <button type="button"
+                        class="status-btn px-4 py-2 rounded-lg font-semibold border border-red-500 text-red-700 bg-red-50 hover:bg-red-100 w-full sm:w-auto"
+                        data-value="ditolak">
+                        Ditolak
+                     </button>
                   </div>
+                  <input type="hidden" name="status" id="statusInput" value="">
                </div>
 
-               <div class="mb-4">
-                  <label for="catatan" class="block text-sm font-medium mb-1">Catatan (Opsional)</label>
-                  <textarea id="catatan" name="catatan" rows="3"
-                     class="w-full px-3 py-2 border rounded-lg focus:ring-purple-500 focus:border-purple-500"></textarea>
+               <!-- Alasan Ditolak (hidden by default) -->
+               <div id="alasanField" class="mb-4 hidden">
+                  <label for="alasan_ditolak" class="block text-sm font-medium mb-1">Alasan Ditolak</label>
+                  <textarea id="alasan_ditolak" name="alasan_ditolak" rows="3"
+                     class="w-full px-3 py-2 border rounded-lg focus:ring-red-500 focus:border-red-500"></textarea>
                </div>
             </div>
 
@@ -177,14 +178,28 @@
    <script>
       const statusModal = document.getElementById('statusModal');
       const statusForm = document.getElementById('statusForm');
+      const statusInput = document.getElementById('statusInput');
+      const alasanField = document.getElementById('alasanField');
+      let selectedStatusBtn = null;
 
-      function openStatusModal(id, currentStatus) {
-         statusForm.action = `/admin/jual-ponsel/${id}/update-status`;
+      function openStatusModal(idKredit, currentStatus) {
+         statusForm.action = `/admin/kredit/${idKredit}/update-status`;
+         statusInput.value = currentStatus;
 
-         // Set current status
-         document.querySelectorAll('input[name="status"]').forEach(radio => {
-            if (radio.value === currentStatus) {
-               radio.checked = true;
+         // Reset semua tombol
+         document.querySelectorAll('.status-btn').forEach(btn => {
+            btn.classList.remove('ring', 'ring-offset-2', 'bg-yellow-200', 'bg-green-200', 'bg-red-200');
+            if (btn.dataset.value === currentStatus) {
+               btn.classList.add('ring', 'ring-offset-2');
+               if (currentStatus === 'menunggu') btn.classList.add('bg-yellow-200');
+               if (currentStatus === 'disetujui') btn.classList.add('bg-green-200');
+               if (currentStatus === 'ditolak') {
+                  btn.classList.add('bg-red-200');
+                  alasanField.classList.remove('hidden');
+               } else {
+                  alasanField.classList.add('hidden');
+               }
+               selectedStatusBtn = btn;
             }
          });
 
@@ -195,7 +210,30 @@
          statusModal.classList.add('hidden');
       }
 
-      // Close modal when clicking outside
+      document.addEventListener('DOMContentLoaded', function() {
+         document.querySelectorAll('.status-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+               document.querySelectorAll('.status-btn').forEach(b => {
+                  b.classList.remove('ring', 'ring-offset-2', 'bg-yellow-200', 'bg-green-200',
+                     'bg-red-200');
+               });
+               btn.classList.add('ring', 'ring-offset-2');
+               if (btn.dataset.value === 'menunggu') btn.classList.add('bg-yellow-200');
+               if (btn.dataset.value === 'disetujui') btn.classList.add('bg-green-200');
+               if (btn.dataset.value === 'ditolak') btn.classList.add('bg-red-200');
+
+               // Tampilkan input alasan hanya jika status ditolak
+               if (btn.dataset.value === 'ditolak') {
+                  alasanField.classList.remove('hidden');
+               } else {
+                  alasanField.classList.add('hidden');
+               }
+
+               statusInput.value = btn.dataset.value;
+            });
+         });
+      });
+
       window.addEventListener('click', function(event) {
          if (event.target === statusModal) {
             closeStatusModal();

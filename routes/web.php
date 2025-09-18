@@ -1,30 +1,32 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Broadcast;
-
-use App\Http\Controllers\OngkirController;
-use App\Http\Controllers\UlasanController;
+use App\Http\Controllers\Admin\AdminJualPonselController;
+use App\Http\Controllers\Admin\AdminKreditController;
+use App\Http\Controllers\Admin\AdminTukarTambahController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Customer\HomeController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\TransaksiController;
-use App\Http\Controllers\Customer\CallbackController;
-use App\Http\Controllers\Admin\ProfileControllerAdmin;
-use App\Http\Controllers\Customer\Auth\AuthController;
-use App\Http\Controllers\Customer\KeranjangController;
-use App\Http\Controllers\Customer\BeliPonselController;
-use App\Http\Controllers\Customer\JualPonselController;
-use App\Http\Controllers\Customer\Auth\GoogleController;
-use App\Http\Controllers\Customer\Auth\FacebookController;
-use App\Http\Controllers\Customer\TukarTambahController;
-use App\Http\Controllers\Admin\AdminJualPonselController;
-use App\Http\Controllers\Admin\AdminTukarTambahController;
-use App\Http\Controllers\Customer\ProfileControllerCustomer;
-use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
 use App\Http\Controllers\Admin\PonselController as AdminPonselController;
+use App\Http\Controllers\Admin\ProfileControllerAdmin;
+use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\Customer\Auth\AuthController;
+use App\Http\Controllers\Customer\Auth\FacebookController;
+use App\Http\Controllers\Customer\Auth\GoogleController;
+use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
+use App\Http\Controllers\Customer\BeliPonselController;
+use App\Http\Controllers\Customer\CallbackController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Customer\JualPonselController;
+use App\Http\Controllers\Customer\KeranjangController;
+use App\Http\Controllers\Customer\KreditController;
 use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
+use App\Http\Controllers\Customer\ProfileControllerCustomer;
+use App\Http\Controllers\Customer\TukarTambahController;
+use App\Http\Controllers\OngkirController;
+use App\Http\Controllers\UlasanController;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Route;
 
 // Broadcast (Real-time Chat)
 Broadcast::routes(['middleware' => ['auth:web']]);
@@ -34,13 +36,11 @@ Broadcast::routes(['middleware' => ['auth:admin']]);
 Route::post('callback/payment', [CallbackController::class, 'paymentCallback']);
 Route::get('callback/return', [CallbackController::class, 'myReturnCallback']);
 
-
 Route::middleware('auth:web')->group(function () {
     Route::get('/customer/profile', [ProfileControllerCustomer::class, 'index'])->name('customer.profile');
     Route::put('/customer/profil/upload/{id}', [ProfileControllerCustomer::class, 'upload'])->name('customer.profil.upload');
     Route::put('/customer/update/{id}', [ProfileControllerCustomer::class, 'update'])->name('customer.profil.update');
 });
-
 
 // Halaman Utama
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -67,6 +67,13 @@ Route::controller(FacebookController::class)->group(function () {
 // Customer Authenticated Routes
 Route::middleware('auth:web')->group(function () {
 
+    Route::post('ajukan-kredit/{id_produk}', [KreditController::class, 'ajukanKredit'])->name('ajukan.kredit');
+    Route::post('kredit/step1', [KreditController::class, 'step1Post'])->name('kredit.step1.post');
+    Route::post('kredit/step2', [KreditController::class, 'dataPribadi'])->name('kredit.step2.post');
+    Route::post('kredit/step3', [KreditController::class, 'uploadDokumen'])->name('kredit.step3.post');
+    Route::post('kredit/submit', [KreditController::class, 'submitPengajuan'])->name('kredit.submit');
+    Route::get('/kredit/success/{id}', [KreditController::class, 'success'])->name('customer.kredit.success');
+
     // Produk
     Route::prefix('produk')->name('produk.')->group(function () {
         Route::get('/', [CustomerPonselController::class, 'index'])->name('index');
@@ -82,6 +89,10 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/jual-ponsel', [JualPonselController::class, 'store'])->name('jual.ponsel.store');
     Route::get('/tukar-tambah/{id}', [TukarTambahController::class, 'create'])->name('tukar.tambah.create');
     Route::post('/tukar-tambah', [TukarTambahController::class, 'store'])->name('tukar.tambah.store');
+
+    // Daftar Kredit Ponsel
+    Route::get('/daftar-kredit', [HomeController::class, 'daftarKredit'])->name('daftar.kredit');
+    Route::get('/daftar-kredit/{id}', [HomeController::class, 'daftarKreditShow'])->name('daftar.kredit.show');
 
     // Pengajuan
     Route::get('/pengajuan', [HomeController::class, 'daftarPengajuan'])->name('pengajuan');
@@ -106,11 +117,11 @@ Route::middleware('auth:web')->group(function () {
     // Ongkir
     Route::get('get-kecamatan/{search}', [OngkirController::class, 'getKecamatan']);
     Route::post('get-ongkir', [OngkirController::class, 'getOngkir']);
-    
+
     // Checkout
     Route::post('/checkout-ponsel', [BeliPonselController::class, 'submitCheckout'])->name('checkout');
     Route::put('/pesanan/selesai/{id}', [KeranjangController::class, 'selesai'])->name('selesai');
-    
+
     // Ulasan
     Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
     Route::get('/ulasan.show/{id}', [UlasanController::class, 'show'])->name('ulasan.show');
@@ -138,6 +149,12 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/tukar-tambah/{id}', [AdminTukarTambahController::class, 'show'])->name('tukar-tambah.show');
     Route::put('/tukar-tambah/{id}/update-status', [AdminTukarTambahController::class, 'updateStatus'])->name('tukar-tambah.update-status');
     Route::delete('/tukar-tambah/{id}', [AdminTukarTambahController::class, 'destroy'])->name('tukar-tambah.destroy');
+
+    // Kredit
+    Route::get('/kredit', [AdminKreditController::class, 'index'])->name('kredit.index');
+    Route::get('/kredit/{id}', [AdminKreditController::class, 'show'])->name('kredit.show');
+    Route::put('/kredit/{id}/update-status', [AdminKreditController::class, 'updateStatus'])->name('kredit.updateStatus');
+    Route::delete('/kredit/{id}', [AdminKreditController::class, 'destroy'])->name('kredit.destroy');
 
     // profile
     Route::get('/profile', [ProfileControllerAdmin::class, 'index'])->name('profile');

@@ -109,6 +109,7 @@
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('produk.index') }}">Produk</a>
             <a href="{{ route('pengajuan') }}">Pengajuan</a>
+            <a href="{{ route('daftar.kredit') }}">Daftar Kredit</a>
             <a href="{{ route('customer.inbox') }}">Kontak</a>
             <a href=" {{ route('keranjang') }}">
                 <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Cart" width="20">
