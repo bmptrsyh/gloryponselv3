@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\InboxController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PembukuanController;
 use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Customer\KreditController;
 use App\Http\Controllers\Admin\AdminKreditController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Customer\CallbackController;
 use App\Http\Controllers\Admin\ProfileControllerAdmin;
 use App\Http\Controllers\Customer\Auth\AuthController;
 use App\Http\Controllers\Customer\KeranjangController;
+use App\Http\Controllers\Admin\UpdateCicilanController;
 use App\Http\Controllers\Customer\BeliPonselController;
 use App\Http\Controllers\Customer\JualPonselController;
 use App\Http\Controllers\Customer\Auth\GoogleController;
@@ -29,7 +31,6 @@ use App\Http\Controllers\Customer\Auth\FacebookController;
 use App\Http\Controllers\Customer\ProfileControllerCustomer;
 use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
 use App\Http\Controllers\Admin\PonselController as AdminPonselController;
-use App\Http\Controllers\Admin\UpdateCicilanController;
 use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 
 // Broadcast (Real-time Chat)
@@ -186,6 +187,9 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::get('/transaksi/edit/{id}', [TransaksiController::class, 'edit'])->name('edit.transaksi');
     Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::get('transaksi', [TransaksiController::class, 'semuaTransaksi'])->name('ponsel.transaksi');
+
+    // Pemnukuan
+    Route::get('pembukuan', [PembukuanController::class, 'index'])->name('pembukuan');
 });
 
 // Lupa & Reset Password
