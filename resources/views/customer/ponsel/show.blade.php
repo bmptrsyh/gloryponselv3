@@ -61,13 +61,10 @@
                   class="bg-blue-600 text-white border border-purple-700 px-5 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 inline-block text-center {{ $produk->stok <= 0 ? 'pointer-events-none opacity-50' : '' }}">
                   Tukar Tambah
                </a>
-               <form action="{{ route('ajukan.kredit', $produk->id_ponsel) }}" method="POST" class="inline">
-                  @csrf
-                  <button type="submit"
-                     class="bg-blue-600 text-white border border-purple-700 px-5 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 {{ $produk->stok <= 0 ? 'pointer-events-none opacity-50' : '' }}">
-                     Ajukan Kredit
-                  </button>
-               </form>
+               <a href="{{ route('ajukan.kredit', $produk->id_ponsel) }}"
+                  class="bg-blue-600 text-white border border-purple-700 px-5 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 inline-block text-center {{ $produk->stok <= 0 ? 'pointer-events-none opacity-50' : '' }}">
+                  Ajukan Kredit
+               </a>
             </div>
 
             <!-- Tab Tombol -->
@@ -157,6 +154,7 @@
          const jumlahSpan = document.getElementById('jumlah-span');
          const jumlahInput = document.getElementById('jumlah_produk');
          const jumlahKeranjang = document.getElementById('jumlah_keranjang');
+         const jumlahProdukKredit = document.getElementById('jumlah_produk_kredit');
          const hargaDisplay = document.getElementById('harga-display');
          const maxStok = {{ $produk->stok }};
          const hargaSatuan = {{ $produk->harga_jual }};
@@ -174,6 +172,7 @@
                jumlahSpan.innerText = jumlah;
                jumlahInput.value = jumlah;
                jumlahKeranjang.value = jumlah;
+               jumlahProdukKredit.value = jumlah;
                updateHarga();
             }
          });
@@ -184,6 +183,7 @@
                jumlahSpan.innerText = jumlah;
                jumlahInput.value = jumlah;
                jumlahKeranjang.value = jumlah;
+               jumlahProdukKredit.value = jumlah;
                updateHarga();
             }
          });

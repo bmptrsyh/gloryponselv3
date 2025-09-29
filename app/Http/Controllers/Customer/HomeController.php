@@ -20,19 +20,19 @@ class HomeController extends Controller
     {
 
         $ip = request()->ip();
-    $monthKey = 'visitors:' . now()->format('Y-m');
+        $monthKey = 'visitors:' . now()->format('Y-m');
 
-    $visitors = Cache::get($monthKey, []);
+        $visitors = Cache::get($monthKey, []);
 
-    if (!in_array($ip, $visitors)) {
-        $visitors[] = $ip;
-        $expires = now()->endOfMonth()->diffInMinutes(now());
-        Cache::put($monthKey, $visitors, now()->addMinutes($expires));
-    }
+        if (!in_array($ip, $visitors)) {
+            $visitors[] = $ip;
+            $expires = now()->endOfMonth()->diffInMinutes(now());
+            Cache::put($monthKey, $visitors, now()->addMinutes($expires));
+        }
 
-    $jumlahPengunjung = count($visitors);
+        $jumlahPengunjung = count($visitors);
 
-        
+
         $produkTerbaru = Ponsel::orderBy('created_at', 'desc')->take(4)->get();
         $ulasans = Ulasan::with('ponsel')->get();
         $countUlasan = Ulasan::count();
@@ -40,57 +40,35 @@ class HomeController extends Controller
         $count = Customer::count();
         $beliPonsel = BeliPonsel::all();
         $countBeliPonsel = BeliPonsel::count();
-        
+
 
         // Ambil data customer yang sedang login
         $customer = Auth::user();
-        
-    
-        return view('customer.home', compact('produkTerbaru', 'customer', 'ulasans','count', 'countBeliPonsel', 'countUlasan', 'jumlahPengunjung'));
+
+
+        return view('customer.home', compact('produkTerbaru', 'customer', 'ulasans', 'count', 'countBeliPonsel', 'countUlasan', 'jumlahPengunjung'));
     }
 
-    public function daftarPengajuan() 
+    public function daftarPengajuan()
     {
         $customer = auth('web')->user();
         $id_customer = $customer->id_customer;
         $jualPonsel = JualPonsel::where('id_customer', $id_customer)->get();
         $tukarTambah = TukarTambah::where('id_customer', $id_customer)->get();
 
-        return view ('customer.daftar-pengajuan', compact('jualPonsel', 'tukarTambah'));
+        return view('customer.daftar-pengajuan', compact('jualPonsel', 'tukarTambah'));
     }
 
-    public function daftarKredit()
+    public function showJual($id)
     {
-        $customer = auth('web')->user();
-        $id_customer = $customer->id_customer;
-        $kreditPonsel = KreditPonsel::with('ponsel')
-            ->where('id_customer', $id_customer)
-            ->get();
+        $pengajuan = JualPonsel::findOrFail($id);
 
-        return view('customer.daftar-kredit', compact('kreditPonsel'));
+        return view('customer.pengajuan.show-jual', compact('pengajuan'));
     }
 
-    public function daftarKreditShow($id)
+    public function showTukar($id)
     {
-        $customer = auth('web')->user();
-        $id_customer = $customer->id_customer;
-        $kredit = KreditPonsel::with('ponsel')
-            ->where('id_customer', $id_customer)
-            ->where('id_kredit_ponsel', $id)
-            ->firstOrFail();
-        return view('customer.show-kredit', compact('kredit'));
+        $pengajuan = TukarTambah::with('produkTujuan')->findOrFail($id);
+        return view('customer.pengajuan.show-tukar', compact('pengajuan'));
     }
-
-        public function showJual($id)
-        {
-            $pengajuan = JualPonsel::findOrFail($id);
-
-            return view('customer.pengajuan.show-jual', compact('pengajuan'));
-        }
-
-        public function showTukar($id)
-        {
-            $pengajuan = TukarTambah::with('produkTujuan')->findOrFail($id);
-            return view('customer.pengajuan.show-tukar', compact('pengajuan'));
-        }
 }

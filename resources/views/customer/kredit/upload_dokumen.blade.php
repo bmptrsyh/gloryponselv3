@@ -18,7 +18,7 @@
     
     <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333;">Upload Dokumen</h3>
 
-    <form action="{{ route('kredit.step3.post') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('kredit.upload.dokumen.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <!-- Foto KTP Asli -->

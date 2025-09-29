@@ -19,7 +19,7 @@
 
       <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333;">Data Pribadi</h3>
 
-      <form action="{{ route('kredit.step1.post') }}" method="POST">
+      <form action="{{ route('data.pribadi.store') }}" method="POST">
          @csrf
 
          <!-- Nama Lengkap -->
@@ -34,9 +34,15 @@
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nomor Induk Kependudukan
                (NIK)</label>
             <input type="text" name="nik" placeholder="Masukkan NIK (16 digit)" maxlength="16"
-               value="{{ $customer->nik ?? '' }}"
                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+            @error('nik')
+               <div style="color: red; font-size: 13px;">
+                  {{ $message }}
+               </div>
+            @enderror
          </div>
+
+
 
          <!-- Tempat Lahir -->
          <div style="margin-bottom: 20px;">
@@ -49,7 +55,8 @@
          <!-- Tanggal Lahir -->
          <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Tanggal Lahir</label>
-            <input type="date" name="tanggal_lahir" value="{{ $customer->tanggal_lahir ?? '' }}"
+            <input id="datepicker-autohide" datepicker datepicker-autohide datepicker-max-date="{{ $maxDate }}" type="text" name="tanggal_lahir" value="{{ $customer->tanggal_lahir ?? '' }}"
+            placeholder="Masukkan Tanggal Lahir (Min 17 Tahun)"
                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
          </div>
 
@@ -88,7 +95,8 @@
          <!-- Alamat KTP -->
          <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Alamat KTP</label>
-            <textarea name="alamat_ktp" placeholder="Masukkan alamat sesuai dengan KTP" rows="3" value = "{{ $customer->alamat ?? '' }}"
+            <textarea name="alamat_ktp" placeholder="Masukkan alamat sesuai dengan KTP" rows="3"
+               value = "{{ $customer->alamat ?? '' }}"
                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; resize: vertical;"
                required></textarea>
          </div>
@@ -104,7 +112,8 @@
          <!-- Nomor Telepon -->
          <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nomor Telepon</label>
-            <input type="tel" name="no_telp" placeholder="Masukkan nomor telepon aktif" value="{{ $customer->nomor_telepon ?? '' }}"
+            <input type="tel" name="no_telp" placeholder="Masukkan nomor telepon aktif"
+               value="{{ $customer->nomor_telepon ?? '' }}"
                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
          </div>
 
@@ -138,6 +147,26 @@
       // Phone number validation - only numbers and + symbol
       document.querySelector('input[name="no_telp"]').addEventListener('input', function(e) {
          this.value = this.value.replace(/[^0-9+]/g, '');
+      });
+      document.querySelector('input[name="tempat_lahir"]').addEventListener('input', function(e) {
+         const regex = /^[a-zA-Z\s]*$/;
+         if (!regex.test(e.target.value)) {
+            e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+         }
+      });
+      document.querySelector('input[name="nama_lengkap"]').addEventListener('input', function(e) {
+         const regex = /^[a-zA-Z\s']*$/;
+         if (!regex.test(e.target.value)) {
+            e.target.value = e.target.value.replace(/[^a-zA-Z\s']/g, '');
+         }
+      });
+
+      document.addEventListener("DOMContentLoaded", function() {
+         flatpickr("#tanggal_lahir", {
+            dateFormat: "Y-m-d", // format simpan ke DB
+            maxDate: "{{ $maxDate }}", // dari controller (umur minimal 17 tahun)
+            locale: "id", // biar pakai bahasa Indonesia (opsional)
+         });
       });
    </script>
 @endsection

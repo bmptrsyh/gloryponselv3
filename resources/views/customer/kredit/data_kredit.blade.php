@@ -17,7 +17,7 @@
                </div>
                <div>
                   <p class="font-semibold text-gray-600">Tanggal Lahir</p>
-                  <p class="font-medium">{{ $data['step1']['tanggal_lahir'] ?? '-' }}</p>
+                  <p class="font-medium">{{ $tanggal_lahir ?? '-' }}</p>
                </div>
                <div>
                   <p class="font-semibold text-gray-600">Jenis Kelamin</p>
@@ -33,7 +33,7 @@
                </div>
                <div>
                   <p class="font-semibold text-gray-600">No. Telepon</p>
-                  <p class="font-medium">{{ $data['step1']['telepon'] ?? '-' }}</p>
+                  <p class="font-medium">{{ $data['step1']['no_telp'] ?? '-' }}</p>
                </div>
                <div>
                   <p class="font-semibold text-gray-600">Email</p>
@@ -63,11 +63,11 @@
                </div>
                <div>
                   <p class="font-semibold text-gray-600">Penghasilan</p>
-                  <p class="font-medium">{{ $data['step2']['penghasilan_bulanan'] ?? '-' }}</p>
+                  <p class="font-medium">Rp {{ number_format($data['step2']['penghasilan_bulanan'], 0, ',', '.') }}</p>
                </div>
                <div>
                   <p class="font-semibold text-gray-600">Penghasilan Lain</p>
-                  <p class="font-medium">{{ $data['step2']['penghasilan_lain'] ?? '-' }}</p>
+                  <p class="font-medium">Rp {{ number_format($data['step2']['penghasilan_lain'] ?? 0, 0, ',', '.') }}</p>
                </div>
                <div>
                   <p class="font-semibold text-gray-600">Jangka Waktu</p>
@@ -75,7 +75,7 @@
                </div>
                <div>
                   <p class="font-semibold text-gray-600">DP</p>
-                  <p class="font-medium">Rp {{ number_format($data['step2']['dp'] ?? 0) }}</p>
+                  <p class="font-medium">Rp {{ number_format($data['step2']['jumlah_dp'] ?? 0, 0, ',', '.') }}</p>
                </div>
             </div>
          </div>

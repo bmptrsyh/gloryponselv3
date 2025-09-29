@@ -14,7 +14,6 @@ class CallbackController extends DuitkuBaseController
     protected function onPaymentSuccess(string $orderId, string $productDetail, int $amount, string $paymentCode, ?string $shopeeUserHash, string $reference, ?string $additionalParam): void
     {
         $beliponsel = BeliPonsel::where('code', $orderId)->first();
-        dd($orderId, $beliponsel);
         if (!$beliponsel) return;
         $beliponsel->status = 'selesai';
         $beliponsel->save();

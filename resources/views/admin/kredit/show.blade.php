@@ -51,25 +51,44 @@
                   <p class="text-sm text-gray-600">{{ $kredit->created_at->format('d M Y') }}</p>
                </div>
             </div>
-            @if ($kredit->status == 'menunggu')
-               <span class="inline-block px-3 py-1 text-sm rounded-full bg-yellow-100 text-yellow-700 mb-2">
-                  Menunggu
-               </span>
-            @elseif($kredit->status == 'disetujui')
-               <span class="inline-block px-3 py-1 text-sm rounded-full bg-green-100 text-green-700 mb-2">
-                  Disetujui
-               </span>
-            @elseif($kredit->status == 'ditolak')
-               <span class="inline-block px-3 py-1 text-sm rounded-full bg-red-100 text-red-700 mb-2">
-                  Ditolak
-               </span>
-            @endif
+            <div class="flex items-start justify-between mb-2">
+               @if ($kredit->status == 'menunggu')
+                  <span class="inline-block px-3 py-1 text-sm rounded-full bg-yellow-100 text-yellow-700 mb-2">
+                     Menunggu
+                  </span>
+               @elseif($kredit->status == 'disetujui')
+                  <span class="inline-block px-3 py-1 text-sm rounded-full bg-green-100 text-green-700 mb-2">
+                     Disetujui
+                  </span>
+               @elseif($kredit->status == 'ditolak')
+                  <span class="inline-block px-3 py-1 text-sm rounded-full bg-red-100 text-red-700 mb-2">
+                     Ditolak
+                  </span>
+               @endif
+               @if ($jatuhTempo)
+                  <div class="text-right">
+                     <p class="text-xs text-gray-400">Jatuh Tempo Pertama</p>
+                     <p class="text-sm text-gray-600">
+                        {{ \Carbon\Carbon::parse($jatuhTempo)->format('d M Y') }}
+                     </p>
+                  </div>
+               @endif
+            </div>
             <p class="text-gray-600">Harga Pengajuan</p>
             <p class="text-2xl font-bold text-purple-700">Rp {{ number_format($kredit->jumlah_pinjaman, 0, ',', '.') }}
             </p>
          </div>
          <div class="p-4 bg-white rounded-lg shadow">
-            <h2 class="text-base font-semibold text-bold mb-3">Informasi Cicilan</h2>
+            <div class="flex items-start justify-between mb-2">
+               <h2 class="text-base font-semibold text-bold mb-3">Informasi Cicilan</h2>
+               <div class="text-right ">
+                  <a href="{{ route('admin.cicilan.show', $kredit->id_kredit_ponsel) }}"
+                     class="bg-blue-600 text-white border border-purple-700 px-5 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 inline-block text-center {{ $produk->stok <= 0 ? 'pointer-events-none opacity-50' : '' }}">
+                     Detail Cicilan
+                  </a>
+               </div>
+            </div>
+
             <div class="grid grid-cols-2 gap-y-3 text-sm font-semibold">
                <div>
                   <p class="text-gray-600">Harga Ponsel</p>
@@ -104,7 +123,7 @@
             </div>
             <div>
                <p class="font-semibold text-gray-600">Tanggal Lahir</p>
-               <p class="font-medium">{{ $kredit->tanggal_lahir }}</p>
+               <p class="font-medium">{{ \Carbon\Carbon::parse($kredit->tanggal_lahir)->format('d M Y') }}</p>
             </div>
             <div>
                <p class="font-semibold text-gray-600">Jenis Kelamin</p>

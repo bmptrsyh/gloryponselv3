@@ -118,7 +118,6 @@
    </div>
 
    <!-- Modal Update Status -->
-   <!-- Modal Update Status -->
    <div id="statusModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
       <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
          <form id="statusForm" action="" method="POST">

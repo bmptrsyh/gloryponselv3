@@ -1,32 +1,36 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminJualPonselController;
-use App\Http\Controllers\Admin\AdminKreditController;
-use App\Http\Controllers\Admin\AdminTukarTambahController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\InboxController;
-use App\Http\Controllers\Admin\PaymentController;
-use App\Http\Controllers\Admin\PonselController as AdminPonselController;
-use App\Http\Controllers\Admin\ProfileControllerAdmin;
-use App\Http\Controllers\Admin\TransaksiController;
-use App\Http\Controllers\Customer\Auth\AuthController;
-use App\Http\Controllers\Customer\Auth\FacebookController;
-use App\Http\Controllers\Customer\Auth\GoogleController;
-use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
-use App\Http\Controllers\Customer\BeliPonselController;
-use App\Http\Controllers\Customer\CallbackController;
-use App\Http\Controllers\Customer\HomeController;
-use App\Http\Controllers\Customer\JualPonselController;
-use App\Http\Controllers\Customer\KeranjangController;
-use App\Http\Controllers\Customer\KreditController;
-use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
-use App\Http\Controllers\Customer\ProfileControllerCustomer;
-use App\Http\Controllers\Customer\TukarTambahController;
+use App\Models\Admin;
+use App\Models\Angsuran;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Broadcast;
 use App\Http\Controllers\OngkirController;
 use App\Http\Controllers\UlasanController;
-use App\Models\Admin;
-use Illuminate\Support\Facades\Broadcast;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\InboxController;
+use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Customer\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\Customer\KreditController;
+use App\Http\Controllers\Admin\AdminKreditController;
+use App\Http\Controllers\Customer\AngsuranController;
+use App\Http\Controllers\Customer\CallbackController;
+use App\Http\Controllers\Admin\ProfileControllerAdmin;
+use App\Http\Controllers\Customer\Auth\AuthController;
+use App\Http\Controllers\Customer\KeranjangController;
+use App\Http\Controllers\Customer\BeliPonselController;
+use App\Http\Controllers\Customer\JualPonselController;
+use App\Http\Controllers\Customer\Auth\GoogleController;
+use App\Http\Controllers\Customer\TukarTambahController;
+use App\Http\Controllers\Admin\AdminJualPonselController;
+use App\Http\Controllers\Customer\DaftarKreditController;
+use App\Http\Controllers\Admin\AdminTukarTambahController;
+use App\Http\Controllers\Customer\Auth\FacebookController;
+use App\Http\Controllers\Customer\ProfileControllerCustomer;
+use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
+use App\Http\Controllers\Admin\PonselController as AdminPonselController;
+use App\Http\Controllers\Admin\UpdateCicilanController;
+use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
 
 // Broadcast (Real-time Chat)
 Broadcast::routes(['middleware' => ['auth:web']]);
@@ -67,12 +71,16 @@ Route::controller(FacebookController::class)->group(function () {
 // Customer Authenticated Routes
 Route::middleware('auth:web')->group(function () {
 
-    Route::post('ajukan-kredit/{id_produk}', [KreditController::class, 'ajukanKredit'])->name('ajukan.kredit');
-    Route::post('kredit/step1', [KreditController::class, 'step1Post'])->name('kredit.step1.post');
-    Route::post('kredit/step2', [KreditController::class, 'dataPribadi'])->name('kredit.step2.post');
-    Route::post('kredit/step3', [KreditController::class, 'uploadDokumen'])->name('kredit.step3.post');
-    Route::post('kredit/submit', [KreditController::class, 'submitPengajuan'])->name('kredit.submit');
-    Route::get('/kredit/success/{id}', [KreditController::class, 'success'])->name('customer.kredit.success');
+    //Ajukan Kredit
+    Route::get('ajukan-kredit/{id_produk}', [KreditController::class, 'ajukanKredit'])->name('ajukan.kredit');
+    Route::post('data-pribadi', [KreditController::class, 'dataPribadiStore'])->name('data.pribadi.store');
+    Route::get('data-pekerjaan', [KreditController::class, 'dataPekerjaan'])->name('data.pekerjaan');
+    Route::post('data-pekerjaan', [KreditController::class, 'dataPekerjaanStore'])->name('data.pekerjaan.store');
+    Route::get('upload-dokumen', [KreditController::class, 'uploadDokumenForm'])->name('kredit.upload.dokumen');
+    Route::post('upload-dokumen', [KreditController::class, 'uploadDokumenStore'])->name('kredit.upload.dokumen.store');
+    Route::get('data-kredit', [KreditController::class, 'dataKredit'])->name('data.kredit');
+    Route::post('submit-kredit', [KreditController::class, 'submitKredit'])->name('kredit.submit');
+    Route::get('kredit-success/{id}', [KreditController::class, 'success'])->name('kredit.success');
 
     // Produk
     Route::prefix('produk')->name('produk.')->group(function () {
@@ -84,6 +92,7 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/beli-ponsel', [BeliPonselController::class, 'beliPonsel'])->name('beli.ponsel');
     Route::get('/transaksi', [BeliPonselController::class, 'transaksi'])->name('transaksi.index');
 
+
     // Jual Ponsel & Tukar Tambah
     Route::get('/jual-ponsel', [JualPonselController::class, 'create'])->name('jual.ponsel.create');
     Route::post('/jual-ponsel', [JualPonselController::class, 'store'])->name('jual.ponsel.store');
@@ -91,8 +100,11 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/tukar-tambah', [TukarTambahController::class, 'store'])->name('tukar.tambah.store');
 
     // Daftar Kredit Ponsel
-    Route::get('/daftar-kredit', [HomeController::class, 'daftarKredit'])->name('daftar.kredit');
-    Route::get('/daftar-kredit/{id}', [HomeController::class, 'daftarKreditShow'])->name('daftar.kredit.show');
+    Route::get('/daftar-kredit', [DaftarKreditController::class, 'daftarKredit'])->name('daftar.kredit');
+    Route::get('/daftar-kredit/{id}', [DaftarKreditController::class, 'daftarKreditShow'])->name('daftar.kredit.show');
+
+    // Detail Angsuran
+    Route::get('/detail-cicilan/{id}', [AngsuranController::class, 'detailCicilan'])->name('detail.cicilan');
 
     // Pengajuan
     Route::get('/pengajuan', [HomeController::class, 'daftarPengajuan'])->name('pengajuan');
@@ -156,6 +168,10 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::put('/kredit/{id}/update-status', [AdminKreditController::class, 'updateStatus'])->name('kredit.updateStatus');
     Route::delete('/kredit/{id}', [AdminKreditController::class, 'destroy'])->name('kredit.destroy');
 
+    // cicilan
+    Route::get('/cicilan/{id}', [UpdateCicilanController::class, 'show'])->name('cicilan.show');
+    Route::put('/angsuran/{id}/update-status', [UpdateCicilanController::class, 'updateStatus'])->name('angsuran.updateStatus');
+
     // profile
     Route::get('/profile', [ProfileControllerAdmin::class, 'index'])->name('profile');
     Route::put('/profile/upload', [ProfileControllerAdmin::class, 'upload'])->name('profil.upload');
@@ -174,10 +190,10 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
 
 // Lupa & Reset Password
 Route::controller(OTPResetPasswordController::class)->group(function () {
-    Route::get('forgot-password', fn () => view('auth.forgot-password'))->name('password.request');
+    Route::get('forgot-password', fn() => view('auth.forgot-password'))->name('password.request');
     Route::post('forgot-password', 'sendOTP')->name('password.otp.send');
-    Route::get('verify-otp', fn () => view('auth.verify-otp'))->name('password.otp.verify.form');
+    Route::get('verify-otp', fn() => view('auth.verify-otp'))->name('password.otp.verify.form');
     Route::post('verify-otp', 'verifyOTP')->name('password.otp.verify');
-    Route::get('/reset-password', fn () => view('auth.reset-password', ['email' => request()->query('email')]))->name('password.reset.form');
+    Route::get('/reset-password', fn() => view('auth.reset-password', ['email' => request()->query('email')]))->name('password.reset.form');
     Route::post('reset-password', 'resetPassword')->name('password.update');
 });

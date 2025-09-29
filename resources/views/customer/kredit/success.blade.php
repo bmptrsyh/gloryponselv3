@@ -22,32 +22,27 @@
          <div>
             <label class="block text-sm font-medium">Harga Ponsel</label>
             <p>Rp {{ number_format($hargaPonsel, 0, ',', '.') }}</p>
-
          </div>
          <div>
             <label class="block text-sm font-medium">Jangka Waktu (Bulan)</label>
             <p>{{ $kredit->tenor }}</p>
-
          </div>
          <div>
             <label class="block text-sm font-medium">Jumlah DP</label>
             <p>Rp {{ number_format($kredit->jumlah_DP, 0, ',', '.') }}</p>
-
          </div>
          <div>
             <label class="block text-sm font-medium">Total Cicilan Per Bulan</label>
             <p>Rp {{ number_format($kredit->angsuran_per_bulan, 0, ',', '.') }}</p>
-
          </div>
          <div>
             <label class="block text-sm font-medium">Total Bayar</label>
             <p>Rp {{ number_format($kredit->jumlah_pinjaman, 0, ',', '.') }}</p>
-
          </div>
       </div>
-
       <div class="flex justify-between mt-6">
          <a href="{{ route('home') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Selesai</a>
+         <a href="{{ route('daftar.kredit.show', $kredit->id_kredit_ponsel) }}" class="bg-green-600 text-white px-4 py-2 rounded">Lihat Status</a>
       </div>
    </div>
 @endsection

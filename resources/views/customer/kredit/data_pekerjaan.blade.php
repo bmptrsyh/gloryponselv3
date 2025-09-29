@@ -18,7 +18,7 @@
     
     <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333;">Data Pekerjaan & Pengajuan</h3>
 
-    <form action="{{ route('kredit.step2.post') }}" method="POST">
+    <form action="{{ route('data.pekerjaan.store') }}" method="POST">
         @csrf
         
         <!-- Pekerjaan -->
@@ -26,6 +26,11 @@
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Pekerjaan</label>
             <input type="text" name="pekerjaan" placeholder="Masukkan pekerjaan Anda" 
                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+            @error('pekerjaan')
+               <div style="color: red; font-size: 13px;">
+                  {{ $message }}
+               </div>
+            @enderror
         </div>
 
         <!-- Nama Perusahaan -->
@@ -33,6 +38,11 @@
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Nama Perusahaan</label>
             <input type="text" name="nama_perusahaan" placeholder="Masukkan nama perusahaan Anda" 
                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+            @error('nama_perusahaan')
+               <div style="color: red; font-size: 13px;">
+                  {{ $message }}
+               </div>
+            @enderror
         </div>
 
         <!-- Alamat Perusahaan -->
@@ -40,13 +50,23 @@
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Alamat Perusahaan</label>
             <textarea name="alamat_perusahaan" placeholder="Masukkan Alamat Lengkap Perusahaan" rows="3"
                       style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; resize: vertical;" required></textarea>
+            @error('alamat_perusahaan')
+                <div style="color: red; font-size: 13px;">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <!-- Lama Bekerja -->
         <div style="margin-bottom: 20px;">
-            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Lama Bekerja</label>
+            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Lama Bekerja (Bulan)</label>
             <input type="number" name="lama_bekerja" placeholder="Masukkan Berapa Lama Anda Bekerja" 
                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+            @error('lama_bekerja')
+                <div style="color: red; font-size: 13px;">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <!-- Penghasilan Bulanan -->
@@ -54,6 +74,11 @@
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Penghasilan Bulanan</label>
             <input type="number" name="penghasilan_bulanan" placeholder="Masukkan penghasilan bulanan" 
                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+            @error('penghasilan_bulanan')
+                <div style="color: red; font-size: 13px;">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <!-- Penghasilan Lain (opsional) -->
@@ -68,13 +93,23 @@
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Jangka Waktu Pinjaman (Bulan)</label>
             <input type="number" name="jangka_waktu" placeholder="Contoh: 12" 
                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+            @error('jangka_waktu')
+                <div style="color: red; font-size: 13px;">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         <!-- Jumlah DP -->
         <div style="margin-bottom: 30px;">
             <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #333;">Jumlah DP</label>
             <input type="number" name="jumlah_dp" placeholder="Masukkan Jumlah DP anda" 
-                   style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" required>
+                   style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+            @error('jumlah_dp')
+               <div style="color: red; font-size: 13px;">
+                  {{ $message }}
+               </div>
+            @enderror
         </div>
 
         <!-- Navigation Buttons -->

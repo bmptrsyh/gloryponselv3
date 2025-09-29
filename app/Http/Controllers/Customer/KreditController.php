@@ -2,65 +2,70 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Http\Controllers\Controller;
-use App\Models\KreditPonsel;
+use Carbon\Carbon;
 use App\Models\Ponsel;
+use App\Models\KreditPonsel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Kredit\DataPribadiRequest;
+use App\Http\Requests\Kredit\DataPekerjaanRequest;
 
 class KreditController extends Controller
 {
+
     public function ajukanKredit($id_produk)
     {
         $customer = auth('web')->user();
+        $jumlah = 1;
         session(['kredit_produk_id' => $id_produk]);
+        $maxDate = Carbon::now()->subYears(17)->format('m/d/Y');
 
-        return view('customer.kredit.data_pribadi', compact('customer'));
+        return view('customer.kredit.data_pribadi', compact('customer', 'maxDate'));
     }
 
-    public function step1Post(Request $request)
+    public function dataPekerjaan()
     {
-        $validated = $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'nik' => 'required|digits:16',
-            'tempat_lahir' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'status_pernikahan' => 'required|in:Belum Menikah,Menikah',
-            'alamat_ktp' => 'required|string',
-            'alamat_domisili' => 'required|string',
-            'no_telp' => 'required|string',
-            'email' => 'required|email',
-        ]);
-
-        // simpan ke session
-        session(['kredit_step1' => $validated]);
-
-        // redirect ke step 2
         return view('customer.kredit.data_pekerjaan');
-
     }
 
-    public function dataPribadi(Request $request)
+    public function uploadDokumenForm()
     {
-        $validated = $request->validate([
-            'pekerjaan' => 'required|string|max:255',
-            'nama_perusahaan' => 'required|string|max:255',
-            'alamat_perusahaan' => 'required|string',
-            'lama_bekerja' => 'required|string|max:100',
-            'penghasilan_bulanan' => 'required|numeric|min:0',
-            'penghasilan_lain' => 'nullable|numeric|min:0',
-            'jangka_waktu' => 'required|integer|min:1',
-            'jumlah_dp' => 'required|numeric|min:0',
-        ]);
-
-        // Simpan ke session (step2)
-        session(['kredit_step2' => $validated]);
-
         return view('customer.kredit.upload_dokumen');
     }
 
-    public function uploadDokumen(Request $request)
+    public function dataKredit()
+    {
+        $data = [
+            'step1' => session('data_pribadi', []),
+            'step2' => session('data_pekerjaan', []),
+            'step3' => session('upload_dokumen', []),
+        ];
+        $tanggal_lahir = Carbon::parse($data['step1']['tanggal_lahir'])->translatedFormat('d F Y');
+
+        return view('customer.kredit.data_kredit', compact('data', 'tanggal_lahir'));
+    }
+
+    public function dataPribadiStore(DataPribadiRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['tanggal_lahir'] = Carbon::createFromFormat('m/d/Y', $validated['tanggal_lahir'])->format('Y-m-d');
+        session(['data_pribadi' => $validated]);
+
+        return redirect()->route('data.pekerjaan');
+    }
+
+    public function dataPekerjaanStore(DataPekerjaanRequest $request)
+    {
+        $validated = $request->validated();
+
+        // Simpan ke session (step2)
+        session(['data_pekerjaan' => $validated]);
+
+        return redirect()->route('kredit.upload.dokumen');
+    }
+
+    public function uploadDokumenStore(Request $request)
     {
         $validated = $request->validate([
             'foto_ktp' => 'required|image|mimes:jpg,jpeg,png|max:2048',
@@ -72,76 +77,70 @@ class KreditController extends Controller
         $fotoSelfie = base64_encode(file_get_contents($request->file('foto_selfie')));
 
         // simpan ke session
-        session(['kredit_step3' => [
+        session(['upload_dokumen' => [
             'foto_ktp' => $fotoKtp,
             'foto_selfie' => $fotoSelfie,
         ]]);
 
-        $data = [
-            'step1' => session('kredit_step1', []),
-            'step2' => session('kredit_step2', []),
-            'step3' => session('kredit_step3', []),
-        ];
-
-        return view('customer.kredit.data_kredit', compact('data'));
+        return redirect()->route('data.kredit');
     }
 
-    public function submitPengajuan(Request $request)
+    public function submitKredit(Request $request)
     {
         $id_produk = session('kredit_produk_id');
-        $step1 = session('kredit_step1', []);
-        $step2 = session('kredit_step2', []);
-        $step3 = session('kredit_step3', []);
+        $data_pribadi = session('data_pribadi', []);
+        $data_pekerjaan = session('data_pekerjaan', []);
+        $upload_dokumen = session('upload_dokumen', []);
         $ponsel = Ponsel::find($id_produk);
 
         $hargaPonsel = $ponsel->harga_jual;
         $bunga = $hargaPonsel * 0.015;
         $totalHarga = $hargaPonsel + $bunga;
-        $dp = $step2['jumlah_dp'];
-        $jangkaWaktu = $step2['jangka_waktu'];
+        $dp = $data_pekerjaan['jumlah_dp'];
+        $jangkaWaktu = $data_pekerjaan['jangka_waktu'];
 
         $sisa = $totalHarga - $dp;
         $cicilanPerBulan = $jangkaWaktu > 0 ? $sisa / $jangkaWaktu : 0;
         // Validasi ulang sebelum menyimpan
 
-        if (empty($step1) || empty($step2) || empty($step3) || empty($id_produk)) {
-            return redirect()->route('kredit.step1')->with('error', 'Data pengajuan tidak lengkap. Silakan mulai dari awal.');
+        if (empty($data_pribadi) || empty($data_pekerjaan) || empty($upload_dokumen) || empty($id_produk)) {
+            return redirect()->route('produk.show', $id_produk)->with('error', 'Data pengajuan tidak lengkap. Silakan mulai dari awal.');
         }
 
         $ktpPath = null;
         $selfiePath = null;
 
-        if (! empty($step3['foto_ktp'])) {
-            $ktpPath = 'kredit/ktp/'.uniqid().'.jpg';
-            Storage::disk('public')->put($ktpPath, base64_decode($step3['foto_ktp']));
+        if (! empty($upload_dokumen['foto_ktp'])) {
+            $ktpPath = 'kredit/ktp/' . uniqid() . '.jpg';
+            Storage::disk('public')->put($ktpPath, base64_decode($upload_dokumen['foto_ktp']));
         }
 
-        if (! empty($step3['foto_selfie'])) {
-            $selfiePath = 'kredit/foto_selfie/'.uniqid().'.jpg';
-            Storage::disk('public')->put($selfiePath, base64_decode($step3['foto_selfie']));
+        if (! empty($upload_dokumen['foto_selfie'])) {
+            $selfiePath = 'kredit/foto_selfie/' . uniqid() . '.jpg';
+            Storage::disk('public')->put($selfiePath, base64_decode($upload_dokumen['foto_selfie']));
         }
         $kredit = KreditPonsel::create([
             'id_customer' => auth('web')->id(),
             'id_ponsel' => $id_produk,
-            'nama_lengkap' => $step1['nama_lengkap'],
-            'NIK' => $step1['nik'],
-            'tempat_lahir' => $step1['tempat_lahir'],
-            'tanggal_lahir' => $step1['tanggal_lahir'],
-            'jenis_kelamin' => $step1['jenis_kelamin'],
-            'status_pernikahan' => $step1['status_pernikahan'],
-            'alamat_ktp' => $step1['alamat_ktp'],
-            'alamat_domisili' => $step1['alamat_domisili'],
-            'no_telepon' => $step1['no_telp'],
-            'email' => $step1['email'],
+            'nama_lengkap' => $data_pribadi['nama_lengkap'],
+            'NIK' => $data_pribadi['nik'],
+            'tempat_lahir' => $data_pribadi['tempat_lahir'],
+            'tanggal_lahir' => $data_pribadi['tanggal_lahir'],
+            'jenis_kelamin' => $data_pribadi['jenis_kelamin'],
+            'status_pernikahan' => $data_pribadi['status_pernikahan'],
+            'alamat_ktp' => $data_pribadi['alamat_ktp'],
+            'alamat_domisili' => $data_pribadi['alamat_domisili'],
+            'no_telepon' => $data_pribadi['no_telp'],
+            'email' => $data_pribadi['email'],
 
-            'pekerjaan' => $step2['pekerjaan'],
-            'nama_perusahaan' => $step2['nama_perusahaan'],
-            'alamat_perusahaan' => $step2['alamat_perusahaan'],
-            'lama_bekerja' => $step2['lama_bekerja'],
-            'penghasilan_per_bulan' => $step2['penghasilan_bulanan'],
-            'penghasilan_lainnya' => $step2['penghasilan_lain'] ?? 0,
-            'tenor' => $step2['jangka_waktu'],
-            'jumlah_DP' => $step2['jumlah_dp'],
+            'pekerjaan' => $data_pekerjaan['pekerjaan'],
+            'nama_perusahaan' => $data_pekerjaan['nama_perusahaan'],
+            'alamat_perusahaan' => $data_pekerjaan['alamat_perusahaan'],
+            'lama_bekerja' => $data_pekerjaan['lama_bekerja'],
+            'penghasilan_per_bulan' => $data_pekerjaan['penghasilan_bulanan'],
+            'penghasilan_lainnya' => $data_pekerjaan['penghasilan_lain'] ?? 0,
+            'tenor' => $data_pekerjaan['jangka_waktu'],
+            'jumlah_DP' => $data_pekerjaan['jumlah_dp'],
             'angsuran_per_bulan' => $cicilanPerBulan,
             'jumlah_pinjaman' => $totalHarga,
 
@@ -150,10 +149,11 @@ class KreditController extends Controller
 
             'status' => 'menunggu',
         ]);
-        // Hapus data session setelah submit
-        session()->forget(['kredit_step1', 'kredit_step2', 'kredit_step3', 'kredit_produk_id']);
 
-        return redirect()->route('customer.kredit.success', $kredit->id_kredit_ponsel);
+        // Hapus data session setelah submit
+        session()->forget(['data_pribadi', 'data_pekerjaan', 'upload_dokumen', 'kredit_produk_id']);
+
+        return redirect()->route('kredit.success', $kredit->id_kredit_ponsel);
     }
 
     public function success($id)

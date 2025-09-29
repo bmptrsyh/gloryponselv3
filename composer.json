@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "duitkupg/duitku-php": "dev-master",
+        "intervention/image": "^3.11",
         "laravel/framework": "^11.0",
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",

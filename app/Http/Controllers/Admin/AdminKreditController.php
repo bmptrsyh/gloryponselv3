@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Angsuran;
 use App\Models\KreditPonsel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminKreditController extends Controller
 {
@@ -19,9 +20,14 @@ class AdminKreditController extends Controller
 
     public function show($id)
     {
-        $kredit = KreditPonsel::with('customer', 'ponsel')->findOrFail($id);
+        $kredit = KreditPonsel::with('customer', 'ponsel', 'angsuran')->findOrFail($id);
 
-        return view('admin.kredit.show', compact('kredit'));
+        $jatuhTempo = null;
+        if ($kredit->angsuran->isNotEmpty()) {
+            $jatuhTempo = $kredit->angsuran->first()->jatuh_tempo;
+        }
+
+        return view('admin.kredit.show', compact('kredit', 'jatuhTempo'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -40,13 +46,26 @@ class AdminKreditController extends Controller
             $kredit->alasan_ditolak = null; // reset kalau disetujui
         }
 
-        if ($request->status === 'disetujui') {
-            $kredit->alasan_ditolak = null; // reset alasan ditolak jika disetujui
-        }
-
-
-
         $kredit->save();
+
+        if ($kredit->status === 'disetujui') {
+            $tanggal = $kredit->updated_at;
+            $jatuhTempoAwal = \Carbon\Carbon::parse($tanggal)->addDays(7); // 7 hari setelah disetujui
+
+            for ($i = 1; $i <= $kredit->tenor; $i++) {
+                Angsuran::firstOrCreate(
+                    [
+                        'id_kredit_ponsel' => $kredit->id_kredit_ponsel,
+                        'bulan_ke' => $i,
+                    ],
+                    [
+                        'jumlah_cicilan' => $kredit->angsuran_per_bulan,
+                        'jatuh_tempo' => $jatuhTempoAwal->copy()->addMonths($i - 1),
+                        'status' => 'belum',
+                    ]
+                );
+            }
+        }
 
         return redirect()->route('admin.kredit.index')->with('success', 'Status pengajuan berhasil diperbarui!');
     }

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Ponsel;
+use App\Models\Angsuran;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
 
 class KreditPonsel extends Model
@@ -45,5 +48,9 @@ class KreditPonsel extends Model
     public function ponsel()
     {
         return $this->belongsTo(Ponsel::class, 'id_ponsel', 'id_ponsel');
+    }
+    public function angsuran() 
+    {
+        return $this->hasMany(Angsuran::class, 'id_kredit_ponsel', 'id_kredit_ponsel');
     }
 }
