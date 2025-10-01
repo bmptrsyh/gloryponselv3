@@ -188,7 +188,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->name('transaksi.update');
     Route::get('transaksi', [TransaksiController::class, 'semuaTransaksi'])->name('ponsel.transaksi');
 
-    // Pemnukuan
+    // Pembukuan
     Route::get('pembukuan', [PembukuanController::class, 'index'])->name('pembukuan');
 });
 
