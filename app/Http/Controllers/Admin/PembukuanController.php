@@ -13,12 +13,6 @@ class PembukuanController extends Controller
 {
     public function index()
     {
-        $laporan = collect()
-            ->merge(BeliPonsel::all())
-            ->merge(JualPonsel::all())
-            ->merge(KreditPonsel::all())
-            ->merge(TukarTambah::all());
-        dd($laporan->sortByDesc('created_at')->values()->all());
-        return view('admin.pembukuan.index', compact('laporan'));
+        return view('admin.pembukuan.index');
     }
 }

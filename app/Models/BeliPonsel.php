@@ -11,7 +11,7 @@ class BeliPonsel extends Model
 
     protected $table = 'beli_ponsel';
     protected $primaryKey = 'id_beli_ponsel';
-    public $timestamps = true; // Pastikan ini true karena ada timestamps di migration
+    public $timestamps = true; 
 
     protected $fillable = [
         'id_customer',
