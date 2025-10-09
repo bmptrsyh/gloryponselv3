@@ -53,4 +53,9 @@ class KreditPonsel extends Model
     {
         return $this->hasMany(Angsuran::class, 'id_kredit_ponsel', 'id_kredit_ponsel');
     }
+
+    public function pembukuan()
+    {
+        return $this->morphOne(Pembukuan::class, 'transaksi');
+    }
 }

@@ -35,4 +35,9 @@ class JualPonsel extends Model
     {
         return $this->belongsTo(Customer::class, 'id_customer', 'id_customer');
     }
+
+    public function pembukuan()
+    {
+        return $this->morphOne(Pembukuan::class, 'transaksi');
+    }
 }

@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('laporan_pembukuan', function (Blueprint $table) {
             $table->id('id_laporan');
+            $table->nullableMorphs('transaksi');
             $table->date('tanggal');
             $table->string('deskripsi');
-            $table->integer('Debit')->nullable();
-            $table->integer('Kredit')->nullable();
-            $table->integer('Saldo')->nullable();
+            $table->integer('debit')->nullable();
+            $table->integer('kredit')->nullable();
+            $table->integer('saldo')->nullable();
             $table->string('metode_pembayaran')->nullable();
             $table->timestamps();
+            $table->unique(['transaksi_id', 'transaksi_type']);
         });
     }
 

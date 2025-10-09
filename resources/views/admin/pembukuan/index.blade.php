@@ -5,18 +5,43 @@
             Daftar Laporan Pembukuan
          </h2>
          <div class="flex flex-col sm:flex-row gap-2 sm:space-x-2">
-            <a href=""
-               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 w-full sm:w-auto inline-block text-center">
-               Tambahkan
-            </a>
+            <a href="{{ route('admin.pembukuan.create') }}"
+               class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition shadow">
+               <i class="fas fa-plus mr-1"></i> Tambah Laporan</a>
          </div>
       </div>
-      <div class="w-full overflow-hidden rounded-lg shadow-xs">
-         <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap">
+
+      {{-- 🔹 Filter --}}
+      <form method="GET" action="{{ route('admin.pembukuan') }}" class="mb-6 flex gap-3" id="filterForm">
+         <select name="bulan" class="border rounded px-3 py-2"
+            onchange="document.getElementById('filterForm').submit()">
+            @for ($i = 1; $i <= 12; $i++)
+               <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                  {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+               </option>
+            @endfor
+         </select>
+
+         <select name="tahun" class="border rounded px-3 py-2"
+            onchange="document.getElementById('filterForm').submit()">
+            @for ($i = date('Y'); $i >= 2020; $i--)
+               <option value="{{ $i }}" {{ $tahun == $i ? 'selected' : '' }}>{{ $i }}</option>
+            @endfor
+         </select>
+
+         <a href="{{ route('admin.pembukuan.export') }}?bulan={{ request('bulan', $bulan) }}&tahun={{ request('tahun', $tahun) }}"
+            class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600">
+            Download
+         </a>
+      </form>
+
+      {{-- 🔹 Tabel --}}
+      <div class="w-full overflow-hidden rounded-lg shadow-lg">
+         <div class="w-full overflow-x-auto rounded-lg shadow-lg">
+            <table class="w-full min-w-max whitespace-no-wrap">
                <thead>
                   <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
-                     <th class="px-4 py-3">Id Transaksi</th>
+
                      <th class="px-4 py-3">Tanggal</th>
                      <th class="px-4 py-3">Deskripsi</th>
                      <th class="px-4 py-3">Debit</th>
@@ -27,86 +52,58 @@
                   </tr>
                </thead>
                <tbody class="bg-white divide-y">
-                  <tr class="text-gray-700">
-                     <td class="px-4 py-3 text-sm">TR001</td>
-                     <td class="px-4 py-3 text-sm">2025-09-23</td>
-                     <td class="px-4 py-3 text-sm">Penjualan iPhone 14 Pro Max</td>
-                     <td class="px-4 py-3 text-sm">12.000.000</td>
-                     <td class="px-4 py-3 text-sm">0</td>
-                     <td class="px-4 py-3 text-sm">12.000.000</td>
-                     <td class="px-4 py-3 text-sm">Transfer bank</td>
-                     <td class="px-4 py-3">
-                        <div class="flex items-center space-x-2">
-                           <button class="text-blue-600 hover:text-blue-800">
-                              <i class="fas fa-edit"></i>
-                           </button>
-                           <button class="text-red-600 hover:text-red-800">
-                              <i class="fas fa-trash"></i>
-                           </button>
-                        </div>
-                     </td>
-                  </tr>
-                  <tr class="text-gray-700">
-                     <td class="px-4 py-3 text-sm">TR002</td>
-                     <td class="px-4 py-3 text-sm">2025-09-23</td>
-                     <td class="px-4 py-3 text-sm">Pembelian bekas Galaxy S23 Ultra</td>
-                     <td class="px-4 py-3 text-sm">0</td>
-                     <td class="px-4 py-3 text-sm">8.000.000</td>
-                     <td class="px-4 py-3 text-sm">12.000.000</td>
-                     <td class="px-4 py-3 text-sm">Cash</td>
-                     <td class="px-4 py-3">
-                        <div class="flex items-center space-x-2">
-                           <button class="text-blue-600 hover:text-blue-800">
-                              <i class="fas fa-edit"></i>
-                           </button>
-                           <button class="text-red-600 hover:text-red-800">
-                              <i class="fas fa-trash"></i>
-                           </button>
-                        </div>
-                     </td>
-                  </tr>
-                  <tr class="text-gray-700">
-                     <td class="px-4 py-3 text-sm">TR003</td>
-                     <td class="px-4 py-3 text-sm">2025-09-23</td>
-                     <td class="px-4 py-3 text-sm">Penjualan Xiaomi 13 Pro</td>
-                     <td class="px-4 py-3 text-sm">5.400.000</td>
-                     <td class="px-4 py-3 text-sm">0</td>
-                     <td class="px-4 py-3 text-sm">12.000.000</td>
-                     <td class="px-4 py-3 text-sm">Cash</td>
-                     <td class="px-4 py-3">
-                        <div class="flex items-center space-x-2">
-                           <button class="text-blue-600 hover:text-blue-800">
-                              <i class="fas fa-edit"></i>
-                           </button>
-                           <button class="text-red-600 hover:text-red-800">
-                              <i class="fas fa-trash"></i>
-                           </button>
-                        </div>
-                     </td>
-                  </tr>
-                  <tr class="text-gray-700">
-                     <td class="px-4 py-3 text-sm">TR004</td>
-                     <td class="px-4 py-3 text-sm">2025-09-22</td>
-                     <td class="px-4 py-3 text-sm">Penjualan Oppo Find X6 Pro</td>
-                     <td class="px-4 py-3 text-sm">7.800.000</td>
-                     <td class="px-4 py-3 text-sm">0</td>
-                     <td class="px-4 py-3 text-sm">12.000.000</td>
-                     <td class="px-4 py-3 text-sm">Transfer</td>
-                     <td class="px-4 py-3">
-                        <div class="flex items-center space-x-2">
-                           <button class="text-blue-600 hover:text-blue-800">
-                              <i class="fas fa-edit"></i>
-                           </button>
-                           <button class="text-red-600 hover:text-red-800">
-                              <i class="fas fa-trash"></i>
-                           </button>
-                        </div>
-                     </td>
-                  </tr>
+                  @forelse($laporan as $row)
+                     <tr class="text-gray-700 hover:bg-blue-50 transition">
+                        <td class="px-4 py-3 text-sm">{{ \Carbon\Carbon::parse($row->tanggal)->format('d M Y') }}</td>
+                        <td class="px-4 py-3 text-sm whitespace-normal break-words w-48">
+                           {{ $row->deskripsi }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-green-700 font-semibold">
+                           Rp {{ number_format($row->debit, 0, ',', '.') }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-red-700 font-semibold">
+                           Rp {{ number_format($row->kredit, 0, ',', '.') }}
+                        </td>
+                        <td class="px-4 py-3 text-sm font-semibold text-blue-700">
+                           Rp {{ number_format($row->saldo, 0, ',', '.') }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-center">
+                           @if ($row->metode_pembayaran)
+                              <span class="inline-block px-2 py-1 rounded bg-blue-100 text-blue-700">
+                                 {{ $row->metode_pembayaran }}
+                              </span>
+                           @else
+                              <span class="text-gray-400">-</span>
+                           @endif
+                        </td>
+                        <td class="px-4 py-3">
+                           <div class="flex items-center space-x-2">
+                              <a href="{{ route('admin.pembukuan.edit', $row->id_laporan) }}"
+                                 class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded hover:bg-yellow-200 transition"
+                                 title="Edit">
+                                 <i class="fas fa-edit"></i>
+                              </a>
+                              <form action="{{ route('admin.pembukuan.delete', $row->id_laporan) }}" method="POST"
+                                 onsubmit="return confirm('Yakin ingin menghapus?');">
+                                 @csrf
+                                 @method('DELETE')
+                                 <button type="submit"
+                                    class="bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition"
+                                    title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                 </button>
+                              </form>
+                           </div>
+                        </td>
+                     </tr>
+                  @empty
+                     <tr>
+                        <td colspan="8" class="text-center py-6 text-gray-500">Belum ada data</td>
+                     </tr>
+                  @endforelse
                </tbody>
             </table>
          </div>
       </div>
    </div>
-
 </x-dashboard>

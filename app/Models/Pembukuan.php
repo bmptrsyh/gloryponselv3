@@ -9,11 +9,18 @@ class Pembukuan extends Model
     protected $table = 'laporan_pembukuan';
     protected $primaryKey = 'id_laporan';
     protected $fillable = [
+        'transaksi_id',
+        'transaksi_type',
         'tanggal',
         'deskripsi',
-        'Debit',
-        'Kredit',
-        'Saldo',
+        'debit',
+        'kredit',
+        'saldo',
         'metode_pembayaran',
     ];
+
+    public function transaksi()
+    {
+        return $this->morphTo();
+    }
 }

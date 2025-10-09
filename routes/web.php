@@ -32,6 +32,7 @@ use App\Http\Controllers\Customer\ProfileControllerCustomer;
 use App\Http\Controllers\Customer\Auth\OTPResetPasswordController;
 use App\Http\Controllers\Admin\PonselController as AdminPonselController;
 use App\Http\Controllers\Customer\PonselController as CustomerPonselController;
+use App\Models\Pembukuan;
 
 // Broadcast (Real-time Chat)
 Broadcast::routes(['middleware' => ['auth:web']]);
@@ -190,6 +191,12 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
 
     // Pembukuan
     Route::get('pembukuan', [PembukuanController::class, 'index'])->name('pembukuan');
+    Route::get('pembukuan/create', [PembukuanController::class, 'create'])->name('pembukuan.create');
+    Route::post('pembukuan/store', [PembukuanController::class, 'store'])->name('pembukuan.store');
+    Route::get('pembukuan/export-pdf', [PembukuanController::class, 'exportPdf'])->name('pembukuan.export');
+    Route::get('pembukuan/edit/{id}', [PembukuanController::class, 'edit'])->name('pembukuan.edit');
+    Route::put('pembukuan/update/{id}', [PembukuanController::class, 'update'])->name('pembukuan.update');
+    Route::delete('pembukuan/delete/{id}', [PembukuanController::class, 'destroy'])->name('pembukuan.delete');
 });
 
 // Lupa & Reset Password

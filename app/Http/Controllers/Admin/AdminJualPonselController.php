@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Pembukuan;
 use App\Models\JualPonsel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,25 +27,55 @@ class AdminJualPonselController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'status' => 'required|in:menunggu,di setujui,di tolak',
-            'catatan' => 'nullable|string',
+            'catatan_admin' => 'nullable|string',
         ]);
 
-        $pengajuan = JualPonsel::findOrFail($id);
-        $pengajuan->status = $request->status;
+        $pengajuan = JualPonsel::with('pembukuan')->findOrFail($id);
 
-        // Jika ada catatan, simpan ke kolom deskripsi atau buat kolom baru
-        if ($request->filled('catatan')) {
-            // Opsional: Tambahkan catatan admin ke deskripsi yang sudah ada
-            $pengajuan->deskripsi = $pengajuan->deskripsi . "\n\n--- Catatan Admin ---\n" . $request->catatan;
-        }
+        // Update status & deskripsi
+        $pengajuan->status = $validated['status'];
+        $statusMessages = [
+            'di tolak'   => $validated['catatan_admin'],
+            'di setujui' => $validated['catatan_admin']
+                ?? 'Pengajuan Anda telah disetujui. Silahkan menghubungi admin untuk proses selanjutnya.',
+            'menunggu'   => null,
+        ];
+
+        $pengajuan->catatan_admin = $statusMessages[$validated['status']] ?? null;
 
         $pengajuan->save();
 
-        return redirect()->route('admin.jual-ponsel.index')
+        if ($pengajuan->pembukuan == null) {
+            if ($pengajuan->status === 'di setujui') {
+                $saldoTerakhir = Pembukuan::latest('id_laporan')->value('saldo');
+                $saldoTerakhir = $saldoTerakhir ?? 0;
+
+                $debit = $pengajuan->harga;
+                $kredit = 0;
+                $saldoBaru = $saldoTerakhir + $kredit - $debit;
+
+                $deskripsi = "Membeli ponsel {$pengajuan->merk} {$pengajuan->model}";
+
+                Pembukuan::create([
+                    'transaksi_id' => $pengajuan->id_jual_ponsel,
+                    'transaksi_type' => JualPonsel::class,
+                    'tanggal' => now(),
+                    'deskripsi' => $deskripsi,
+                    'debit' => $debit,
+                    'kredit' => $kredit,
+                    'saldo' => $saldoBaru,
+                    'metode_pembayaran' => null,
+                ]);
+            }
+        }
+
+        return redirect()
+            ->route('admin.jual-ponsel.index')
             ->with('success', 'Status pengajuan jual ponsel berhasil diperbarui.');
     }
+
 
     public function destroy($id)
     {

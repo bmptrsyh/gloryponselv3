@@ -40,6 +40,11 @@ class TukarTambah extends Model
     {
         return $this->belongsTo(Ponsel::class, 'produk_tujuan_id', 'id_ponsel');
     }
+
+    public function pembukuan()
+    {
+        return $this->morphOne(Pembukuan::class, 'transaksi');
+    }
 }
 
 
