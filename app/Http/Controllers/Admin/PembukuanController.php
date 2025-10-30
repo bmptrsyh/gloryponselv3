@@ -54,30 +54,38 @@ class PembukuanController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'jumlah' => str_replace('.', '', $request->jumlah)
+        ]);
         $request->validate([
-            'tanggal' => 'required|date|before_or_equal:today',
+            'tanggal' => 'required|date',
             'deskripsi' => 'required|string|max:255',
-            'debit' => 'nullable|numeric|min:0',
-            'kredit' => 'nullable|numeric|min:0',
+            'jenis_transaksi' => 'required|in:debit,kredit',
+            'jumlah' => 'required|numeric|min:0',
             'metode_pembayaran' => 'required|string',
         ]);
-        $saldoTerakhir = Pembukuan::latest('id_laporan')->value('saldo');
-        $saldoTerakhir = $saldoTerakhir ?? 0;
-        $debit = $request->debit ?? 0;
-        $kredit = $request->kredit ?? 0;
-        $saldoBaru = $saldoTerakhir + $kredit - $debit;
 
 
+        $debit = 0;
+        $kredit = 0;
+
+        if ($request->jenis_transaksi == 'debit') {
+            $debit = $request->jumlah;
+        } else {
+            $kredit = $request->jumlah;
+        }
+
+        $saldo_terakhir = Pembukuan::orderBy('tanggal', 'desc')->orderBy('created_at', 'desc')->first();
+        $saldo_terakhir_value = $saldo_terakhir ? $saldo_terakhir->saldo : 0;
+        $new_saldo = $saldo_terakhir_value + $kredit - $debit;
 
         Pembukuan::create([
             'tanggal' => $request->tanggal,
-            'transaksi_id' => null,
-            'transaksi_type' => null,
             'deskripsi' => $request->deskripsi,
-            'debit' => $request->debit ?? 0,
-            'kredit' => $request->kredit ?? 0,
-            'saldo' => $saldoBaru,
-            'metode_pembayaran' => $request->metode_pembayaran ?? '-',
+            'debit' => $debit,
+            'kredit' => $kredit,
+            'saldo' => $new_saldo,
+            'metode_pembayaran' => $request->metode_pembayaran,
         ]);
 
         return redirect()->route('admin.pembukuan')->with('success', 'Data pembukuan berhasil ditambahkan.');

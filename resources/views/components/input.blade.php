@@ -1,4 +1,4 @@
-@props(['type' => 'text', 'name', 'placeholder' => '', 'value' => '', 'required' => false])
+@props(['type' => 'text', 'name', 'placeholder' => '', 'value' => '', 'required' => false, 'oninput' => ''])
 
 <div class="relative w-full">
     <input 
@@ -7,6 +7,7 @@
         name="{{ $name }}" 
         placeholder="{{ $placeholder }}" 
         value="{{ old($name, $value) }}" 
+        oninput="{{ $oninput }}"
         class="w-full p-4 h-12 border border-gray-300 rounded-lg text-lg pr-12 @error($name) border-red-500 @enderror 
         @if($type === 'number') appearance-none [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden @endif" 
         {{ $required ? 'required' : '' }}

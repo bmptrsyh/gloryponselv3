@@ -169,6 +169,12 @@
          }, 3000);
       }
    </script>
+      <script>
+      function formatRibuan(input) {
+         let angka = input.value.replace(/[^0-9]/g, '');
+         input.value = new Intl.NumberFormat('id-ID').format(angka);
+      }
+   </script>
 </body>
 
 </html>
