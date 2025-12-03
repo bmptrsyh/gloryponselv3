@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class TukarTambah extends Model
 {
     use HasFactory;
 
     protected $table = 'tukar_tambah';
+
     protected $primaryKey = 'id_tukar_tambah';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     public $timestamps = true;
 
     protected $fillable = [
@@ -26,7 +32,7 @@ class TukarTambah extends Model
         'deskripsi',
         'harga_estimasi',
         'gambar',
-        'status'
+        'status',
     ];
 
     // Relasi ke customer
@@ -46,5 +52,3 @@ class TukarTambah extends Model
         return $this->morphOne(Pembukuan::class, 'transaksi');
     }
 }
-
-

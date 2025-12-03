@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Models\Ponsel;
 use App\Models\Angsuran;
 use App\Models\Customer;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class KreditPonsel extends Model
 {
+    use HasFactory;
     protected $table = 'kredit_ponsel';
     protected $primaryKey = 'id_kredit_ponsel';
     protected $fillable = [

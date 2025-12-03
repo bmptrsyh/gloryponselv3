@@ -62,10 +62,6 @@ foreach ($produk as $p) {
                 ->where('status', 'selesai')
                 ->count();
         $ulasan = Ulasan::with('beliPonsel')->where('id_ponsel', $id)->get();
-
-
-        
-        
         return view('customer.ponsel.show', compact('produk', 'customer', 'avg', 'terjual', 'ulasan'));
     }
 }

@@ -5,10 +5,12 @@ namespace App\Models;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ponsel extends Model
 {
-    use SoftDeletes,Searchable;
+    use SoftDeletes,Searchable, HasFactory;
+
     protected $table = 'ponsel';
     protected $primaryKey = 'id_ponsel';
     protected $dates = ['deleted_at'];

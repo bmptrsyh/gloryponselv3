@@ -3,7 +3,9 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\Admin;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -104,6 +106,18 @@ class LoginTest extends TestCase
     {
         $this->withoutMiddleware(VerifyCsrfToken::class);
 
-         
+        $admin = Admin::factory()->create([
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('Admin@123'),
+        ]);
+
+        $response = $this->post('/login', [
+            'login' => 'admin@gmail.com',
+            'password' => 'Admin@123',
+        ]);
+
+        $response->assertRedirect('/admin/dashboard');
+        $this->assertTrue(Auth::guard('admin')->check());
+        $this->assertEquals($admin->id, Auth::guard('admin')->user()->id);
     }
 }

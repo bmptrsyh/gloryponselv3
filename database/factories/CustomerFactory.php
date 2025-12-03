@@ -22,7 +22,7 @@ class CustomerFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Hash::make('password123'),
             'alamat' => $this->faker->address(),
-            'nomor_telepon' => '08123456789',
+            'nomor_telepon' => $this->faker->unique()->numerify('08##########'),
             'foto_profil' => 'storage/gambar/customer/default.png', 
         ];
     }

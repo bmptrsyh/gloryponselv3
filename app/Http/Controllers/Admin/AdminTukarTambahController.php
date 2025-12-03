@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Pembukuan;
 use App\Models\TukarTambah;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class AdminTukarTambahController extends Controller
@@ -22,6 +22,7 @@ class AdminTukarTambahController extends Controller
     public function show($id)
     {
         $pengajuan = TukarTambah::with(['customer', 'produkTujuan'])->findOrFail($id);
+
         return view('admin.tukar-tambah.show', compact('pengajuan'));
     }
 
@@ -35,10 +36,10 @@ class AdminTukarTambahController extends Controller
         $pengajuan = TukarTambah::with('pembukuan', 'produkTujuan')->findOrFail($id);
         $pengajuan->status = $validated['status'];
         $statusMessages = [
-            'di tolak'   => $validated['catatan_admin'],
+            'di tolak' => $validated['catatan_admin'],
             'di setujui' => $validated['catatan_admin']
                 ?? 'Pengajuan Anda telah disetujui. Silahkan menghubungi admin untuk proses selanjutnya.',
-            'menunggu'   => null,
+            'menunggu' => null,
         ];
 
         $pengajuan->catatan_admin = $statusMessages[$validated['status']] ?? null;
@@ -77,8 +78,11 @@ class AdminTukarTambahController extends Controller
         $pengajuan = TukarTambah::findOrFail($id);
 
         // Hapus gambar jika ada
-        if ($pengajuan->gambar && Storage::exists(str_replace('storage/', 'public/', $pengajuan->gambar))) {
-            Storage::delete(str_replace('storage/', 'public/', $pengajuan->gambar));
+        if ($pengajuan->gambar) {
+            $path = str_replace('storage/', 'public/', $pengajuan->gambar);
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
         }
 
         $pengajuan->delete();

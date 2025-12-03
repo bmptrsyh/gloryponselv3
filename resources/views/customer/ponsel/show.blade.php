@@ -95,7 +95,7 @@
             <p><strong>Stok:</strong> {{ $produk->stok }}</p>
          </div>
       </div>
-
+      {{-- testimoni --}}
       <div id="tab-testimoni" class="tab-content hidden mb-10">
          <div class="mt-12 space-y-2 text-sm text-gray-700">
             <h3 class="text-lg font-semibold text-black mb-4">Penilaian Produk</h3>

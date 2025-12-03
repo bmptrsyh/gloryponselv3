@@ -17,7 +17,9 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nama' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => bcrypt('admin123')
         ];
     }
 }

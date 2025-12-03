@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for D:\BimaPutrasyah\gloryponselv3\app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.9" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.9" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.9" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">D:\BimaPutrasyah\gloryponselv3\app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Admin/DashboardController.php.html#14">App\Http\Controllers\Admin\DashboardController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/ProfileControllerAdmin.php.html#10">App\Http\Controllers\Admin\ProfileControllerAdmin</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/TransaksiController.php.html#11">App\Http\Controllers\Admin\TransaksiController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/UpdateCicilanController.php.html#10">App\Http\Controllers\Admin\UpdateCicilanController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/AngsuranController.php.html#11">App\Http\Controllers\Customer\AngsuranController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/FacebookController.php.html#12">App\Http\Controllers\Customer\Auth\FacebookController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/GoogleController.php.html#12">App\Http\Controllers\Customer\Auth\GoogleController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#12">App\Http\Controllers\Customer\CallbackController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/DaftarKreditController.php.html#10">App\Http\Controllers\Customer\DaftarKreditController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/JualPonselController.php.html#9">App\Http\Controllers\Customer\JualPonselController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#12">App\Http\Controllers\Customer\KeranjangController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/PonselController.php.html#13">App\Http\Controllers\Customer\PonselController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#11">App\Http\Controllers\Customer\ProfileControllerCustomer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/TukarTambahController.php.html#10">App\Http\Controllers\Customer\TukarTambahController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OngkirController.php.html#10">App\Http\Controllers\OngkirController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UlasanController.php.html#10">App\Http\Controllers\UlasanController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Kredit/DataPekerjaanRequest.php.html#7">App\Http\Requests\Kredit\DataPekerjaanRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#9">App\Http\Requests\LoginRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/ProfileRequest.php.html#9">App\Http\Requests\ProfileRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Angsuran.php.html#8">App\Models\Angsuran</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BeliPonsel.php.html#9">App\Models\BeliPonsel</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Pembukuan.php.html#8">App\Models\Pembukuan</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ponsel.php.html#10">App\Models\Ponsel</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ulasan.php.html#8">App\Models\Ulasan</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#14">App\Http\Controllers\Customer\KreditController</a></td><td class="text-right">4%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#13">App\Http\Controllers\Admin\PonselController</a></td><td class="text-right">12%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#16">App\Http\Controllers\Admin\PembukuanController</a></td><td class="text-right">31%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/BeliPonselController.php.html#13">App\Http\Controllers\Customer\BeliPonselController</a></td><td class="text-right">45%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/HomeController.php.html#17">App\Http\Controllers\Customer\HomeController</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Models/KreditPonsel.php.html#11">App\Models\KreditPonsel</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#12">App\Http\Controllers\Customer\Auth\OTPResetPasswordController</a></td><td class="text-right">61%</td></tr>
+       <tr><td><a href="Models/Customer.php.html#11">App\Models\Customer</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Providers/RouteServiceProvider.php.html#9">App\Providers\RouteServiceProvider</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/AdminKreditController.php.html#10">App\Http\Controllers\Admin\AdminKreditController</a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Http/Requests/StorePonselRequest.php.html#7">App\Http\Requests\StorePonselRequest</a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Services/OngkirService.php.html#6">App\Services\OngkirService</a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/AuthController.php.html#15">App\Http\Controllers\Customer\Auth\AuthController</a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Customer/BeliPonselController.php.html#13">App\Http\Controllers\Customer\BeliPonselController</a></td><td class="text-right">450</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#13">App\Http\Controllers\Admin\PonselController</a></td><td class="text-right">308</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#14">App\Http\Controllers\Customer\KreditController</a></td><td class="text-right">263</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#16">App\Http\Controllers\Admin\PembukuanController</a></td><td class="text-right">92</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#11">App\Http\Controllers\Customer\ProfileControllerCustomer</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#9">App\Http\Requests\LoginRequest</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/AuthController.php.html#15">App\Http\Controllers\Customer\Auth\AuthController</a></td><td class="text-right">49</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/ProfileControllerAdmin.php.html#10">App\Http\Controllers\Admin\ProfileControllerAdmin</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/TransaksiController.php.html#11">App\Http\Controllers\Admin\TransaksiController</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#12">App\Http\Controllers\Customer\CallbackController</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/PonselController.php.html#13">App\Http\Controllers\Customer\PonselController</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#12">App\Http\Controllers\Customer\KeranjangController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#12">App\Http\Controllers\Customer\Auth\OTPResetPasswordController</a></td><td class="text-right">23</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/FacebookController.php.html#12">App\Http\Controllers\Customer\Auth\FacebookController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/GoogleController.php.html#12">App\Http\Controllers\Customer\Auth\GoogleController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/UlasanController.php.html#10">App\Http\Controllers\UlasanController</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/HomeController.php.html#17">App\Http\Controllers\Customer\HomeController</a></td><td class="text-right">17</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/AdminKreditController.php.html#10">App\Http\Controllers\Admin\AdminKreditController</a></td><td class="text-right">16</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/DashboardController.php.html#14">App\Http\Controllers\Admin\DashboardController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/UpdateCicilanController.php.html#10">App\Http\Controllers\Admin\UpdateCicilanController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/DaftarKreditController.php.html#10">App\Http\Controllers\Customer\DaftarKreditController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/OngkirService.php.html#6">App\Services\OngkirService</a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Models/Customer.php.html#11">App\Models\Customer</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Requests/StorePonselRequest.php.html#7">App\Http\Requests\StorePonselRequest</a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Admin/AdminJualPonselController.php.html#22"><abbr title="App\Http\Controllers\Admin\AdminJualPonselController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/AdminKreditController.php.html#21"><abbr title="App\Http\Controllers\Admin\AdminKreditController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/DashboardController.php.html#16"><abbr title="App\Http\Controllers\Admin\DashboardController::dashboard">dashboard</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#18"><abbr title="App\Http\Controllers\Admin\PembukuanController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#32"><abbr title="App\Http\Controllers\Admin\PembukuanController::exportPdf">exportPdf</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#51"><abbr title="App\Http\Controllers\Admin\PembukuanController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#84"><abbr title="App\Http\Controllers\Admin\PembukuanController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#90"><abbr title="App\Http\Controllers\Admin\PembukuanController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#143"><abbr title="App\Http\Controllers\Admin\PembukuanController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#15"><abbr title="App\Http\Controllers\Admin\PonselController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#48"><abbr title="App\Http\Controllers\Admin\PonselController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#81"><abbr title="App\Http\Controllers\Admin\PonselController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#88"><abbr title="App\Http\Controllers\Admin\PonselController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#121"><abbr title="App\Http\Controllers\Admin\PonselController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#129"><abbr title="App\Http\Controllers\Admin\PonselController::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#137"><abbr title="App\Http\Controllers\Admin\PonselController::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#152"><abbr title="App\Http\Controllers\Admin\PonselController::showSoftDeleted">showSoftDeleted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/ProfileControllerAdmin.php.html#12"><abbr title="App\Http\Controllers\Admin\ProfileControllerAdmin::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/ProfileControllerAdmin.php.html#18"><abbr title="App\Http\Controllers\Admin\ProfileControllerAdmin::upload">upload</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/ProfileControllerAdmin.php.html#48"><abbr title="App\Http\Controllers\Admin\ProfileControllerAdmin::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/TransaksiController.php.html#13"><abbr title="App\Http\Controllers\Admin\TransaksiController::semuaTransaksi">semuaTransaksi</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/TransaksiController.php.html#24"><abbr title="App\Http\Controllers\Admin\TransaksiController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/TransaksiController.php.html#32"><abbr title="App\Http\Controllers\Admin\TransaksiController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/UpdateCicilanController.php.html#12"><abbr title="App\Http\Controllers\Admin\UpdateCicilanController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/UpdateCicilanController.php.html#23"><abbr title="App\Http\Controllers\Admin\UpdateCicilanController::updateStatus">updateStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/AngsuranController.php.html#13"><abbr title="App\Http\Controllers\Customer\AngsuranController::detailCicilan">detailCicilan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/AuthController.php.html#60"><abbr title="App\Http\Controllers\Customer\Auth\AuthController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/FacebookController.php.html#14"><abbr title="App\Http\Controllers\Customer\Auth\FacebookController::redirectToFacebook">redirectToFacebook</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/FacebookController.php.html#20"><abbr title="App\Http\Controllers\Customer\Auth\FacebookController::handleFacebookCallback">handleFacebookCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/GoogleController.php.html#14"><abbr title="App\Http\Controllers\Customer\Auth\GoogleController::redirectToGoogle">redirectToGoogle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/GoogleController.php.html#20"><abbr title="App\Http\Controllers\Customer\Auth\GoogleController::handleGoogleCallback">handleGoogleCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/BeliPonselController.php.html#15"><abbr title="App\Http\Controllers\Customer\BeliPonselController::beliPonsel">beliPonsel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#15"><abbr title="App\Http\Controllers\Customer\CallbackController::paymentCallback">paymentCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#20"><abbr title="App\Http\Controllers\Customer\CallbackController::onPaymentSuccess">onPaymentSuccess</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#28"><abbr title="App\Http\Controllers\Customer\CallbackController::onPaymentFailed">onPaymentFailed</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#37"><abbr title="App\Http\Controllers\Customer\CallbackController::myReturnCallback">myReturnCallback</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/DaftarKreditController.php.html#12"><abbr title="App\Http\Controllers\Customer\DaftarKreditController::daftarKredit">daftarKredit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/DaftarKreditController.php.html#23"><abbr title="App\Http\Controllers\Customer\DaftarKreditController::daftarKreditShow">daftarKreditShow</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/HomeController.php.html#52"><abbr title="App\Http\Controllers\Customer\HomeController::daftarPengajuan">daftarPengajuan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/HomeController.php.html#62"><abbr title="App\Http\Controllers\Customer\HomeController::showJual">showJual</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/HomeController.php.html#69"><abbr title="App\Http\Controllers\Customer\HomeController::showTukar">showTukar</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/JualPonselController.php.html#11"><abbr title="App\Http\Controllers\Customer\JualPonselController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/JualPonselController.php.html#18"><abbr title="App\Http\Controllers\Customer\JualPonselController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/JualPonselController.php.html#22"><abbr title="App\Http\Controllers\Customer\JualPonselController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#15"><abbr title="App\Http\Controllers\Customer\KeranjangController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#24"><abbr title="App\Http\Controllers\Customer\KeranjangController::selesai">selesai</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#33"><abbr title="App\Http\Controllers\Customer\KeranjangController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#67"><abbr title="App\Http\Controllers\Customer\KeranjangController::ubahStatus">ubahStatus</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#27"><abbr title="App\Http\Controllers\Customer\KreditController::dataPekerjaan">dataPekerjaan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#32"><abbr title="App\Http\Controllers\Customer\KreditController::uploadDokumenForm">uploadDokumenForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#37"><abbr title="App\Http\Controllers\Customer\KreditController::dataKredit">dataKredit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#49"><abbr title="App\Http\Controllers\Customer\KreditController::dataPribadiStore">dataPribadiStore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#58"><abbr title="App\Http\Controllers\Customer\KreditController::dataPekerjaanStore">dataPekerjaanStore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#68"><abbr title="App\Http\Controllers\Customer\KreditController::uploadDokumenStore">uploadDokumenStore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#88"><abbr title="App\Http\Controllers\Customer\KreditController::submitKredit">submitKredit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#159"><abbr title="App\Http\Controllers\Customer\KreditController::success">success</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/PonselController.php.html#15"><abbr title="App\Http\Controllers\Customer\PonselController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/PonselController.php.html#55"><abbr title="App\Http\Controllers\Customer\PonselController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#13"><abbr title="App\Http\Controllers\Customer\ProfileControllerCustomer::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#18"><abbr title="App\Http\Controllers\Customer\ProfileControllerCustomer::upload">upload</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#55"><abbr title="App\Http\Controllers\Customer\ProfileControllerCustomer::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/TukarTambahController.php.html#12"><abbr title="App\Http\Controllers\Customer\TukarTambahController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/TukarTambahController.php.html#18"><abbr title="App\Http\Controllers\Customer\TukarTambahController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/TukarTambahController.php.html#56"><abbr title="App\Http\Controllers\Customer\TukarTambahController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OngkirController.php.html#12"><abbr title="App\Http\Controllers\OngkirController::getKecamatan">getKecamatan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/OngkirController.php.html#24"><abbr title="App\Http\Controllers\OngkirController::getOngkir">getOngkir</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UlasanController.php.html#12"><abbr title="App\Http\Controllers\UlasanController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UlasanController.php.html#44"><abbr title="App\Http\Controllers\UlasanController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Kredit/DataPekerjaanRequest.php.html#12"><abbr title="App\Http\Requests\Kredit\DataPekerjaanRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Kredit/DataPekerjaanRequest.php.html#22"><abbr title="App\Http\Requests\Kredit\DataPekerjaanRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/Kredit/DataPekerjaanRequest.php.html#35"><abbr title="App\Http\Requests\Kredit\DataPekerjaanRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#11"><abbr title="App\Http\Requests\LoginRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#16"><abbr title="App\Http\Requests\LoginRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#38"><abbr title="App\Http\Requests\LoginRequest::messages">messages</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/ProfileRequest.php.html#14"><abbr title="App\Http\Requests\ProfileRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/ProfileRequest.php.html#24"><abbr title="App\Http\Requests\ProfileRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Angsuran.php.html#21"><abbr title="App\Models\Angsuran::kredit">kredit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BeliPonsel.php.html#30"><abbr title="App\Models\BeliPonsel::customer">customer</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BeliPonsel.php.html#37"><abbr title="App\Models\BeliPonsel::ponsel">ponsel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BeliPonsel.php.html#42"><abbr title="App\Models\BeliPonsel::ulasan">ulasan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/BeliPonsel.php.html#47"><abbr title="App\Models\BeliPonsel::pembukuan">pembukuan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/KreditPonsel.php.html#54"><abbr title="App\Models\KreditPonsel::angsuran">angsuran</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/KreditPonsel.php.html#59"><abbr title="App\Models\KreditPonsel::pembukuan">pembukuan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Pembukuan.php.html#24"><abbr title="App\Models\Pembukuan::transaksi">transaksi</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ponsel.php.html#32"><abbr title="App\Models\Ponsel::ulasan">ulasan</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ponsel.php.html#37"><abbr title="App\Models\Ponsel::toSearchableArray">toSearchableArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ulasan.php.html#24"><abbr title="App\Models\Ulasan::ponsel">ponsel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Ulasan.php.html#29"><abbr title="App\Models\Ulasan::beliPonsel">beliPonsel</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/RouteServiceProvider.php.html#19"><abbr title="App\Providers\RouteServiceProvider::configureRateLimiting">configureRateLimiting</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#43"><abbr title="App\Http\Controllers\Customer\Auth\OTPResetPasswordController::verifyOTP">verifyOTP</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#71"><abbr title="App\Http\Controllers\Customer\Auth\OTPResetPasswordController::resetPassword">resetPassword</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Models/Customer.php.html#27"><abbr title="App\Models\Customer::getFotoProfilUrlAttribute">getFotoProfilUrlAttribute</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#15"><abbr title="App\Http\Controllers\Customer\Auth\OTPResetPasswordController::sendOTP">sendOTP</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/AdminTukarTambahController.php.html#76"><abbr title="App\Http\Controllers\Admin\AdminTukarTambahController::destroy">destroy</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Http/Requests/StorePonselRequest.php.html#22"><abbr title="App\Http\Requests\StorePonselRequest::rules">rules</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Services/OngkirService.php.html#8"><abbr title="App\Services\OngkirService::getOngkir">getOngkir</abbr></a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Controllers/Customer/BeliPonselController.php.html#15"><abbr title="App\Http\Controllers\Customer\BeliPonselController::beliPonsel">beliPonsel</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KreditController.php.html#88"><abbr title="App\Http\Controllers\Customer\KreditController::submitKredit">submitKredit</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#16"><abbr title="App\Http\Requests\LoginRequest::rules">rules</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#88"><abbr title="App\Http\Controllers\Admin\PonselController::update">update</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/PonselController.php.html#15"><abbr title="App\Http\Controllers\Customer\PonselController::index">index</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#18"><abbr title="App\Http\Controllers\Customer\ProfileControllerCustomer::upload">upload</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#15"><abbr title="App\Http\Controllers\Admin\PonselController::index">index</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/ProfileControllerAdmin.php.html#18"><abbr title="App\Http\Controllers\Admin\ProfileControllerAdmin::upload">upload</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/TransaksiController.php.html#32"><abbr title="App\Http\Controllers\Admin\TransaksiController::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/DashboardController.php.html#16"><abbr title="App\Http\Controllers\Admin\DashboardController::dashboard">dashboard</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#90"><abbr title="App\Http\Controllers\Admin\PembukuanController::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PonselController.php.html#137"><abbr title="App\Http\Controllers\Admin\PonselController::forceDelete">forceDelete</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/FacebookController.php.html#20"><abbr title="App\Http\Controllers\Customer\Auth\FacebookController::handleFacebookCallback">handleFacebookCallback</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/GoogleController.php.html#20"><abbr title="App\Http\Controllers\Customer\Auth\GoogleController::handleGoogleCallback">handleGoogleCallback</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/UlasanController.php.html#12"><abbr title="App\Http\Controllers\UlasanController::store">store</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Services/OngkirService.php.html#8"><abbr title="App\Services\OngkirService::getOngkir">getOngkir</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/AdminKreditController.php.html#21"><abbr title="App\Http\Controllers\Admin\AdminKreditController::show">show</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/PembukuanController.php.html#143"><abbr title="App\Http\Controllers\Admin\PembukuanController::destroy">destroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/UpdateCicilanController.php.html#23"><abbr title="App\Http\Controllers\Admin\UpdateCicilanController::updateStatus">updateStatus</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#20"><abbr title="App\Http\Controllers\Customer\CallbackController::onPaymentSuccess">onPaymentSuccess</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/CallbackController.php.html#28"><abbr title="App\Http\Controllers\Customer\CallbackController::onPaymentFailed">onPaymentFailed</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/DaftarKreditController.php.html#23"><abbr title="App\Http\Controllers\Customer\DaftarKreditController::daftarKreditShow">daftarKreditShow</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/KeranjangController.php.html#33"><abbr title="App\Http\Controllers\Customer\KeranjangController::store">store</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/ProfileControllerCustomer.php.html#55"><abbr title="App\Http\Controllers\Customer\ProfileControllerCustomer::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/AdminTukarTambahController.php.html#76"><abbr title="App\Http\Controllers\Admin\AdminTukarTambahController::destroy">destroy</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#43"><abbr title="App\Http\Controllers\Customer\Auth\OTPResetPasswordController::verifyOTP">verifyOTP</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#71"><abbr title="App\Http\Controllers\Customer\Auth\OTPResetPasswordController::resetPassword">resetPassword</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Models/Customer.php.html#27"><abbr title="App\Models\Customer::getFotoProfilUrlAttribute">getFotoProfilUrlAttribute</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Controllers/Customer/Auth/OTPResetPasswordController.php.html#15"><abbr title="App\Http\Controllers\Customer\Auth\OTPResetPasswordController::sendOTP">sendOTP</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Http/Requests/StorePonselRequest.php.html#22"><abbr title="App\Http\Requests\StorePonselRequest::rules">rules</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.9</a> using <a href="https://www.php.net/" target="_top">PHP 8.2.12</a> and <a href="https://phpunit.de/">PHPUnit 11.5.18</a> at Wed Dec 3 19:55:24 WIB 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.9" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.9" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.9" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([24,1,1,0,1,1,2,3,1,3,2,17], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([89,0,0,0,0,0,0,4,2,1,2,60], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,4,"<a href=\"Events\/Inbox.php.html#13\">App\\Events\\Inbox<\/a>"],[90.9090909090909,8,"<a href=\"Http\/Controllers\/Admin\/AdminJualPonselController.php.html#11\">App\\Http\\Controllers\\Admin\\AdminJualPonselController<\/a>"],[76.92307692307693,8,"<a href=\"Http\/Controllers\/Admin\/AdminKreditController.php.html#10\">App\\Http\\Controllers\\Admin\\AdminKreditController<\/a>"],[90,8,"<a href=\"Http\/Controllers\/Admin\/AdminTukarTambahController.php.html#11\">App\\Http\\Controllers\\Admin\\AdminTukarTambahController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Admin\/DashboardController.php.html#14\">App\\Http\\Controllers\\Admin\\DashboardController<\/a>"],[100,5,"<a href=\"Http\/Controllers\/Admin\/InboxController.php.html#12\">App\\Http\\Controllers\\Admin\\InboxController<\/a>"],[31.818181818181817,12,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#16\">App\\Http\\Controllers\\Admin\\PembukuanController<\/a>"],[12.121212121212121,19,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#13\">App\\Http\\Controllers\\Admin\\PonselController<\/a>"],[0,6,"<a href=\"Http\/Controllers\/Admin\/ProfileControllerAdmin.php.html#10\">App\\Http\\Controllers\\Admin\\ProfileControllerAdmin<\/a>"],[0,6,"<a href=\"Http\/Controllers\/Admin\/TransaksiController.php.html#11\">App\\Http\\Controllers\\Admin\\TransaksiController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Admin\/UpdateCicilanController.php.html#10\">App\\Http\\Controllers\\Admin\\UpdateCicilanController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#5\">App\\Http\\Controllers\\Controller<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/AngsuranController.php.html#11\">App\\Http\\Controllers\\Customer\\AngsuranController<\/a>"],[88.88888888888889,11,"<a href=\"Http\/Controllers\/Customer\/Auth\/AuthController.php.html#15\">App\\Http\\Controllers\\Customer\\Auth\\AuthController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Customer\/Auth\/FacebookController.php.html#12\">App\\Http\\Controllers\\Customer\\Auth\\FacebookController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Customer\/Auth\/GoogleController.php.html#12\">App\\Http\\Controllers\\Customer\\Auth\\GoogleController<\/a>"],[61.53846153846154,8,"<a href=\"Http\/Controllers\/Customer\/Auth\/OTPResetPasswordController.php.html#12\">App\\Http\\Controllers\\Customer\\Auth\\OTPResetPasswordController<\/a>"],[45.83333333333333,22,"<a href=\"Http\/Controllers\/Customer\/BeliPonselController.php.html#13\">App\\Http\\Controllers\\Customer\\BeliPonselController<\/a>"],[0,6,"<a href=\"Http\/Controllers\/Customer\/CallbackController.php.html#12\">App\\Http\\Controllers\\Customer\\CallbackController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Customer\/DaftarKreditController.php.html#10\">App\\Http\\Controllers\\Customer\\DaftarKreditController<\/a>"],[50,5,"<a href=\"Http\/Controllers\/Customer\/HomeController.php.html#17\">App\\Http\\Controllers\\Customer\\HomeController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Customer\/JualPonselController.php.html#9\">App\\Http\\Controllers\\Customer\\JualPonselController<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Customer\/KeranjangController.php.html#12\">App\\Http\\Controllers\\Customer\\KeranjangController<\/a>"],[4.166666666666666,16,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#14\">App\\Http\\Controllers\\Customer\\KreditController<\/a>"],[0,6,"<a href=\"Http\/Controllers\/Customer\/PonselController.php.html#13\">App\\Http\\Controllers\\Customer\\PonselController<\/a>"],[0,8,"<a href=\"Http\/Controllers\/Customer\/ProfileControllerCustomer.php.html#11\">App\\Http\\Controllers\\Customer\\ProfileControllerCustomer<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Customer\/TukarTambahController.php.html#10\">App\\Http\\Controllers\\Customer\\TukarTambahController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/OngkirController.php.html#10\">App\\Http\\Controllers\\OngkirController<\/a>"],[0,4,"<a href=\"Http\/Controllers\/UlasanController.php.html#10\">App\\Http\\Controllers\\UlasanController<\/a>"],[0,3,"<a href=\"Http\/Requests\/Kredit\/DataPekerjaanRequest.php.html#7\">App\\Http\\Requests\\Kredit\\DataPekerjaanRequest<\/a>"],[100,3,"<a href=\"Http\/Requests\/Kredit\/DataPribadiRequest.php.html#7\">App\\Http\\Requests\\Kredit\\DataPribadiRequest<\/a>"],[100,6,"<a href=\"Http\/Requests\/LaporanPembukuanRequest.php.html#7\">App\\Http\\Requests\\LaporanPembukuanRequest<\/a>"],[0,8,"<a href=\"Http\/Requests\/LoginRequest.php.html#9\">App\\Http\\Requests\\LoginRequest<\/a>"],[0,2,"<a href=\"Http\/Requests\/ProfileRequest.php.html#9\">App\\Http\\Requests\\ProfileRequest<\/a>"],[100,3,"<a href=\"Http\/Requests\/RegisterRequest.php.html#7\">App\\Http\\Requests\\RegisterRequest<\/a>"],[80,3,"<a href=\"Http\/Requests\/StorePonselRequest.php.html#7\">App\\Http\\Requests\\StorePonselRequest<\/a>"],[100,0,"<a href=\"Models\/Admin.php.html#9\">App\\Models\\Admin<\/a>"],[0,1,"<a href=\"Models\/Angsuran.php.html#8\">App\\Models\\Angsuran<\/a>"],[0,4,"<a href=\"Models\/BeliPonsel.php.html#9\">App\\Models\\BeliPonsel<\/a>"],[100,0,"<a href=\"Models\/Chat.php.html#8\">App\\Models\\Chat<\/a>"],[66.66666666666666,4,"<a href=\"Models\/Customer.php.html#11\">App\\Models\\Customer<\/a>"],[100,2,"<a href=\"Models\/JualPonsel.php.html#9\">App\\Models\\JualPonsel<\/a>"],[50,4,"<a href=\"Models\/KreditPonsel.php.html#11\">App\\Models\\KreditPonsel<\/a>"],[0,1,"<a href=\"Models\/Pembukuan.php.html#8\">App\\Models\\Pembukuan<\/a>"],[0,2,"<a href=\"Models\/Ponsel.php.html#10\">App\\Models\\Ponsel<\/a>"],[100,3,"<a href=\"Models\/TukarTambah.php.html#8\">App\\Models\\TukarTambah<\/a>"],[0,2,"<a href=\"Models\/Ulasan.php.html#8\">App\\Models\\Ulasan<\/a>"],[100,1,"<a href=\"Models\/User.php.html#10\">App\\Models\\User<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#7\">App\\Providers\\AppServiceProvider<\/a>"],[66.66666666666666,3,"<a href=\"Providers\/RouteServiceProvider.php.html#9\">App\\Providers\\RouteServiceProvider<\/a>"],[100,2,"<a href=\"Providers\/ViewServiceProvider.php.html#9\">App\\Providers\\ViewServiceProvider<\/a>"],[87.5,4,"<a href=\"Services\/OngkirService.php.html#6\">App\\Services\\OngkirService<\/a>"],[100,2,"<a href=\"View\/Components\/Dashboard.php.html#10\">App\\View\\Components\\Dashboard<\/a>"],[100,2,"<a href=\"View\/Components\/SidebarLink.php.html#7\">App\\View\\Components\\SidebarLink<\/a>"],[100,2,"<a href=\"View\/Components\/input.php.html#9\">App\\View\\Components\\input<\/a>"],[100,2,"<a href=\"View\/Components\/layout.php.html#9\">App\\View\\Components\\layout<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Events\/Inbox.php.html#23\">App\\Events\\Inbox::__construct<\/a>"],[100,1,"<a href=\"Events\/Inbox.php.html#32\">App\\Events\\Inbox::broadcastOn<\/a>"],[100,1,"<a href=\"Events\/Inbox.php.html#37\">App\\Events\\Inbox::broadcastAs<\/a>"],[100,1,"<a href=\"Events\/Inbox.php.html#42\">App\\Events\\Inbox::broadcastWith<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/AdminJualPonselController.php.html#13\">App\\Http\\Controllers\\Admin\\AdminJualPonselController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/AdminJualPonselController.php.html#22\">App\\Http\\Controllers\\Admin\\AdminJualPonselController::show<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Admin\/AdminJualPonselController.php.html#28\">App\\Http\\Controllers\\Admin\\AdminJualPonselController::updateStatus<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Admin\/AdminJualPonselController.php.html#80\">App\\Http\\Controllers\\Admin\\AdminJualPonselController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/AdminKreditController.php.html#12\">App\\Http\\Controllers\\Admin\\AdminKreditController::index<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Admin\/AdminKreditController.php.html#21\">App\\Http\\Controllers\\Admin\\AdminKreditController::show<\/a>"],[100,4,"<a href=\"Http\/Controllers\/Admin\/AdminKreditController.php.html#33\">App\\Http\\Controllers\\Admin\\AdminKreditController::updateStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/AdminKreditController.php.html#73\">App\\Http\\Controllers\\Admin\\AdminKreditController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/AdminTukarTambahController.php.html#13\">App\\Http\\Controllers\\Admin\\AdminTukarTambahController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/AdminTukarTambahController.php.html#22\">App\\Http\\Controllers\\Admin\\AdminTukarTambahController::show<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Admin\/AdminTukarTambahController.php.html#29\">App\\Http\\Controllers\\Admin\\AdminTukarTambahController::updateStatus<\/a>"],[75,3,"<a href=\"Http\/Controllers\/Admin\/AdminTukarTambahController.php.html#76\">App\\Http\\Controllers\\Admin\\AdminTukarTambahController::destroy<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Admin\/DashboardController.php.html#16\">App\\Http\\Controllers\\Admin\\DashboardController::dashboard<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/InboxController.php.html#15\">App\\Http\\Controllers\\Admin\\InboxController::listInbox<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/InboxController.php.html#38\">App\\Http\\Controllers\\Admin\\InboxController::adminInbox<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/InboxController.php.html#61\">App\\Http\\Controllers\\Admin\\InboxController::customerInbox<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/InboxController.php.html#76\">App\\Http\\Controllers\\Admin\\InboxController::send<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/InboxController.php.html#102\">App\\Http\\Controllers\\Admin\\InboxController::sendAdmin<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#18\">App\\Http\\Controllers\\Admin\\PembukuanController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#32\">App\\Http\\Controllers\\Admin\\PembukuanController::exportPdf<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#51\">App\\Http\\Controllers\\Admin\\PembukuanController::create<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#56\">App\\Http\\Controllers\\Admin\\PembukuanController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#84\">App\\Http\\Controllers\\Admin\\PembukuanController::edit<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#90\">App\\Http\\Controllers\\Admin\\PembukuanController::update<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Admin\/PembukuanController.php.html#143\">App\\Http\\Controllers\\Admin\\PembukuanController::destroy<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#15\">App\\Http\\Controllers\\Admin\\PonselController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#48\">App\\Http\\Controllers\\Admin\\PonselController::create<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#53\">App\\Http\\Controllers\\Admin\\PonselController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#81\">App\\Http\\Controllers\\Admin\\PonselController::edit<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#88\">App\\Http\\Controllers\\Admin\\PonselController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#121\">App\\Http\\Controllers\\Admin\\PonselController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#129\">App\\Http\\Controllers\\Admin\\PonselController::restore<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#137\">App\\Http\\Controllers\\Admin\\PonselController::forceDelete<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/PonselController.php.html#152\">App\\Http\\Controllers\\Admin\\PonselController::showSoftDeleted<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/ProfileControllerAdmin.php.html#12\">App\\Http\\Controllers\\Admin\\ProfileControllerAdmin::index<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Admin\/ProfileControllerAdmin.php.html#18\">App\\Http\\Controllers\\Admin\\ProfileControllerAdmin::upload<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/ProfileControllerAdmin.php.html#48\">App\\Http\\Controllers\\Admin\\ProfileControllerAdmin::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/TransaksiController.php.html#13\">App\\Http\\Controllers\\Admin\\TransaksiController::semuaTransaksi<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/TransaksiController.php.html#24\">App\\Http\\Controllers\\Admin\\TransaksiController::edit<\/a>"],[0,4,"<a href=\"Http\/Controllers\/Admin\/TransaksiController.php.html#32\">App\\Http\\Controllers\\Admin\\TransaksiController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/UpdateCicilanController.php.html#12\">App\\Http\\Controllers\\Admin\\UpdateCicilanController::show<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Admin\/UpdateCicilanController.php.html#23\">App\\Http\\Controllers\\Admin\\UpdateCicilanController::updateStatus<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/AngsuranController.php.html#13\">App\\Http\\Controllers\\Customer\\AngsuranController::detailCicilan<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Customer\/Auth\/AuthController.php.html#17\">App\\Http\\Controllers\\Customer\\Auth\\AuthController::showLoginForm<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Customer\/Auth\/AuthController.php.html#22\">App\\Http\\Controllers\\Customer\\Auth\\AuthController::showRegisterForm<\/a>"],[91.66666666666666,6,"<a href=\"Http\/Controllers\/Customer\/Auth\/AuthController.php.html#27\">App\\Http\\Controllers\\Customer\\Auth\\AuthController::login<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/Auth\/AuthController.php.html#60\">App\\Http\\Controllers\\Customer\\Auth\\AuthController::logout<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Customer\/Auth\/AuthController.php.html#69\">App\\Http\\Controllers\\Customer\\Auth\\AuthController::register<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/Auth\/FacebookController.php.html#14\">App\\Http\\Controllers\\Customer\\Auth\\FacebookController::redirectToFacebook<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Customer\/Auth\/FacebookController.php.html#20\">App\\Http\\Controllers\\Customer\\Auth\\FacebookController::handleFacebookCallback<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/Auth\/GoogleController.php.html#14\">App\\Http\\Controllers\\Customer\\Auth\\GoogleController::redirectToGoogle<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Customer\/Auth\/GoogleController.php.html#20\">App\\Http\\Controllers\\Customer\\Auth\\GoogleController::handleGoogleCallback<\/a>"],[66.66666666666666,2,"<a href=\"Http\/Controllers\/Customer\/Auth\/OTPResetPasswordController.php.html#15\">App\\Http\\Controllers\\Customer\\Auth\\OTPResetPasswordController::sendOTP<\/a>"],[60,3,"<a href=\"Http\/Controllers\/Customer\/Auth\/OTPResetPasswordController.php.html#43\">App\\Http\\Controllers\\Customer\\Auth\\OTPResetPasswordController::verifyOTP<\/a>"],[60,3,"<a href=\"Http\/Controllers\/Customer\/Auth\/OTPResetPasswordController.php.html#71\">App\\Http\\Controllers\\Customer\\Auth\\OTPResetPasswordController::resetPassword<\/a>"],[0,11,"<a href=\"Http\/Controllers\/Customer\/BeliPonselController.php.html#15\">App\\Http\\Controllers\\Customer\\BeliPonselController::beliPonsel<\/a>"],[91.66666666666666,11,"<a href=\"Http\/Controllers\/Customer\/BeliPonselController.php.html#74\">App\\Http\\Controllers\\Customer\\BeliPonselController::submitCheckout<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/CallbackController.php.html#15\">App\\Http\\Controllers\\Customer\\CallbackController::paymentCallback<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Customer\/CallbackController.php.html#20\">App\\Http\\Controllers\\Customer\\CallbackController::onPaymentSuccess<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Customer\/CallbackController.php.html#28\">App\\Http\\Controllers\\Customer\\CallbackController::onPaymentFailed<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/CallbackController.php.html#37\">App\\Http\\Controllers\\Customer\\CallbackController::myReturnCallback<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/DaftarKreditController.php.html#12\">App\\Http\\Controllers\\Customer\\DaftarKreditController::daftarKredit<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Customer\/DaftarKreditController.php.html#23\">App\\Http\\Controllers\\Customer\\DaftarKreditController::daftarKreditShow<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Customer\/HomeController.php.html#19\">App\\Http\\Controllers\\Customer\\HomeController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/HomeController.php.html#52\">App\\Http\\Controllers\\Customer\\HomeController::daftarPengajuan<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/HomeController.php.html#62\">App\\Http\\Controllers\\Customer\\HomeController::showJual<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/HomeController.php.html#69\">App\\Http\\Controllers\\Customer\\HomeController::showTukar<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/JualPonselController.php.html#11\">App\\Http\\Controllers\\Customer\\JualPonselController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/JualPonselController.php.html#18\">App\\Http\\Controllers\\Customer\\JualPonselController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/JualPonselController.php.html#22\">App\\Http\\Controllers\\Customer\\JualPonselController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KeranjangController.php.html#15\">App\\Http\\Controllers\\Customer\\KeranjangController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KeranjangController.php.html#24\">App\\Http\\Controllers\\Customer\\KeranjangController::selesai<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Customer\/KeranjangController.php.html#33\">App\\Http\\Controllers\\Customer\\KeranjangController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KeranjangController.php.html#67\">App\\Http\\Controllers\\Customer\\KeranjangController::ubahStatus<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#17\">App\\Http\\Controllers\\Customer\\KreditController::ajukanKredit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#27\">App\\Http\\Controllers\\Customer\\KreditController::dataPekerjaan<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#32\">App\\Http\\Controllers\\Customer\\KreditController::uploadDokumenForm<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#37\">App\\Http\\Controllers\\Customer\\KreditController::dataKredit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#49\">App\\Http\\Controllers\\Customer\\KreditController::dataPribadiStore<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#58\">App\\Http\\Controllers\\Customer\\KreditController::dataPekerjaanStore<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#68\">App\\Http\\Controllers\\Customer\\KreditController::uploadDokumenStore<\/a>"],[0,8,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#88\">App\\Http\\Controllers\\Customer\\KreditController::submitKredit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/KreditController.php.html#159\">App\\Http\\Controllers\\Customer\\KreditController::success<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Customer\/PonselController.php.html#15\">App\\Http\\Controllers\\Customer\\PonselController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/PonselController.php.html#55\">App\\Http\\Controllers\\Customer\\PonselController::show<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/ProfileControllerCustomer.php.html#13\">App\\Http\\Controllers\\Customer\\ProfileControllerCustomer::index<\/a>"],[0,5,"<a href=\"Http\/Controllers\/Customer\/ProfileControllerCustomer.php.html#18\">App\\Http\\Controllers\\Customer\\ProfileControllerCustomer::upload<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Customer\/ProfileControllerCustomer.php.html#55\">App\\Http\\Controllers\\Customer\\ProfileControllerCustomer::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/TukarTambahController.php.html#12\">App\\Http\\Controllers\\Customer\\TukarTambahController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/TukarTambahController.php.html#18\">App\\Http\\Controllers\\Customer\\TukarTambahController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Customer\/TukarTambahController.php.html#56\">App\\Http\\Controllers\\Customer\\TukarTambahController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/OngkirController.php.html#12\">App\\Http\\Controllers\\OngkirController::getKecamatan<\/a>"],[0,1,"<a href=\"Http\/Controllers\/OngkirController.php.html#24\">App\\Http\\Controllers\\OngkirController::getOngkir<\/a>"],[0,3,"<a href=\"Http\/Controllers\/UlasanController.php.html#12\">App\\Http\\Controllers\\UlasanController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/UlasanController.php.html#44\">App\\Http\\Controllers\\UlasanController::show<\/a>"],[0,1,"<a href=\"Http\/Requests\/Kredit\/DataPekerjaanRequest.php.html#12\">App\\Http\\Requests\\Kredit\\DataPekerjaanRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/Kredit\/DataPekerjaanRequest.php.html#22\">App\\Http\\Requests\\Kredit\\DataPekerjaanRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/Kredit\/DataPekerjaanRequest.php.html#35\">App\\Http\\Requests\\Kredit\\DataPekerjaanRequest::messages<\/a>"],[100,1,"<a href=\"Http\/Requests\/Kredit\/DataPribadiRequest.php.html#12\">App\\Http\\Requests\\Kredit\\DataPribadiRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Kredit\/DataPribadiRequest.php.html#22\">App\\Http\\Requests\\Kredit\\DataPribadiRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/Kredit\/DataPribadiRequest.php.html#38\">App\\Http\\Requests\\Kredit\\DataPribadiRequest::messages<\/a>"],[100,1,"<a href=\"Http\/Requests\/LaporanPembukuanRequest.php.html#12\">App\\Http\\Requests\\LaporanPembukuanRequest::authorize<\/a>"],[100,2,"<a href=\"Http\/Requests\/LaporanPembukuanRequest.php.html#22\">App\\Http\\Requests\\LaporanPembukuanRequest::prepareForValidation<\/a>"],[100,1,"<a href=\"Http\/Requests\/LaporanPembukuanRequest.php.html#32\">App\\Http\\Requests\\LaporanPembukuanRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/LaporanPembukuanRequest.php.html#43\">App\\Http\\Requests\\LaporanPembukuanRequest::attributes<\/a>"],[100,1,"<a href=\"Http\/Requests\/LaporanPembukuanRequest.php.html#53\">App\\Http\\Requests\\LaporanPembukuanRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/LoginRequest.php.html#11\">App\\Http\\Requests\\LoginRequest::authorize<\/a>"],[0,6,"<a href=\"Http\/Requests\/LoginRequest.php.html#16\">App\\Http\\Requests\\LoginRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Requests\/LoginRequest.php.html#38\">App\\Http\\Requests\\LoginRequest::messages<\/a>"],[0,1,"<a href=\"Http\/Requests\/ProfileRequest.php.html#14\">App\\Http\\Requests\\ProfileRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Requests\/ProfileRequest.php.html#24\">App\\Http\\Requests\\ProfileRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/RegisterRequest.php.html#9\">App\\Http\\Requests\\RegisterRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/RegisterRequest.php.html#14\">App\\Http\\Requests\\RegisterRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/RegisterRequest.php.html#27\">App\\Http\\Requests\\RegisterRequest::messages<\/a>"],[100,1,"<a href=\"Http\/Requests\/StorePonselRequest.php.html#12\">App\\Http\\Requests\\StorePonselRequest::authorize<\/a>"],[75,2,"<a href=\"Http\/Requests\/StorePonselRequest.php.html#22\">App\\Http\\Requests\\StorePonselRequest::rules<\/a>"],[0,1,"<a href=\"Models\/Angsuran.php.html#21\">App\\Models\\Angsuran::kredit<\/a>"],[0,1,"<a href=\"Models\/BeliPonsel.php.html#30\">App\\Models\\BeliPonsel::customer<\/a>"],[0,1,"<a href=\"Models\/BeliPonsel.php.html#37\">App\\Models\\BeliPonsel::ponsel<\/a>"],[0,1,"<a href=\"Models\/BeliPonsel.php.html#42\">App\\Models\\BeliPonsel::ulasan<\/a>"],[0,1,"<a href=\"Models\/BeliPonsel.php.html#47\">App\\Models\\BeliPonsel::pembukuan<\/a>"],[60,3,"<a href=\"Models\/Customer.php.html#27\">App\\Models\\Customer::getFotoProfilUrlAttribute<\/a>"],[100,1,"<a href=\"Models\/Customer.php.html#42\">App\\Models\\Customer::sentMessages<\/a>"],[100,1,"<a href=\"Models\/JualPonsel.php.html#34\">App\\Models\\JualPonsel::customer<\/a>"],[100,1,"<a href=\"Models\/JualPonsel.php.html#39\">App\\Models\\JualPonsel::pembukuan<\/a>"],[100,1,"<a href=\"Models\/KreditPonsel.php.html#45\">App\\Models\\KreditPonsel::customer<\/a>"],[100,1,"<a href=\"Models\/KreditPonsel.php.html#50\">App\\Models\\KreditPonsel::ponsel<\/a>"],[0,1,"<a href=\"Models\/KreditPonsel.php.html#54\">App\\Models\\KreditPonsel::angsuran<\/a>"],[0,1,"<a href=\"Models\/KreditPonsel.php.html#59\">App\\Models\\KreditPonsel::pembukuan<\/a>"],[0,1,"<a href=\"Models\/Pembukuan.php.html#24\">App\\Models\\Pembukuan::transaksi<\/a>"],[0,1,"<a href=\"Models\/Ponsel.php.html#32\">App\\Models\\Ponsel::ulasan<\/a>"],[0,1,"<a href=\"Models\/Ponsel.php.html#37\">App\\Models\\Ponsel::toSearchableArray<\/a>"],[100,1,"<a href=\"Models\/TukarTambah.php.html#39\">App\\Models\\TukarTambah::customer<\/a>"],[100,1,"<a href=\"Models\/TukarTambah.php.html#45\">App\\Models\\TukarTambah::produkTujuan<\/a>"],[100,1,"<a href=\"Models\/TukarTambah.php.html#50\">App\\Models\\TukarTambah::pembukuan<\/a>"],[0,1,"<a href=\"Models\/Ulasan.php.html#24\">App\\Models\\Ulasan::ponsel<\/a>"],[0,1,"<a href=\"Models\/Ulasan.php.html#29\">App\\Models\\Ulasan::beliPonsel<\/a>"],[100,1,"<a href=\"Models\/User.php.html#41\">App\\Models\\User::casts<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#12\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#21\">App\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#14\">App\\Providers\\RouteServiceProvider::register<\/a>"],[0,1,"<a href=\"Providers\/RouteServiceProvider.php.html#19\">App\\Providers\\RouteServiceProvider::configureRateLimiting<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#31\">App\\Providers\\RouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/ViewServiceProvider.php.html#14\">App\\Providers\\ViewServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/ViewServiceProvider.php.html#22\">App\\Providers\\ViewServiceProvider::boot<\/a>"],[87.5,4,"<a href=\"Services\/OngkirService.php.html#8\">App\\Services\\OngkirService::getOngkir<\/a>"],[100,1,"<a href=\"View\/Components\/Dashboard.php.html#15\">App\\View\\Components\\Dashboard::__construct<\/a>"],[100,1,"<a href=\"View\/Components\/Dashboard.php.html#23\">App\\View\\Components\\Dashboard::render<\/a>"],[100,1,"<a href=\"View\/Components\/SidebarLink.php.html#11\">App\\View\\Components\\SidebarLink::__construct<\/a>"],[100,1,"<a href=\"View\/Components\/SidebarLink.php.html#17\">App\\View\\Components\\SidebarLink::render<\/a>"],[100,1,"<a href=\"View\/Components\/input.php.html#14\">App\\View\\Components\\input::__construct<\/a>"],[100,1,"<a href=\"View\/Components\/input.php.html#22\">App\\View\\Components\\input::render<\/a>"],[100,1,"<a href=\"View\/Components\/layout.php.html#14\">App\\View\\Components\\layout::__construct<\/a>"],[100,1,"<a href=\"View\/Components\/layout.php.html#22\">App\\View\\Components\\layout::render<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

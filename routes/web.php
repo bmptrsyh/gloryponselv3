@@ -122,12 +122,6 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/customer/inbox', [InboxController::class, 'customerInbox'])->name('customer.inbox');
     Route::post('/send', [InboxController::class, 'send'])->name('send.inbox');
 
-    // Payment / Invoice
-    Route::post('/payment-methods', [PaymentController::class, 'getPaymentMethods'])->name('payment.methods');
-    Route::get('/payment-methods', [PaymentController::class, 'PaymentMethods'])->name('payment.method');
-    Route::get('/create-invoice', [PaymentController::class, 'showInvoiceForm'])->name('invoice.form');
-    Route::post('/create-invoice', [PaymentController::class, 'createInvoice'])->name('invoice.create');
-
     // Ongkir
     Route::get('get-kecamatan/{search}', [OngkirController::class, 'getKecamatan']);
     Route::post('get-ongkir', [OngkirController::class, 'getOngkir']);

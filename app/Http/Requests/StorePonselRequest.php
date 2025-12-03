@@ -21,14 +21,14 @@ class StorePonselRequest extends FormRequest
      */
     public function rules(): array {
         $rules = [
-            'merk' => 'required|string|max:255',
+            'merk' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s\-&.]+$/',
             'model' => 'required|string|max:255',
-            'harga_jual' => 'required|numeric',
-            'harga_beli' => 'required|numeric',
-            'stok' => 'required|integer',
+            'harga_jual' => 'required|numeric|min:0',
+            'harga_beli' => 'required|numeric|min:0',
+            'stok' => 'required|integer|min:0',
             'status' => 'required|in:baru,bekas',
             'processor' => 'required|string|max:255',
-            'dimension' => 'required|string|max:255',
+            'dimension' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s\.\-x]+$/',
             'ram' => 'required|integer',
             'storage' => 'required|integer',
             'warna' => 'nullable|string|max:255',
@@ -42,6 +42,5 @@ class StorePonselRequest extends FormRequest
         }
 
         return $rules;
-}
-
+    }
 }

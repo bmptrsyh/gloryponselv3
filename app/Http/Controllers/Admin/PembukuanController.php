@@ -11,6 +11,7 @@ use App\Models\KreditPonsel;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LaporanPembukuanRequest;
 
 class PembukuanController extends Controller
 {
@@ -52,19 +53,8 @@ class PembukuanController extends Controller
         return view('admin.pembukuan.create');
     }
 
-    public function store(Request $request)
+    public function store(LaporanPembukuanRequest $request)
     {
-        $request->merge([
-            'jumlah' => str_replace('.', '', $request->jumlah)
-        ]);
-        $request->validate([
-            'tanggal' => 'required|date',
-            'deskripsi' => 'required|string|max:255',
-            'jenis_transaksi' => 'required|in:debit,kredit',
-            'jumlah' => 'required|numeric|min:0',
-            'metode_pembayaran' => 'required|string',
-        ]);
-
 
         $debit = 0;
         $kredit = 0;

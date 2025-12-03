@@ -11,6 +11,12 @@ use Royryando\Duitku\Http\Controllers\DuitkuBaseController;
 
 class CallbackController extends DuitkuBaseController
 {
+
+        public function paymentCallback(Request $request)
+    {
+        return parent::paymentCallback($request);
+    }
+    
     protected function onPaymentSuccess(string $orderId, string $productDetail, int $amount, string $paymentCode, ?string $shopeeUserHash, string $reference, ?string $additionalParam): void
     {
         $beliponsel = BeliPonsel::where('code', $orderId)->first();
